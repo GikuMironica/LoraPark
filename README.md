@@ -1,5 +1,5 @@
 # LoraPark
-=======
+
 # lorapark_app
 
 LoRaPark application for Android and iOS

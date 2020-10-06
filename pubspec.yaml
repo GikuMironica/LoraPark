@@ -44,6 +44,12 @@ dependencies:
   flutter_secure_storage: ^3.3.4
   dio: ^3.0.10
   pretty_dio_logger: ^1.1.1
+  jwt_decode: ^0.1.0
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
+
+  here_sdk:
+    path: 'plugins/here-sdk/'
 
 dev_dependencies:
   flutter_test:
