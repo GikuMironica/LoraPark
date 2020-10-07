@@ -3,6 +3,7 @@ import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/screens/screens.dart';
 import 'package:flutter/material.dart' hide Router;
 import 'package:fluro/fluro.dart';
+import 'package:lorapark_app/themes/lorapark_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:lorapark_app/services/services.dart';
 
@@ -33,11 +34,9 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
           ),
         ],
             child: MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: 'LoRaPark',
-              theme: ThemeData(
-                primarySwatch: Colors.blueGrey,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-              ),
+              theme: LoraParkTheme(),
               home: Init(),
             )));
   }

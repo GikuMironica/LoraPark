@@ -9,8 +9,10 @@ import 'dart:io';
 class DioService {
   static DioService _dioService;
   Dio _dio;
+  Dio _rawDio;
 
   Dio get dio => _dio;
+  Dio get rawDio => _rawDio;
 
   factory DioService() {
     return _dioService ??= DioService._();
@@ -19,9 +21,11 @@ class DioService {
   void setBearerToken(String token) {
     _dio.options.headers
         .addAll({HttpHeaders.authorizationHeader: 'bearer $token'});
+    print('Bearer token set :)');
   }
 
   DioService._() {
+    _rawDio = Dio()..interceptors.add(PrettyDioLogger());
     _dio = Dio(LoraParkOptions())
       // Development purposes
       ..interceptors.addAll([

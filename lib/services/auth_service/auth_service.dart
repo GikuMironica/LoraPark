@@ -4,16 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/data/models/identity.dart';
 import 'package:lorapark_app/data/models/login_response.dart';
-import 'package:lorapark_app/data/repositories/authentication_repository/authentication_repository.dart';
-import 'package:lorapark_app/services/dio_service/dio_service.dart';
-import 'package:lorapark_app/services/secure_service/secure_service.dart';
+import 'package:lorapark_app/data/repositories/auth_repository/auth_repository.dart';
+import 'package:lorapark_app/services/services.dart';
 
 enum AuthState { NOT_DETERMINED, LOGGED_OUT, LOGGED_IN }
 
 abstract class AuthService extends ChangeNotifier {
   Identity _identity;
   AuthState _authState;
-  AuthenticationRepository _authRepository;
+  AuthRepository _authRepository;
 
   Future<Identity> login(String username, String password);
 
@@ -39,7 +38,7 @@ class AuthServiceImpl extends ChangeNotifier implements AuthService {
   @override
   AuthState _authState = AuthState.NOT_DETERMINED;
 
-  AuthenticationRepository _authRepository = AuthenticationRepositoryImpl();
+  AuthRepository _authRepository = AuthRepositoryImpl();
 
   @override
   Future<Identity> login(String username, String password) async {

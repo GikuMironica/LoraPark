@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/config/sensor_list.dart';
+import 'package:lorapark_app/data/models/sensors.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/parking.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -6,11 +10,45 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  PersonCountRepository personCountRepository = PersonCountRepositoryImpl();
+  List<PersonCountData> personCountData = [];
+
+  Future<void> fetchData() async {
+    personCountData = await personCountRepository.getPersonCount(id: Sensors.personCount_one);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Settings Page'),
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        child: ListView(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          children: [
+            ListTile(
+              onTap: () async => await fetchData(),
+              title: Text('Jello'),
+            ),
+            personCountData.length == 0 ? Text('Hello') : ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: personCountData.length,
+              shrinkWrap: true,
+              itemBuilder: (_, i) {
+                return Card(
+                  child: Container(
+                    child: Column(
+                    children: [
+                      Text('Pax Count: ${personCountData[i].paxCount}'),
+                      Text('Timestamp: ${personCountData[i].timestamp.toString()}'),
+                    ],
+                  ),)
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }
