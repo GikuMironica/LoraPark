@@ -1,43 +1,28 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/sensors.dart' show GroundHumidityData;
-import 'package:lorapark_app/services/services.dart' show DioService;
+import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
+import 'package:flutter/material.dart' show required;
 
-abstract class GroundHumidityRepository {
-  Future<List<GroundHumidityData>> getGroundHumidity({String id});
-
-  Future<List<GroundHumidityData>> getGroundHumidityByTime(
-      {String id, DateTime start, DateTime end});
-}
-
-class GroundHumidityRepositoryImpl implements GroundHumidityRepository {
+class GroundHumidityRepository extends BaseSensorRepository{
   @override
-  Future<List<GroundHumidityData>> getGroundHumidity({String id}) async {
-    try {
-      Response response = await GetIt.I
-          .get<DioService>()
-          .dio
-          .get('${Endpoints.GROUND_HUMIDITY}?id=$id');
+  String get endpoint => Endpoints.GROUND_HUMIDITY;
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => GroundHumidityData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  List<GroundHumidityData> convert(Iterable it) {
+    return it.map((e) => GroundHumidityData.fromJson(e)).toList();
   }
 
   @override
-  Future<List<GroundHumidityData>> getGroundHumidityByTime({String id, DateTime start, DateTime end}) async {
-    try {
-      Response response = await GetIt.I.get<DioService>().dio.get(
-          '${Endpoints.GROUND_HUMIDITY}?id=$id&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}');
+  Future<List<GroundHumidityData>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
+  }
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => GroundHumidityData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  @override
+  Future<List<GroundHumidityData>> getByTime(
+      {String id,
+        List<String> ids,
+        @required DateTime start,
+        @required DateTime end}) async {
+    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 
 }

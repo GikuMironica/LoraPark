@@ -18,12 +18,13 @@ class AirQualityData {
 
   factory AirQualityData.fromJson(Map<String, dynamic> json){
     return AirQualityData(
-      timestamp: json['timestamp'],
-      no2Concentration: json['no2concentration'],
-      noConcentration: json['noconcentration'],
-      coConcentration: json['coconcentration']
+        timestamp: json['timestamp'],
+        no2Concentration: json['no2concentration'],
+        noConcentration: json['noconcentration'],
+        coConcentration: json['coconcentration']
     );
   }
+
 
   double get coConcentration => _coConcentration;
 

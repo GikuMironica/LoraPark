@@ -1,43 +1,28 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/sensors.dart' show PersonCountData;
-import 'package:lorapark_app/services/services.dart' show DioService;
+import 'base_sensor_repository.dart';
+import 'package:flutter/material.dart' show required;
 
-abstract class PersonCountRepository {
-  Future<List<PersonCountData>> getPersonCount({String id});
-
-  Future<List<PersonCountData>> getPersonCountByTime(
-      {String id, DateTime start, DateTime end});
-}
-
-class PersonCountRepositoryImpl implements PersonCountRepository {
+class PersonCountRepository extends BaseSensorRepository {
   @override
-  Future<List<PersonCountData>> getPersonCount({String id}) async {
-    try {
-      Response response = await GetIt.I
-          .get<DioService>()
-          .dio
-          .get('${Endpoints.PERSON_COUNT}?id=$id');
+  String get endpoint => Endpoints.PERSON_COUNT;
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => PersonCountData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  List<PersonCountData> convert(Iterable it) {
+    return it?.map((e) => PersonCountData.fromJson(e))?.toList();
   }
 
   @override
-  Future<List<PersonCountData>> getPersonCountByTime(
-      {String id, DateTime start, DateTime end}) async {
-    try {
-      Response response = await GetIt.I.get<DioService>().dio.get(
-          '${Endpoints.PERSON_COUNT}?id=$id&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}');
+  Future<List<PersonCountData>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
+  }
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => PersonCountData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  @override
+  Future<List<PersonCountData>> getByTime(
+      {String id,
+      List<String> ids,
+      @required DateTime start,
+      @required DateTime end}) async {
+    return convert(
+        await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 }

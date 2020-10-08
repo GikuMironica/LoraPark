@@ -1,43 +1,27 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/sensors.dart' show FeedbackButtonData;
-import 'package:lorapark_app/services/services.dart' show DioService;
-
-abstract class FeedbackRepository {
-  Future<List<FeedbackButtonData>> getFeedbackButton({String id});
-
-  Future<List<FeedbackButtonData>> getFeedbackButtonByTime(
-      {String id, DateTime start, DateTime end});
-}
-
-class FeedbackRepositoryImpl implements FeedbackRepository {
+import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
+import 'package:flutter/material.dart' show required;
+ 
+class FeedbackRepository extends BaseSensorRepository{
   @override
-  Future<List<FeedbackButtonData>> getFeedbackButton({String id}) async {
-    try {
-      Response response = await GetIt.I
-          .get<DioService>()
-          .dio
-          .get('${Endpoints.FEEDBACK_BUTTON}?id=$id');
+  String get endpoint => Endpoints.FEEDBACK_BUTTON;
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => FeedbackButtonData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  List<FeedbackButtonData> convert(Iterable it) {
+    return it.map((e) => FeedbackButtonData.fromJson(e)).toList();
   }
 
   @override
-  Future<List<FeedbackButtonData>> getFeedbackButtonByTime(
-      {String id, DateTime start, DateTime end}) async {
-    try {
-      Response response = await GetIt.I.get<DioService>().dio.get(
-          '${Endpoints.FEEDBACK_BUTTON}?id=$id&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}');
+  Future<List<FeedbackButtonData>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
+  }
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => FeedbackButtonData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  @override
+  Future<List<FeedbackButtonData>> getByTime(
+      {String id,
+        List<String> ids,
+        @required DateTime start,
+        @required DateTime end}) async {
+    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 }

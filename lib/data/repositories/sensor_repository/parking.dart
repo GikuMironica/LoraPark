@@ -1,124 +1,99 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/sensors.dart'
     show CurrentParkingStateData, ParkingEventData, ParkingAverageDurationData;
-import 'package:lorapark_app/services/services.dart';
-import 'package:lorapark_app/utils/query_builder.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
+import 'package:flutter/material.dart' show required;
 
-abstract class ParkingRepository {
-  Future<List<CurrentParkingStateData>> getCurrentParkingState(
-      {String id, List<String> ids});
+class ParkingStateRepository extends BaseSensorRepository {
+  @override
+  String get endpoint => Endpoints.PARKING_STATE;
 
-  Future<List<CurrentParkingStateData>> getCurrentParkingStateByTime(
-      {String id, DateTime start, DateTime end, List<String> ids});
+  List<CurrentParkingStateData> convert(Iterable it) {
+    return it.map((e) => CurrentParkingStateData.fromJson(e)).toList();
+  }
 
-  Future<List<ParkingEventData>> getParkingEvent({String id, List<String> ids});
+  @override
+  Future<List<CurrentParkingStateData>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
+  }
 
-  Future<List<ParkingEventData>> getParkingEventByTime(
-      {String id, DateTime start, DateTime end, List<String> ids});
-
-  Future<List<ParkingAverageDurationData>> getParkingAverageDuration(
-      {String id, List<String> ids});
-
-  Future<List<ParkingAverageDurationData>> getParkingAverageDurationByTime(
-      {String id, DateTime start, DateTime end, List<String> ids});
-
-// Future<List<ParkingHistoryData>> getParkingHistory({String id, int slot = 30});
-// Future<List<ParkingHistoryData>> getParkingHistoryByTime({String id, int slot = 30, DateTime start, DateTime end});
+  @override
+  Future<List<CurrentParkingStateData>> getByTime(
+      {String id,
+        List<String> ids,
+        @required DateTime start,
+        @required DateTime end}) async {
+    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
+  }
 }
 
-class ParkingRepositoryImpl implements ParkingRepository {
-  @override
-  Future<List<CurrentParkingStateData>> getCurrentParkingState(
-      {String id, List<String> ids}) async {
-    String queryUrl = Endpoints.PARKING_STATE;
-    queryUrl =
-        ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
+// class ParkingHistoryRepository extends BaseSensorRepository{
+//   @override
+//   String get endpoint => Endpoints.PARKING_HISTORY;
+//
+//   List<ParkingHistoryData> convert(Iterable it) {
+//     return it.map((e) => ParkingHistoryData.fromJson(e)).toList();
+//   }
+//
+//   @override
+//   Future<List<ParkingHistoryData>> get({String id, List<String> ids}) async {
+//     return convert(await super.get(id: id, ids: ids));
+//   }
+//
+//   @override
+//   Future<List<ParkingHistoryData>> getByTime(
+//       {String id,
+//         List<String> ids,
+//         @required DateTime start,
+//         @required DateTime end}) async {
+//     return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
+//   }
+// }
 
-    Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
-    if (response.statusCode == 200) {
-      Iterable it = response.data;
-      return it.map((e) => CurrentParkingStateData.fromJson(e)).toList();
-    }
+class ParkingAverageRepository extends BaseSensorRepository {
+  @override
+  String get endpoint => Endpoints.PARKING_AVERAGE_DURATION;
+
+  List<ParkingAverageDurationData> convert(Iterable it) {
+    return it.map((e) => ParkingAverageDurationData.fromJson(e)).toList();
   }
 
   @override
-  Future<List<CurrentParkingStateData>> getCurrentParkingStateByTime(
-      {String id, DateTime start, DateTime end, List<String> ids}) async {
-    try {
-      String queryUrl = Endpoints.PARKING_STATE;
-      queryUrl =
-      ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
-      queryUrl =
-      '$queryUrl&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}';
-      Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => CurrentParkingStateData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  Future<List<ParkingAverageDurationData>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
   }
 
   @override
-  Future<List<ParkingAverageDurationData>> getParkingAverageDuration(
-      {String id, List<String> ids}) async {
-    String queryUrl = Endpoints.PARKING_AVERAGE_DURATION;
-    queryUrl =
-        ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
+  Future<List<ParkingAverageDurationData>> getByTime(
+      {String id,
+        List<String> ids,
+        @required DateTime start,
+        @required DateTime end}) async {
+    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
+  }
+  
+}
 
-    Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
-    if (response.statusCode == 200) {
-      Iterable it = response.data;
-      return it.map((e) => ParkingAverageDurationData.fromJson(e)).toList();
-    }
+class ParkingEventRepository extends BaseSensorRepository {
+  @override
+  String get endpoint => Endpoints.PARKING_EVENTS;
+
+  List<ParkingEventData> convert(Iterable it) {
+    return it.map((e) => ParkingEventData.fromJson(e)).toList();
   }
 
   @override
-  Future<List<ParkingAverageDurationData>> getParkingAverageDurationByTime(
-      {String id, DateTime start, DateTime end, List<String> ids}) async {
-    try {
-      String queryUrl = Endpoints.PARKING_AVERAGE_DURATION;
-      queryUrl =
-      ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
-      queryUrl =
-      '$queryUrl&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}';
-      Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => ParkingAverageDurationData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  Future<List<ParkingEventData>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
   }
 
   @override
-  Future<List<ParkingEventData>> getParkingEvent(
-      {String id, List<String> ids}) async {
-    String queryUrl = Endpoints.PARKING_EVENTS;
-    queryUrl =
-        ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
-
-    Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
-    if (response.statusCode == 200) {
-      Iterable it = response.data;
-      return it.map((e) => ParkingEventData.fromJson(e)).toList();
-    }
+  Future<List<ParkingEventData>> getByTime(
+      {String id,
+        List<String> ids,
+        @required DateTime start,
+        @required DateTime end}) async {
+    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
-
-  @override
-  Future<List<ParkingEventData>> getParkingEventByTime(
-      {String id, DateTime start, DateTime end, List<String> ids}) async {
-    try {
-      String queryUrl = Endpoints.PARKING_EVENTS;
-      queryUrl =
-          ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
-      queryUrl =
-          '$queryUrl&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}';
-      Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => ParkingEventData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
-  }
+  
 }

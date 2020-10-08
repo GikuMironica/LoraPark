@@ -1,43 +1,28 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/sensors.dart' show FloodData;
-import 'package:lorapark_app/services/services.dart' show DioService;
+import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
+import 'package:flutter/material.dart' show required;
 
-abstract class FloodDataRepository {
-  Future<List<FloodData>> getFloodData({String id});
-
-  Future<List<FloodData>> getFloodDataByTime(
-      {String id, DateTime start, DateTime end});
-}
-
-class FloodDataRepositoryImpl implements FloodDataRepository {
+class FloodDataRepository extends BaseSensorRepository{
   @override
-  Future<List<FloodData>> getFloodData({String id}) async {
-    try {
-      Response response = await GetIt.I
-          .get<DioService>()
-          .dio
-          .get('${Endpoints.FLOOD_DATA}?id=$id');
+  String get endpoint => Endpoints.FLOOD_DATA;
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => FloodData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  List<FloodData> convert(Iterable it) {
+    return it.map((e) => FloodData.fromJson(e)).toList();
   }
 
   @override
-  Future<List<FloodData>> getFloodDataByTime(
-      {String id, DateTime start, DateTime end}) async {
-    try {
-      Response response = await GetIt.I.get<DioService>().dio.get(
-          '${Endpoints.FLOOD_DATA}?id=$id&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}');
+  Future<List<FloodData>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
+  }
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => FloodData.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  @override
+  Future<List<FloodData>> getByTime(
+      {String id,
+        List<String> ids,
+        @required DateTime start,
+        @required DateTime end}) async {
+    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 }
+ 

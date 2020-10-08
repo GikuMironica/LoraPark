@@ -1,3 +1,5 @@
+library sensor_repository;
+
 export 'air_quality.dart';
 export 'co2_sensor.dart';
 export 'door.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/data/models/sensors.dart';
-import 'package:lorapark_app/data/repositories/sensor_repository/parking.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -10,11 +9,11 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  PersonCountRepository personCountRepository = PersonCountRepositoryImpl();
+  PersonCountRepository personCountRepository = PersonCountRepository();
   List<PersonCountData> personCountData = [];
 
   Future<void> fetchData() async {
-    personCountData = await personCountRepository.getPersonCount(id: Sensors.personCount_one);
+    personCountData = await personCountRepository.get(id: Sensors.personCount_one);
     setState(() {});
   }
 

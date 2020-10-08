@@ -1,48 +1,27 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/sensors.dart' show CO2Data;
-import 'package:lorapark_app/services/services.dart' show DioService;
-import 'package:lorapark_app/utils/query_builder.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
+import 'package:flutter/material.dart' show required;
 
-abstract class CO2Repository {
-  Future<List<CO2Data>> getCO2Data({String id, List<String> ids});
-
-  Future<List<CO2Data>> getCO2DataByTime(
-      {String id, DateTime start, DateTime end, List<String> ids});
-}
-
-class CO2RepositoryImpl implements CO2Repository {
+class CO2Repository extends BaseSensorRepository {
   @override
-  Future<List<CO2Data>> getCO2Data({String id, List<String> ids}) async {
-    try {
-      String queryUrl = Endpoints.CO2;
-      queryUrl =
-          ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
-      Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
+  String get endpoint => Endpoints.CO2;
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => CO2Data.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  List<CO2Data> convert(Iterable it) {
+    return it.map((e) => CO2Data.fromJson(e)).toList();
   }
 
   @override
-  Future<List<CO2Data>> getCO2DataByTime(
-      {String id, DateTime start, DateTime end, List<String> ids}) async {
-    try {
-      String queryUrl = Endpoints.CO2;
-      queryUrl =
-          ids == null ? '$queryUrl?id=$id' : '$queryUrl${queryBuilder(ids)}';
-      queryUrl =
-          '$queryUrl&start=${start.toUtc().toIso8601String()}&end=${end.toUtc().toIso8601String()}';
-      Response response = await GetIt.I.get<DioService>().dio.get(queryUrl);
+  Future<List<CO2Data>> get({String id, List<String> ids}) async {
+    return convert(await super.get(id: id, ids: ids));
+  }
 
-      if (response.statusCode == 200) {
-        Iterable it = response.data;
-        return it.map((e) => CO2Data.fromJson(e)).toList();
-      }
-    } on DioError catch (e) {}
+  @override
+  Future<List<CO2Data>> getByTime(
+      {String id,
+        List<String> ids,
+        @required DateTime start,
+        @required DateTime end}) async {
+    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 }
