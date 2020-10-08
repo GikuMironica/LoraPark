@@ -1,5 +1,5 @@
 import 'package:lorapark_app/config/urls.dart';
-import 'package:lorapark_app/data/models/sensors.dart' show FeedbackButtonData;
+import 'package:lorapark_app/data/models/sensor_data.dart' show FeedbackButtonData;
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
  

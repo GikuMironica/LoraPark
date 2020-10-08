@@ -1,6 +1,6 @@
 import 'base_sensor_repository.dart';
 import 'package:lorapark_app/config/urls.dart';
-import 'package:lorapark_app/data/models/sensors.dart' show AirQualityData;
+import 'package:lorapark_app/data/models/sensor_data.dart' show AirQualityData;
 import 'package:flutter/material.dart' show required;
 
 class AirQualityRepository extends BaseSensorRepository {

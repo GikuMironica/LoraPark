@@ -1,5 +1,5 @@
 import 'package:lorapark_app/config/urls.dart';
-import 'package:lorapark_app/data/models/sensors.dart' show ElectricityData;
+import 'package:lorapark_app/data/models/sensor_data.dart' show ElectricityData;
 import 'package:flutter/material.dart' show required;
 
 import 'base_sensor_repository.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
-import 'package:lorapark_app/data/models/sensors.dart';
+import 'package:lorapark_app/data/models/sensor_data.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 
 class SettingsPage extends StatefulWidget {

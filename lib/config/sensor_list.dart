@@ -1,5 +1,23 @@
 library sensors;
 
+enum SensorType {
+  WEATHER_STATION,
+  PERSON_COUNT,
+  DOOR,
+  FEEDBACK_BUTTON,
+  ELECTRICITY,
+  ENERGY,
+  FLOOD_DATA,
+  GROUND_HUMIDITY,
+  RAISED_GARDEN,
+  SOUND_SENSOR,
+  WASTE_LEVEL,
+  AIR_QUALITY,
+  CO2,
+  STRUCTURE_DAMAGE,
+  PARKING
+}
+
 class Sensors {
   // Weather Station Data
 
