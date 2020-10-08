@@ -4,11 +4,11 @@ import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/login_response.dart';
 import 'package:lorapark_app/services/dio_service/dio_service.dart';
 
-abstract class AuthenticationRepository {
+abstract class AuthRepository {
   Future<LoginResponse> login(String username, String password);
 }
 
-class AuthenticationRepositoryImpl implements AuthenticationRepository {
+class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<LoginResponse> login(String username, String password) async {
     try {
@@ -20,8 +20,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
       Response response = await GetIt.I
           .get<DioService>()
-          .dio
-          .post(apiUrls['login'], data: payload);
+          .rawDio
+          .post(AUTH_URL, data: payload);
 
       if(response.statusCode == 200){
         return LoginResponse.fromJson(response.data);

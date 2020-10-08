@@ -1,10 +1,10 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
 import 'package:lorapark_app/config/credentials.dart';
+import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/data/models/identity.dart';
+import 'package:lorapark_app/screens/screens.dart';
+import 'package:lorapark_app/screens/widgets/logo/lorapark_logo.dart';
 import 'package:lorapark_app/services/services.dart';
 import 'package:provider/provider.dart';
 
@@ -26,21 +26,19 @@ class _InitState extends State<Init> {
     if(_authProvider.authState != AuthState.LOGGED_IN){
       return Container(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: LoraParkLogo(size: 36,),
         ),
       );
     } else {
-      return Container(
-        child: Center(
-          child: Text(_authProvider.identity.username),
-        )
-      );
+      return HomePage();
     }
   }
 
   Future<void> fetchIdentity() async {
     String _token = await GetIt.I.get<SecureService>().secureStorage.read(key: 'access_token');
     if (_token != null) {
+      print('Token found in storage');
+      GetIt.I.get<DioService>().setBearerToken(_token);
       Identity identity = Identity.fromJWT(_token);
       GetIt.I.get<AuthService>().setIdentity(identity);
       GetIt.I.get<AuthService>().setAuthState(AuthState.LOGGED_IN);
