@@ -48,6 +48,8 @@
 	<string>For scanning LoRaPark Signs for OCR</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app provides navigation to the LoRaPark sensors</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app provides navigation to the LoRaPark sensors</string>
 	<key>HERECredentials</key>
 	<dict>
 	    <key>AccessKeyId</key>
