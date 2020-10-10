@@ -36,7 +36,7 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'LoRaPark',
-              theme: LoraParkTheme(),
+              theme: LoraParkTheme.themeData,
               home: Init(),
             )));
   }

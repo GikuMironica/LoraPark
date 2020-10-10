@@ -16,7 +16,7 @@ class WeatherStationData {
   int _pm10;
   int _pm25;
   double _pressure;
-  int _rainRate;
+  double _rainRate;
   List<double> _soilMoisture;
   int _solarRadiation;
   double _temperature;
@@ -39,7 +39,7 @@ class WeatherStationData {
     int pm10,
     int pm25,
     double pressure,
-    int rainRate,
+    double rainRate,
     List<double> soilMoisture,
     int solarRadiation,
     double temperature,
@@ -69,7 +69,7 @@ class WeatherStationData {
     _windSpeed = windSpeed;
   }
 
-  factory WeatherStationData.fromJson(Map<String, dynamic> json){
+  factory WeatherStationData.fromJson(Map<String, dynamic> json) {
     return WeatherStationData(
       id: json['id'],
       timeStamp: json['timestamp'],
@@ -79,7 +79,7 @@ class WeatherStationData {
       dayEt: json['dayet'],
       dayRain: json['dayrain'],
       forecastIcon: json['forecasticon'],
-      leafWetness: json['leafwetness'].cast<double>(),
+      leafWetness: json['leafwetnesses'].cast<double>(),
       outsideHumidity: json['outsidehumidity'],
       pm1: json['pm1'],
       pm10: json['pm10'],
@@ -107,7 +107,7 @@ class WeatherStationData {
 
   List<double> get soilMoisture => _soilMoisture;
 
-  int get rainRate => _rainRate;
+  double get rainRate => _rainRate;
 
   double get pressure => _pressure;
 
