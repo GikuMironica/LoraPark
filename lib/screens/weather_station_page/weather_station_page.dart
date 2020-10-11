@@ -39,17 +39,13 @@ class _WeatherStationPage extends State<WeatherStationPage> {
         ClipPath(
           clipper: MyClipper(),
           child: Container(
-            padding: EdgeInsets.only(left: 40, top: 50, right: 20),
+            padding: const EdgeInsets.only(left: 40, top: 50, right: 20),
             height:
                 (MediaQuery.of(context).size.height / 2 - clipSize * 0.5) <= 100
                     ? 100
                     : MediaQuery.of(context).size.height / 2 - clipSize * 0.5,
             width: double.infinity,
             decoration: BoxDecoration(color: Color(0xFF121212)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[],
-            ),
           ),
         ),
         RefreshIndicator(
@@ -63,24 +59,29 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                   backgroundColor: Color(0xFF121212),
                   pinned: true,
                   floating: false,
-                  expandedHeight: 180.0,
+                  expandedHeight: MediaQuery.of(context).size.height / 4,
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
-                    title: Text("Weather station",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Roboto Condensed',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                        )),
-                    background: Padding(
-                      padding: EdgeInsets.all(padding),
-                      child: SensorNumber(
-                          number: '01',
-                          showUrl: false,
-                          size: 24.0,
-                          dark: false),
+                    title: FittedBox(
+                      alignment: Alignment.bottomLeft,
+                      fit: BoxFit.scaleDown,
+                      child: const Text("Weather station",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Roboto Condensed',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                          )),
                     ),
+                    background: Padding(
+                        padding: const EdgeInsets.all(padding),
+                        child:  SensorNumber(
+                              number: '01',
+                              showUrl: false,
+                              size: 12.0,
+                              dark: false),
+                        ),
                   ),
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back_ios),
@@ -101,9 +102,9 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                           context: context,
                           width: MediaQuery.of(context).size.width,
                           height:
-                              (MediaQuery.of(context).size.height - 200) / 4,
+                              (MediaQuery.of(context).size.height - 250) / 4,
                           text: "Temperature",
-                          image: AssetImage("assets/images/sun.PNG"),
+                          image: const AssetImage("assets/images/sun.PNG"),
                           data: weatherStationController.data == null
                               ? '0'
                               : weatherStationController.temperature.toString(),
@@ -114,9 +115,9 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                           context: context,
                           width: MediaQuery.of(context).size.width,
                           height:
-                              (MediaQuery.of(context).size.height - 200) / 4,
+                              (MediaQuery.of(context).size.height - 250) / 4,
                           text: "Precipitation",
-                          image: AssetImage("assets/images/cloud.PNG"),
+                          image: const AssetImage("assets/images/cloud.PNG"),
                           data: weatherStationController.data == null
                               ? '0'
                               : weatherStationController.rainrate.toString(),
@@ -124,7 +125,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                         ),
                         SizedBox(height: verticalOffset),
                         Center(
-                          child: Text("Weakly report",
+                          child: Text("Weekly report",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Roboto Condensed',
@@ -140,10 +141,10 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                               width:
                                   (MediaQuery.of(context).size.width - 68) / 2,
                               height:
-                                  (MediaQuery.of(context).size.height - 200) /
+                                  (MediaQuery.of(context).size.height - 250) /
                                       4,
                               text: "Hottest Day",
-                              image: AssetImage("assets/images/sun.PNG"),
+                              image: const AssetImage("assets/images/sun.PNG"),
                               data: weatherStationController.data == null
                                   ? '0'
                                   : weatherStationController.temperature
@@ -157,10 +158,10 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                               width:
                                   (MediaQuery.of(context).size.width - 68) / 2,
                               height:
-                                  (MediaQuery.of(context).size.height - 200) /
+                                  (MediaQuery.of(context).size.height - 250) /
                                       4,
                               text: "Coldest Day",
-                              image: AssetImage("assets/images/snow.PNG"),
+                              image: const AssetImage("assets/images/snow.PNG"),
                               data: weatherStationController.data == null
                                   ? '0'
                                   : weatherStationController.temperature
@@ -179,8 +180,8 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                         Row(
                           children: [
                             Container(
-                                width: 200.0,
-                                height: 200.0,
+                                width: MediaQuery.of(context).size.width / 2,
+                                height: MediaQuery.of(context).size.width / 2,
                                 decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
@@ -195,7 +196,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20.0),
                                   child: Image(
-                                    image: AssetImage(
+                                    image: const AssetImage(
                                         "assets/images/weather_station.jpg"),
                                     alignment: Alignment.topLeft,
                                   ),
@@ -205,7 +206,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                         SizedBox(height: 50),
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 2,
-                            child: Text(
+                            child: const Text(
                                 'Diese Station ist eine Kombination aus verschiedenen Sensoren. Gemessen werden Temperatur, Luftfeuchtigkeit, Luftdruck, Regen-menge, Kondensationspunkt, Windgeschwindigkeit und -richtung, Sonneneinstrahlung und Anzahl von Partikeln verschiedener Größein der Luft (Feinstaub). Die Wetterstation wird autark mittels Solar-modul betrieben. Die gemessenen Ergebnisse werden periodisch über das lokale LORAWAN Netz an unser Backend gesendet, welches die Datenzur Anzeige verarbeitet. Dieser Sensor ist Teil des LoRaParks am Weinhof. Daten und Visualisierung auf demdortigen Display oder unter lorapark.de. Die Sensordaten werden der Öffentlichkeitebenfalls auf der Ulmer Datenplattform unter CC-0-Lizenz frei verfügbar gemacht.',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
