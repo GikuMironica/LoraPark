@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       hideNavigationBarWhenKeyboardShows: true,
       backgroundColor: Colors.white,
       decoration: NavBarDecoration(
-        borderRadius: BorderRadius.only(topRight: radius, topLeft:  radius),
+        borderRadius: BorderRadius.only(topRight: radius, topLeft: radius),
         colorBehindNavBar: Colors.transparent,
       ),
       navBarStyle: NavBarStyle.style11,
@@ -59,7 +59,9 @@ class _HomePageState extends State<HomePage> {
         activeContentColor: Colors.black,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Glyphter.bar_chart_outline,),
+        icon: Icon(
+          Glyphter.bar_chart_outline,
+        ),
         inactiveColor: Colors.grey,
         activeContentColor: Colors.black,
       ),
