@@ -4,7 +4,11 @@ import 'package:flutter/material.dart' show required;
 
 import 'base_sensor_repository.dart';
 
-class ElectricityRepository extends BaseSensorRepository{
+abstract class ElectricityRepository extends BaseSensorRepository{
+
+}
+
+class ElectricityRepositoryImpl extends ElectricityRepository{
   @override
   String get endpoint => Endpoints.ELECTRICITY;
 

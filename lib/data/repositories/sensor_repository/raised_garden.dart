@@ -3,7 +3,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart' show RaisedGardenData
 import 'base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class RaisedGardenRepository extends BaseSensorRepository {
+abstract class RaisedGardenRepository extends BaseSensorRepository{
+
+}
+
+class RaisedGardenRepositoryImpl extends RaisedGardenRepository {
 
   @override
   String get endpoint => Endpoints.RAISED_GARDEN;

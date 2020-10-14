@@ -6,7 +6,8 @@ import 'package:lorapark_app/services/services.dart'
     show LoggingService, DioService;
 import 'package:lorapark_app/utils/query_builder.dart';
 
-class BaseSensorRepository {
+
+abstract class BaseSensorRepository {
   Logger get logger =>
       GetIt.I.get<LoggingService>().getLogger((runtimeType).toString());
 

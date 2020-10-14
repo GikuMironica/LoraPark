@@ -1,8 +1,6 @@
-import 'package:catcher/catcher.dart';
 import 'package:flutter/material.dart';
-import 'package:lorapark_app/config/sensor_list.dart';
-import 'package:lorapark_app/data/models/sensor_data.dart';
-import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
+import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -10,16 +8,10 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  PersonCountRepository personCountRepository = PersonCountRepository();
-  List<PersonCountData> personCountData = [];
-
-  Future<void> fetchData() async {
-    personCountData = await personCountRepository.get(id: Sensors.personCount_one);
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
+    var _controller = Provider.of<SettingsController>(context);
     return Scaffold(
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
@@ -28,20 +20,20 @@ class _SettingsPageState extends State<SettingsPage> {
           shrinkWrap: true,
           children: [
             ListTile(
-              onTap: () async => await fetchData(),
+              onTap: () async => await _controller.fetchData(),
               title: Text('Jello'),
             ),
-            personCountData.length == 0 ? Text('Hello') : ListView.builder(
+            _controller.data.isEmpty ? Text('No Data Here') : ListView.builder(
               physics: NeverScrollableScrollPhysics(),
-              itemCount: personCountData.length,
+              itemCount: _controller.data.length,
               shrinkWrap: true,
               itemBuilder: (_, i) {
                 return Card(
                   child: Container(
                     child: Column(
                     children: [
-                      Text('Pax Count: ${personCountData[i].paxCount}'),
-                      Text('Timestamp: ${personCountData[i].timestamp.toString()}'),
+                      Text('Pax Count: ${_controller.data[i].paxCount}'),
+                      Text('Timestamp: ${_controller.data[i].timestamp.toString()}'),
                     ],
                   ),)
                 );

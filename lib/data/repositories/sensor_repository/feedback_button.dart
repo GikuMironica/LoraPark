@@ -2,8 +2,12 @@ import 'package:lorapark_app/config/urls.dart';
 import 'package:lorapark_app/data/models/sensor_data.dart' show FeedbackButtonData;
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
- 
-class FeedbackRepository extends BaseSensorRepository{
+
+abstract class FeedbackRepository extends BaseSensorRepository{
+
+}
+
+class FeedbackRepositoryImpl extends FeedbackRepository{
   @override
   String get endpoint => Endpoints.FEEDBACK_BUTTON;
 

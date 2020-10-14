@@ -3,7 +3,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart' show GroundHumidityDa
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class GroundHumidityRepository extends BaseSensorRepository{
+abstract class GroundHumidityRepository extends BaseSensorRepository{
+
+}
+
+class GroundHumidityRepositoryImpl extends GroundHumidityRepository{
   @override
   String get endpoint => Endpoints.GROUND_HUMIDITY;
 

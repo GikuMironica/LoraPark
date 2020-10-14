@@ -3,7 +3,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart' show DoorData;
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class DoorRepository extends BaseSensorRepository{
+abstract class DoorRepository extends BaseSensorRepository{
+
+}
+
+class DoorRepositoryImpl extends DoorRepository{
   @override
   String get endpoint => Endpoints.DOOR;
 

@@ -3,7 +3,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart' show FloodData;
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class FloodDataRepository extends BaseSensorRepository{
+abstract class FloodDataRepository extends BaseSensorRepository{
+
+}
+
+class FloodDataRepositoryImpl extends FloodDataRepository{
   @override
   String get endpoint => Endpoints.FLOOD_DATA;
 

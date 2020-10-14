@@ -6,7 +6,7 @@ import 'package:lorapark_app/utils/catcher_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  servicesSetup();
+  servicesSetup(isProductionEnv: true);
   // TODO: replace runApp with Catcher if you want to report error logs outside.
   // Catcher(LoRaParkApp(), debugConfig: debugOptions);
   runApp(LoRaParkApp());

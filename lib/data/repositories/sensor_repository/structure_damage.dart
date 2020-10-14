@@ -4,7 +4,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart'
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class StructureDamageRepository extends BaseSensorRepository {
+abstract class StructureDamageRepository extends BaseSensorRepository{
+
+}
+
+class StructureDamageRepositoryImpl extends StructureDamageRepository {
   @override
   String get endpoint => Endpoints.STRUCTURE_DAMAGE;
 
