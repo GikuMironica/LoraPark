@@ -1,9 +1,10 @@
 import 'package:lorapark_app/config/urls.dart';
-import 'package:lorapark_app/data/models/sensor_data.dart' show StructureDamageData;
+import 'package:lorapark_app/data/models/sensor_data.dart'
+    show StructureDamageData;
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class StructureDamageRepository extends BaseSensorRepository{
+class StructureDamageRepository extends BaseSensorRepository {
   @override
   String get endpoint => Endpoints.STRUCTURE_DAMAGE;
 
@@ -19,9 +20,10 @@ class StructureDamageRepository extends BaseSensorRepository{
   @override
   Future<List<StructureDamageData>> getByTime(
       {String id,
-        List<String> ids,
-        @required DateTime start,
-        @required DateTime end}) async {
-    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
+      List<String> ids,
+      @required DateTime start,
+      @required DateTime end}) async {
+    return convert(
+        await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 }

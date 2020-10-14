@@ -6,6 +6,8 @@ import 'package:fluro/fluro.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:lorapark_app/services/services.dart';
+import 'package:lorapark_app/utils/utils.dart'
+    show DisableScrollGlow, hideKeyboardOnTap;
 
 class LoRaParkApp extends StatefulWidget {
   @override
@@ -29,30 +31,17 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
         child: MultiProvider(
             // Add all your providers here!
             providers: [
-          ChangeNotifierProvider(
-            create: (_) => GetIt.I.get<AuthService>(),
-          ),
+          ChangeNotifierProvider(create: (_) => GetIt.I.get<AuthService>()),
         ],
             child: MaterialApp(
+              builder: (_, child) => ScrollConfiguration(
+                behavior: DisableScrollGlow(),
+                child: child,
+              ),
               debugShowCheckedModeBanner: false,
               title: 'LoRaPark',
               theme: LoraParkTheme.themeData,
               home: Init(),
             )));
-  }
-
-  // This is a wrapper widget so that we can dismiss the keyboard when we tap
-  // away from it.
-  GestureDetector hideKeyboardOnTap({Widget child}) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus &&
-            currentFocus.focusedChild != null) {
-          currentFocus.focusedChild.unfocus();
-        }
-      },
-      child: child,
-    );
   }
 }

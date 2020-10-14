@@ -1,3 +1,4 @@
+import 'package:catcher/catcher.dart';
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/data/models/sensor_data.dart';
