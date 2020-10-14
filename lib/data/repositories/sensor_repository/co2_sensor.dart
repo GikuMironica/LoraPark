@@ -19,9 +19,10 @@ class CO2Repository extends BaseSensorRepository {
   @override
   Future<List<CO2Data>> getByTime(
       {String id,
-        List<String> ids,
-        @required DateTime start,
-        @required DateTime end}) async {
-    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
+      List<String> ids,
+      @required DateTime start,
+      @required DateTime end}) async {
+    return convert(
+        await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 }

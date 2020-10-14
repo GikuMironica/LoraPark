@@ -41,16 +41,20 @@ dependencies:
   device_info: ^0.4.2+8
   location: ^3.0.2
   image_picker: ^0.6.7+11
-  flutter_secure_storage: ^3.3.4
+  flutter_secure_storage: ^3.3.5
   dio: ^3.0.10
   pretty_dio_logger: ^1.1.1
   jwt_decode: ^0.1.0
   persistent_bottom_nav_bar: ^2.1.0
+  jiffy: ^3.0.1
+  catcher: ^0.3.20
+  connectivity: ^0.4.9+3
 
   here_sdk:
     path: 'plugins/here-sdk/'
 
 dev_dependencies:
+  pedantic: ^1.9.2
   flutter_test:
     sdk: flutter
 

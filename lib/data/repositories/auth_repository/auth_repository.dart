@@ -12,13 +12,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<LoginResponse> login(String username, String password) async {
     try {
-      Map<String, dynamic> payload = {
+      var payload = <String, dynamic>{
         'grant_type': 'password',
         'username': username,
         'password': password,
       };
 
-      Response response = await GetIt.I
+      var response = await GetIt.I
           .get<DioService>()
           .rawDio
           .post(AUTH_URL, data: payload);
@@ -27,7 +27,7 @@ class AuthRepositoryImpl implements AuthRepository {
         return LoginResponse.fromJson(response.data);
       }
     } on DioError catch (e) {
-
+      rethrow;
     }
   }
 }

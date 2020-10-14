@@ -4,11 +4,9 @@ import 'base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
 class SoundSensorRepository extends BaseSensorRepository {
-
   @override
   String get endpoint => Endpoints.SOUND_SENSOR;
 
-  
   List<SoundSensorData> convert(Iterable it) {
     return it.map((e) => SoundSensorData.fromJson(e)).toList();
   }
@@ -21,9 +19,10 @@ class SoundSensorRepository extends BaseSensorRepository {
   @override
   Future<List<SoundSensorData>> getByTime(
       {String id,
-        List<String> ids,
-        @required DateTime start,
-        @required DateTime end}) async {
-    return convert(await super.getByTime(id: id, ids: ids, start: start, end: end));
+      List<String> ids,
+      @required DateTime start,
+      @required DateTime end}) async {
+    return convert(
+        await super.getByTime(id: id, ids: ids, start: start, end: end));
   }
 }

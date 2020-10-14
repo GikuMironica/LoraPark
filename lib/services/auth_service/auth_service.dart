@@ -1,7 +1,6 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:lorapark_app/data/models/identity.dart';
 import 'package:lorapark_app/data/models/login_response.dart';
 import 'package:lorapark_app/data/repositories/auth_repository/auth_repository.dart';
@@ -12,7 +11,8 @@ enum AuthState { NOT_DETERMINED, LOGGED_OUT, LOGGED_IN }
 abstract class AuthService extends ChangeNotifier {
   Identity _identity;
   AuthState _authState;
-  AuthRepository _authRepository;
+
+  AuthRepository _authRepository; // ignore: unused_field
 
   Future<Identity> login(String username, String password);
 
@@ -24,25 +24,28 @@ abstract class AuthService extends ChangeNotifier {
 
   Future<void> writeTokenToDevice(LoginResponse loginResponse);
 
-  Identity get identity;
+  Identity get identity => _identity;
 
-  AuthState get authState;
+  AuthState get authState => _authState;
 
   bool get isExpired;
 }
 
 class AuthServiceImpl extends ChangeNotifier implements AuthService {
+  final Logger _logger = GetIt.I.get<LoggingService>().getLogger((AuthService).toString());
+
   @override
   Identity _identity;
 
   @override
   AuthState _authState = AuthState.NOT_DETERMINED;
 
-  AuthRepository _authRepository = AuthRepositoryImpl();
+  @override
+  final AuthRepository _authRepository = AuthRepositoryImpl();
 
   @override
   Future<Identity> login(String username, String password) async {
-    LoginResponse loginResponse =
+    var loginResponse =
         await _authRepository.login(username, password);
 
     if (loginResponse.errors.isEmpty) {
@@ -52,8 +55,9 @@ class AuthServiceImpl extends ChangeNotifier implements AuthService {
       });
       GetIt.I.get<DioService>().setBearerToken(loginResponse.accessToken);
     } else {
-      print('Error trying to log in, check credentials!!');
+      _logger.e('Unable to login, perhaps check credentials?');
     }
+    return null;
   }
 
   @override
@@ -95,4 +99,12 @@ class AuthServiceImpl extends ChangeNotifier implements AuthService {
 
   @override
   bool get isExpired => DateTime.now().isAfter(_identity.expiry);
+
+  /// This function serves no purpose beyond just being here so that dartfmt
+  /// does not complain.
+  @override
+  // ignore: unused_element
+  set _authRepository(AuthRepository __authRepository) {
+    _authRepository = __authRepository;
+  }
 }
