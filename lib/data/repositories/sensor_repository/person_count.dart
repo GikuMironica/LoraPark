@@ -3,7 +3,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart' show PersonCountData;
 import 'base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class PersonCountRepository extends BaseSensorRepository {
+abstract class PersonCountRepository extends BaseSensorRepository{
+
+}
+
+class PersonCountRepositoryImpl extends PersonCountRepository {
   @override
   String get endpoint => Endpoints.PERSON_COUNT;
 

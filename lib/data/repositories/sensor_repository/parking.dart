@@ -4,7 +4,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart'
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class ParkingStateRepository extends BaseSensorRepository {
+abstract class ParkingStateRepository extends BaseSensorRepository{
+
+}
+
+class ParkingStateRepositoryImpl extends ParkingStateRepository {
   @override
   String get endpoint => Endpoints.PARKING_STATE;
 
@@ -50,7 +54,11 @@ class ParkingStateRepository extends BaseSensorRepository {
 //   }
 // }
 
-class ParkingAverageRepository extends BaseSensorRepository {
+abstract class ParkingAverageRepository extends BaseSensorRepository{
+
+}
+
+class ParkingAverageRepositoryImpl extends ParkingAverageRepository {
   @override
   String get endpoint => Endpoints.PARKING_AVERAGE_DURATION;
 
@@ -74,7 +82,11 @@ class ParkingAverageRepository extends BaseSensorRepository {
   
 }
 
-class ParkingEventRepository extends BaseSensorRepository {
+abstract class ParkingEventRepository extends BaseSensorRepository{
+
+}
+
+class ParkingEventRepositoryImpl extends ParkingEventRepository {
   @override
   String get endpoint => Endpoints.PARKING_EVENTS;
 

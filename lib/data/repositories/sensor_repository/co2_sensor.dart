@@ -3,7 +3,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart' show CO2Data;
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class CO2Repository extends BaseSensorRepository {
+abstract class CO2Repository extends BaseSensorRepository{
+
+}
+
+class CO2RepositoryImpl extends CO2Repository {
   @override
   String get endpoint => Endpoints.CO2;
 

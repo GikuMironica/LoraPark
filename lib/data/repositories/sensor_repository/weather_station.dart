@@ -4,7 +4,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart'
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class WeatherStationRepository extends BaseSensorRepository {
+abstract class WeatherStationRepository extends BaseSensorRepository{
+
+}
+
+class WeatherStationRepositoryImpl extends WeatherStationRepository {
   @override
   String get endpoint => Endpoints.WEATHER_STATION;
 

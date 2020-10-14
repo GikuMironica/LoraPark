@@ -3,7 +3,11 @@ import 'package:lorapark_app/data/models/sensor_data.dart' show WasteLevelData;
 import 'package:lorapark_app/data/repositories/sensor_repository/base_sensor_repository.dart';
 import 'package:flutter/material.dart' show required;
 
-class WasteLevelRepository extends BaseSensorRepository {
+abstract class WasteLevelRepository extends BaseSensorRepository{
+
+}
+
+class WasteLevelRepositoryImpl extends WasteLevelRepository {
   @override
   String get endpoint => Endpoints.WASTE_LEVEL;
 
