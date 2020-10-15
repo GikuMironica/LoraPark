@@ -25,7 +25,7 @@ class DataPresenter extends StatelessWidget {
       width: this.width,
       height: this.height,
       child: Container(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(18),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
@@ -38,41 +38,28 @@ class DataPresenter extends StatelessWidget {
               ),
             ],
           ),
-          child: FittedBox(
-            alignment: Alignment.topLeft,
-            fit: BoxFit.scaleDown,
-            child: Column(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Container(child: FittedBox(fit:BoxFit.fitWidth,child:Text(this.text, style: TextStyle(color:Colors.black,
+            fontFamily: 'Roboto Condensed', fontWeight: FontWeight.w700, fontSize: 24),))), SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(text,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Roboto Condensed',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 24,
-                      )),
-                ]),
-                Row(
-                  children: [
-                    SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: Image(
-                          image: this.image,
-                        )),
-                    SizedBox(width: 10),
-                    Text(this.data +" "+ this.unit,
+                SizedBox(width:50, height: 50,
+                child:Image(image: this.image)),
+                SizedBox(width:10,),
+                 FittedBox(fit:BoxFit.fitWidth,child:Text(this.data +" "+ this.unit,
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'Roboto Condensed',
                           fontWeight: FontWeight.w700,
                           fontSize: 36
-                        )),
-                  ],
-                ),
+                        )))
               ],
-            ),
-          )),
+            )
+            ],
+          ),
+       ),
     );
   }
 }
