@@ -107,12 +107,11 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             DataPresenter(
-                              context: context,
                               width: MediaQuery.of(context).size.width,
                               height:
                                   (MediaQuery.of(context).size.height - 250) /
                                       4,
-                              text: "Temperature",
+                              title: "Temperature",
                               image: const AssetImage("assets/images/sun.PNG"),
                               data: weatherStationController.data == null
                                   ? '0'
@@ -122,12 +121,11 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                             ),
                             SizedBox(height: verticalOffset),
                             DataPresenter(
-                              context: context,
                               width: MediaQuery.of(context).size.width,
                               height:
                                   (MediaQuery.of(context).size.height - 250) /
                                       4,
-                              text: "Precipitation",
+                              title: "Precipitation",
                               image:
                                   const AssetImage("assets/images/cloud.PNG"),
                               data: weatherStationController.data == null
@@ -151,15 +149,13 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                             Row(
                               children: [
                                 DataPresenter(
-                                  //TODO
-                                  context: context,
                                   width:
                                       (MediaQuery.of(context).size.width - 68) /
                                           2,
                                   height: (MediaQuery.of(context).size.height -
                                           250) /
                                       4,
-                                  text: "Hottest Day",
+                                  title: "Hottest Day",
                                   image:
                                       const AssetImage("assets/images/sun.PNG"),
                                   data: weatherStationController.data == null
@@ -170,15 +166,13 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                                 ),
                                 SizedBox(width: horizontalOffset),
                                 DataPresenter(
-                                  //TODO
-                                  context: context,
                                   width:
                                       (MediaQuery.of(context).size.width - 68) /
                                           2,
                                   height: (MediaQuery.of(context).size.height -
                                           250) /
                                       4,
-                                  text: "Coldest Day",
+                                  title: "Coldest Day",
                                   image: const AssetImage(
                                       "assets/images/snow.PNG"),
                                   data: weatherStationController.data == null
