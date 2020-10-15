@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:lorapark_app/data/repositories/sensor_repository/weather_station.dart';
@@ -8,8 +9,13 @@ import 'package:lorapark_app/data/models/sensors/weather_station_data.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
 
 class WeatherStationController extends ChangeNotifier {
-  WeatherStationRepository _repository = WeatherStationRepository();
+  WeatherStationRepository _repository;
+  // final Logger _logger = GetIt.I.get<LoggingService>().getLogger((runtimeType).toString());
+  ScrollController  _scrollController = ScrollController();
   List<WeatherStationData> _data;
+
+
+  WeatherStationController({WeatherStationRepository repository}) : _repository = repository;
 
   Future<void> getActualWeatherStationData() async {
     _data = await _repository.get(id: Sensors.weatherStation_one);
@@ -48,4 +54,6 @@ class WeatherStationController extends ChangeNotifier {
   double get rainrate => _data.first.rainRate;
 
   double get temperature => _data.first.temperature;
+
+  ScrollController get scrollController => _scrollController;
 }
