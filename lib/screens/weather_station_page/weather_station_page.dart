@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lorapark_app/controller/weather_station_controller/weather_station_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
-import 'package:lorapark_app/screens/widgets/sensor/sensor_number.dart';
-import 'package:lorapark_app/controllers/weather_station_controller.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';

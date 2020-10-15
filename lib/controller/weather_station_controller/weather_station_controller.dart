@@ -3,14 +3,17 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 
 import 'package:lorapark_app/data/repositories/sensor_repository/weather_station.dart';
 import 'package:lorapark_app/data/models/sensors/weather_station_data.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
+import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
 class WeatherStationController extends ChangeNotifier {
   WeatherStationRepository _repository;
-  // final Logger _logger = GetIt.I.get<LoggingService>().getLogger((runtimeType).toString());
+  final Logger _logger = GetIt.I.get<LoggingService>().getLogger((WeatherStationRepository).toString());
   ScrollController  _scrollController = ScrollController();
   List<WeatherStationData> _data;
 
@@ -19,13 +22,14 @@ class WeatherStationController extends ChangeNotifier {
 
   Future<void> getActualWeatherStationData() async {
     _data = await _repository.get(id: Sensors.weatherStation_one);
+    _logger.d('Fetching data');
     notifyListeners();
   }
 
   Future<void> getWeatherStationDataByTime(int days) async {
     var endDate = DateTime.now();
     var startDate = endDate.subtract(Duration(days: days));
-
+    _logger.d('Fetching data');
     _data = await _repository.getByTime(
       id: Sensors.weatherStation_one,
       start: startDate,

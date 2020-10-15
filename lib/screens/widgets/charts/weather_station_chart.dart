@@ -1,11 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/controller/weather_station_controller/weather_station_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import 'package:lorapark_app/data/repositories/sensor_repository/weather_station.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
-import 'package:lorapark_app/controllers/weather_station_controller.dart';
 
 class WeatherStationChart extends StatefulWidget {
   @override
