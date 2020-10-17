@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/ground_humidity_controller/ground_humidity_controller.dart';
-import 'package:lorapark_app/controller/weather_station_controller/weather_station_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
@@ -29,7 +28,7 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
     groundHumidityController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => groundHumidityController.getWeatherStationDataByTime(7),
+      onRefresh: () => groundHumidityController.getGroundHumidityDataByTime(7),
       child: SingleSensorViewTemplate(
         scrollController: groundHumidityController.scrollController,
         clipSize: clipSize,

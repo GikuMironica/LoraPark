@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/controller/ground_humidity_controller/ground_humidity_controller.dart';
+import 'package:lorapark_app/controller/raised_garden_controller/raised_garden_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
@@ -51,6 +52,11 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
               ChangeNotifierProvider(
                 create: (_) => GrouundHumidityController(
                     repository: GetIt.I.get<GroundHumidityRepository>()),
+                lazy: true,
+              ),
+              ChangeNotifierProvider(
+                create: (_) => RaisedGardenController(
+                    repository: GetIt.I.get<RaisedGardenRepository>()),
                 lazy: true,
               ),
         ],

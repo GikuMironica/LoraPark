@@ -18,13 +18,13 @@ class GrouundHumidityController extends ChangeNotifier {
 
   GrouundHumidityController({GroundHumidityRepository repository}) : _repository = repository;
 
-  Future<void> getActualWeatherStationData() async {
+  Future<void> getActualGroundHumidityData() async {
     _data = await _repository.get(id: Sensors.groundHumidity_one);
     _logger.d('Fetching data');
     notifyListeners();
   }
 
-  Future<void> getWeatherStationDataByTime(int days) async {
+  Future<void> getGroundHumidityDataByTime(int days) async {
     var endDate = DateTime.now();
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
