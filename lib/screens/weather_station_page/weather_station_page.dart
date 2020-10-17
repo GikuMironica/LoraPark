@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lorapark_app/controller/weather_station_controller/weather_station_controller.dart';
+import 'package:lorapark_app/screens/widgets/charts/weather_station_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
@@ -20,13 +21,6 @@ class WeatherStationPage extends StatefulWidget {
 }
 
 class _WeatherStationPage extends State<WeatherStationPage> {
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,23 +127,5 @@ class _WeatherStationPage extends State<WeatherStationPage> {
     setState(() {
       clipSize = ( weatherStationController.scrollController.offset / 2);
     });
-  }
-}
-
-class MyClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height - 80);
-    path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height - 80);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
   }
 }
