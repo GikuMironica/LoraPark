@@ -1,11 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:lorapark_app/controller/weather_station_controller/weather_station_controller.dart';
+import 'package:lorapark_app/controller/sensor_controller/weather_station_controller.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-
-import 'package:lorapark_app/data/repositories/sensor_repository/weather_station.dart';
-import 'package:lorapark_app/config/sensor_list.dart';
 
 class WeatherStationChart extends StatefulWidget {
   @override
@@ -260,17 +256,17 @@ class WeatherStationChartState extends State<WeatherStationChart> {
     final weatherStationController =
         Provider.of<WeatherStationController>(context, listen: false);
 
-    int minTemperature = weatherStationController.minTemperature.floor();
-    int maxTemperature = (weatherStationController.maxTemperature + 1).floor();
+    var minTemperature = weatherStationController.minTemperature.floor();
+    var maxTemperature = (weatherStationController.maxTemperature + 1).floor();
 
-    bool isAdd = false;
+    var isAdd = false;
 
     while ((maxTemperature - minTemperature) % 3 != 0) {
       isAdd ? maxTemperature += 1 : minTemperature -= 1;
       isAdd = !isAdd;
     }
 
-    int distance = maxTemperature - minTemperature;
+    var distance = maxTemperature - minTemperature;
 
     switch (value) {
       case 1:
@@ -290,17 +286,17 @@ class WeatherStationChartState extends State<WeatherStationChart> {
     final weatherStationController =
         Provider.of<WeatherStationController>(context, listen: false);
 
-    int minHumidity = weatherStationController.minHumidity;
-    int maxHumidity = weatherStationController.maxHumidity;
+    var minHumidity = weatherStationController.minHumidity;
+    var maxHumidity = weatherStationController.maxHumidity;
 
-    bool isAdd = false;
+    var isAdd = false;
 
     while ((maxHumidity - minHumidity) % 3 != 0) {
       isAdd ? maxHumidity += 1 : minHumidity -= 1;
       isAdd = !isAdd;
     }
 
-    int distance = maxHumidity - minHumidity;
+    var distance = maxHumidity - minHumidity;
 
     switch (value) {
       case 1:

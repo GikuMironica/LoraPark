@@ -5,21 +5,19 @@ import 'package:lorapark_app/screens/widgets/sensor_view_header/sensor_view_head
 import 'package:lorapark_app/themes/lorapark_theme.dart';
 
 class SingleSensorViewTemplate extends StatelessWidget {
-  ScrollController scrollController;
-  Widget sliverlist;
+  final ScrollController scrollController;
+  final Widget sliverlist;
   final double padding = 24.0;
   final double horizontalOffset = 20;
   final double verticalOffset = 24;
   final double pageOffset = 20;
-  double clipSize;
-  var sensorController;
-  String sensorName;
-  String sensorNumber;
+  final double clipSize;
+  final String sensorName;
+  final String sensorNumber;
 
   SingleSensorViewTemplate(
       {this.scrollController,
       this.sliverlist,
-      this.sensorController,
       this.clipSize,
       this.sensorName,
       this.sensorNumber});
@@ -47,7 +45,13 @@ class SingleSensorViewTemplate extends StatelessWidget {
           CustomScrollView(
             controller: scrollController,
             physics: BouncingScrollPhysics(),
-            slivers: [SensorViewHeader(sensorNumber: sensorNumber, sensorName: sensorName,), this.sliverlist],
+            slivers: [
+              SensorViewHeader(
+                sensorNumber: sensorNumber,
+                sensorName: sensorName,
+              ),
+              sliverlist
+            ],
           ),
         ],
       ),

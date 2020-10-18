@@ -4,18 +4,16 @@ import 'package:flutter/material.dart';
 class DataPresenter extends StatelessWidget {
   final double width;
   final double height;
-  final String data;
+  final Widget data;
   final String title;
-  final AssetImage image;
-  final String unit;
+  final Widget visualization;
 
   DataPresenter({
     this.width,
     this.height,
     @required this.title,
-    @required this.image,
+    this.visualization,
     @required this.data,
-    this.unit,
   });
 
   @override
@@ -39,12 +37,12 @@ class DataPresenter extends StatelessWidget {
           ),
         ],
       ),
-      child: FittedBox(
-        alignment: Alignment.topLeft,
-        fit: BoxFit.scaleDown,
-        child: Column(
-          children: [
-            FittedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 4,
+            child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
                 title,
@@ -55,33 +53,24 @@ class DataPresenter extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: Image(
-                    image: image,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    data + ' ' + unit,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 36,
-                    ),
-                  ),
-                ),
-              ],
+          ),
+          Expanded(
+            flex: 6,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  visualization ?? SizedBox(width: 0, height: 0),
+                  visualization == null
+                      ? SizedBox(width: 0, height: 0)
+                      : SizedBox(width: 10),
+                  data,
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
