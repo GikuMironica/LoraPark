@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class LoraParkTheme {
+
+  static Radius bottomBarRadius = Radius.circular(20);
+  static Color bottomBarColor = Colors.white;
+  static Color bottomBarSelectedItemColor = Colors.pink;
+  static Color bottomBarSelectedItemTitle = Colors.black;
+
+
   static ThemeData themeData = ThemeData(
     primarySwatch: Colors.blueGrey,
     primaryColor: Color(0xFF121212),

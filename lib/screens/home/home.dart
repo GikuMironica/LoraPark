@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/screens/screens.dart';
-import 'package:lorapark_app/screens/widgets/icons/glyphter.dart';
+import 'package:lorapark_app/screens/widgets/lp_nav_bar/lp_nav_bar.dart';
+import 'package:lorapark_app/screens/widgets/lp_nav_bar/lp_nav_bar_item.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,7 +12,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PersistentTabController _tabController;
-  final Radius radius = Radius.circular(15);
 
   @override
   void initState() {
@@ -24,16 +24,20 @@ class _HomePageState extends State<HomePage> {
     return PersistentTabView(
       controller: _tabController,
       screens: _buildScreens(),
-      items: _navBarItems(),
+      itemCount: _navBarItems().length,
       confineInSafeArea: true,
       resizeToAvoidBottomInset: true,
       hideNavigationBarWhenKeyboardShows: true,
       backgroundColor: Colors.white,
       decoration: NavBarDecoration(
-        borderRadius: BorderRadius.only(topRight: radius, topLeft:  radius),
-        colorBehindNavBar: Colors.transparent,
+        colorBehindNavBar: Colors.white,
       ),
-      navBarStyle: NavBarStyle.style11,
+      customWidget: LPNavBar(
+        items: _navBarItems(),
+        onItemSelected: (idx) => setState(() => _tabController.index = idx),
+        selectedIndex: _tabController.index,
+      ),
+      navBarStyle: NavBarStyle.custom,
     );
   }
 
@@ -42,31 +46,22 @@ class _HomePageState extends State<HomePage> {
       MapPage(),
       SettingsPage(),
       SettingsPage(),
-      SettingsPage(),
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarItems() {
+  List<LPNavBarItem> _navBarItems() {
     return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Glyphter.map_outline),
-        inactiveColor: Colors.grey,
-        activeContentColor: Colors.tealAccent,
+      LPNavBarItem(
+        iconName: 'map-outline',
+        title: 'Map'
       ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Glyphter.radio_outline),
-        inactiveColor: Colors.grey,
-        activeContentColor: Colors.black,
+      LPNavBarItem(
+        iconName: 'radio-outline',
+        title: 'Sensoren'
       ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Glyphter.bar_chart_outline,),
-        inactiveColor: Colors.grey,
-        activeContentColor: Colors.black,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Glyphter.settings_outline),
-        inactiveColor: Colors.grey,
-        activeContentColor: Colors.black,
+      LPNavBarItem(
+        iconName: 'ellipsis-horizontal-outline',
+        title: 'More'
       )
     ];
   }
