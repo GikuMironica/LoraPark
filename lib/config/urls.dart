@@ -8,7 +8,7 @@ class Endpoints {
   static const String CO2 = '/elsysvalues';
   static const String WEATHER_STATION = '/weatherstation';
   static const String PERSON_COUNT = '/besucherstrom';
-  static const String DOOR = '/door';
+  static const String DOOR = '/elsysvalues';
   static const String FEEDBACK_BUTTON = '/action_button';
   static const String ELECTRICITY = '/electricity';
   static const String WASTE_LEVEL = '/swufillvalues';

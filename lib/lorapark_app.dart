@@ -1,7 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/controller/sensor_controller/air_quality_controller.dart';
+import 'package:lorapark_app/controller/sensor_controller/door_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
+import 'package:lorapark_app/controller/sensor_controller/waste_level_controller.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 import 'package:lorapark_app/screens/screens.dart';
@@ -45,26 +47,38 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
                 repository: GetIt.I.get<PersonCountRepository>()),
             lazy: true,
           ),
-              ChangeNotifierProvider(
-                create: (_) => WeatherStationController(
-                    repository: GetIt.I.get<WeatherStationRepository>()),
-                lazy: true,
-              ),
-              ChangeNotifierProvider(
-                create: (_) => GrouundHumidityController(
-                    repository: GetIt.I.get<GroundHumidityRepository>()),
-                lazy: true,
-              ),
-              ChangeNotifierProvider(
-                create: (_) => RaisedGardenController(
-                    repository: GetIt.I.get<RaisedGardenRepository>()),
-                lazy: true,
-              ),
-              ChangeNotifierProvider(
-                create: (_) => AirQualityController(
-                    repository: GetIt.I.get<AirQualityRepository>()),
-                lazy: true,
-              ),
+          ChangeNotifierProvider(
+            create: (_) => WeatherStationController(
+                repository: GetIt.I.get<WeatherStationRepository>()),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => GrouundHumidityController(
+                repository: GetIt.I.get<GroundHumidityRepository>()),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => RaisedGardenController(
+                repository: GetIt.I.get<RaisedGardenRepository>()),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => AirQualityController(
+                repository: GetIt.I.get<AirQualityRepository>()),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => WasteLevelController(
+              repository: GetIt.I.get<WasteLevelRepository>(),
+            ),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => DoorController(
+              repository: GetIt.I.get<DoorRepository>(),
+            ),
+            lazy: true,
+          ),
         ],
             child: MaterialApp(
               builder: (_, child) => ScrollConfiguration(
