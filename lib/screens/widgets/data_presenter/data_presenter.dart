@@ -37,12 +37,13 @@ class DataPresenter extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 4,
-            child: FittedBox(
+      child: IntrinsicHeight(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            FittedBox(
+              alignment: Alignment.topCenter,
               fit: BoxFit.scaleDown,
               child: Text(
                 title,
@@ -53,24 +54,33 @@ class DataPresenter extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 6,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  visualization ?? SizedBox(width: 0, height: 0),
-                  visualization == null
-                      ? SizedBox(width: 0, height: 0)
-                      : SizedBox(width: 10),
-                  data,
-                ],
+            Expanded(
+              child: IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    visualization == null
+                        ? SizedBox(width: 0, height: 0)
+                        : FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: visualization,
+                          ),
+                    visualization == null
+                        ? SizedBox(width: 0, height: 0)
+                        : SizedBox(width: 10),
+                    Expanded(
+                      child: FittedBox(
+                        alignment: Alignment.centerLeft,
+                        fit: BoxFit.contain,
+                        child: data,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
