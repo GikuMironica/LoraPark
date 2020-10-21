@@ -15,7 +15,7 @@ class Endpoints {
   static const String SOUND_SENSOR = '/lautstaerke';
   static const String FLOOD_DATA = '/hochwasser';
   static const String RAISED_GARDEN = '/loraparkhochbeet';
-  static const String STRUCTURE_DAMAGE = '/rissensor';
+  static const String STRUCTURE_DAMAGE = '/risssensor';
   static const String GROUND_HUMIDITY = '/bodenfeuchte';
   static const String AIR_QUALITY = '/airquality';
   static const String PARKING_STATE = '/swuparkingvalues';

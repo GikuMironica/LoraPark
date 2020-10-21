@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/controller/sensor_controller/air_quality_controller.dart';
 import 'package:lorapark_app/controller/sensor_controller/door_controller.dart';
+import 'package:lorapark_app/controller/sensor_controller/structure_damage_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
 import 'package:lorapark_app/controller/sensor_controller/waste_level_controller.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
@@ -76,6 +77,12 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
           ChangeNotifierProvider(
             create: (_) => DoorController(
               repository: GetIt.I.get<DoorRepository>(),
+            ),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => StructureDamageController(
+              repository: GetIt.I.get<StructureDamageRepository>(),
             ),
             lazy: true,
           ),
