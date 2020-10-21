@@ -1,9 +1,10 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lorapark_app/controller/weather_station_controller/weather_station_controller.dart';
-import 'package:lorapark_app/screens/widgets/charts/weather_station_chart.dart';
+import 'package:lorapark_app/controller/sensor_controller/weather_station_controller.dart';
+import 'package:lorapark_app/screens/widgets/charts/weather_station_weekly_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,8 @@ const double verticalOffset = 24;
 const double pageOffset = 20;
 var weatherStationController;
 double clipSize = 0;
+bool isInit = true;
+bool isLoading = true;
 
 class WeatherStationPage extends StatefulWidget {
   @override
@@ -21,11 +24,31 @@ class WeatherStationPage extends StatefulWidget {
 }
 
 class _WeatherStationPage extends State<WeatherStationPage> {
+  @override
+  void didChangeDependencies() {
+    if (isInit) {
+      isInit = false;
+
+      weatherStationController = Provider.of<WeatherStationController>(
+        context,
+        listen: false,
+      );
+
+      weatherStationController.getWeatherStationDataByTime(7).then((_) {
+        setState(() {
+          isLoading = false;
+        });
+      });
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    weatherStationController =
-        Provider.of<WeatherStationController>(context);
+    weatherStationController = Provider.of<WeatherStationController>(
+      context,
+      listen: false,
+    );
     weatherStationController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
@@ -33,7 +56,6 @@ class _WeatherStationPage extends State<WeatherStationPage> {
       child: SingleSensorViewTemplate(
         scrollController: weatherStationController.scrollController,
         clipSize: clipSize,
-        sensorController: weatherStationController,
         sensorName: "Weather Station",
         sensorNumber: "01",
         sliverlist: SliverList(
@@ -44,69 +66,77 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DataPresenter(
-                      width: MediaQuery.of(context).size.width,
-                      height: (MediaQuery.of(context).size.height - 250) / 4,
-                      title: "Temperature",
-                      image: const AssetImage("assets/images/sun.PNG"),
-                      data: weatherStationController.data == null
-                          ? '0'
-                          : weatherStationController.temperature.toString(),
-                      unit: "°C",
-                    ),
+                    isLoading
+                        ? LoadingDataPresenter()
+                        : DataPresenter(
+                            width: MediaQuery.of(context).size.width,
+                            height:
+                                (MediaQuery.of(context).size.height - 250) / 4,
+                            title: "Temperature",
+                            visualization: Image(
+                              image: AssetImage("assets/images/sun.png"),
+                              height: 200,
+                            ),
+                            data: weatherStationController.data == null
+                                ? Text(
+                                    '0 °C',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 56,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                : Text(
+                                    weatherStationController.temperature
+                                            .toString() +
+                                        " " +
+                                        "°C",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 56,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                          ),
                     SizedBox(height: verticalOffset),
-                    DataPresenter(
-                      width: MediaQuery.of(context).size.width,
-                      height: (MediaQuery.of(context).size.height - 250) / 4,
-                      title: "Precipitation",
-                      image: const AssetImage("assets/images/cloud.PNG"),
-                      data: weatherStationController.data == null
-                          ? '0'
-                          : weatherStationController.rainrate.toString(),
-                      unit: "mm",
-                    ),
+                    isLoading
+                        ? LoadingDataPresenter()
+                        : DataPresenter(
+                            width: MediaQuery.of(context).size.width,
+                            height:
+                                (MediaQuery.of(context).size.height - 250) / 4,
+                            title: "Precipitation",
+                            visualization: Image(
+                              image: AssetImage("assets/images/cloud.png"),
+                              height: 200,
+                            ),
+                            data: weatherStationController.data == null
+                                ? Text(
+                                    '0 mm',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 56,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                : Text(
+                                    weatherStationController.rainrate
+                                            .toString() +
+                                        " " +
+                                        "mm",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 56,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                          ),
                     SizedBox(height: verticalOffset),
-                    Center(
-                      child: Text(
-                        "Weekly report",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        DataPresenter(
-                          //TODO
-                          width: (MediaQuery.of(context).size.width - 68) / 2,
-                          height:
-                              (MediaQuery.of(context).size.height - 250) / 4,
-                          title: "Hottest Day",
-                          image: const AssetImage("assets/images/sun.PNG"),
-                          data: weatherStationController.data == null
-                              ? '0'
-                              : weatherStationController.maxTemperature
-                                  .toString(),
-                          unit: "°C",
-                        ),
-                        SizedBox(width: horizontalOffset),
-                        DataPresenter(
-                          //TODO
-                          width: (MediaQuery.of(context).size.width - 68) / 2,
-                          height:
-                              (MediaQuery.of(context).size.height - 250) / 4,
-                          title: "Coldest Day",
-                          image: const AssetImage("assets/images/snow.PNG"),
-                          data: weatherStationController.data == null
-                              ? '0'
-                              : weatherStationController.minTemperature
-                                  .toString(),
-                          unit: "°C",
-                        ),
-                      ],
-                    ),
+                    isLoading
+                        ? LoadingDataPresenter()
+                        : WeeklyBarChart(
+                            temperatureDayData:
+                                weatherStationController.getWeeklyReport(),
+                            height:
+                                (MediaQuery.of(context).size.height - 250) / 3,
+                            width: (MediaQuery.of(context).size.width),
+                          )
                   ],
                 ),
               ),
@@ -125,7 +155,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
 
   void _scrollListener() {
     setState(() {
-      clipSize = ( weatherStationController.scrollController.offset / 2);
+      clipSize = (weatherStationController.scrollController.offset / 2);
     });
   }
 }

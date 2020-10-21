@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -9,12 +8,14 @@ import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
 class RaisedGardenController extends ChangeNotifier {
   RaisedGardenRepository _repository;
-  final Logger _logger = GetIt.I.get<LoggingService>().getLogger((RaisedGardenController).toString());
-  ScrollController  _scrollController = ScrollController();
+  final Logger _logger = GetIt.I
+      .get<LoggingService>()
+      .getLogger((RaisedGardenController).toString());
+  ScrollController _scrollController = ScrollController();
   List<RaisedGardenData> _data;
 
-
-  RaisedGardenController({RaisedGardenRepository repository}) : _repository = repository;
+  RaisedGardenController({RaisedGardenRepository repository})
+      : _repository = repository;
 
   Future<void> getRaisedGardennData() async {
     _data = await _repository.get(id: Sensors.raisedGarden);
@@ -44,5 +45,4 @@ class RaisedGardenController extends ChangeNotifier {
   int get humidity => _data.first.humidity;
 
   DateTime get timestamp => _data.first.timestamp;
-
 }

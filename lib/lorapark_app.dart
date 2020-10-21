@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:lorapark_app/services/services.dart';
 import 'package:lorapark_app/utils/utils.dart'
     show DisableScrollGlow, hideKeyboardOnTap;
-import 'controller/weather_station_controller/weather_station_controller.dart';
+import 'controller/sensor_controller/weather_station_controller.dart';
 import 'data/repositories/sensor_repository/weather_station.dart';
 
 class LoRaParkApp extends StatefulWidget {
