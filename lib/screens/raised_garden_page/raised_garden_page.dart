@@ -21,7 +21,6 @@ class RaisedGardenPage extends StatefulWidget {
 }
 
 class _RaisedGardenPage extends State<RaisedGardenPage> {
-
   @override
   void didChangeDependencies() {
     if (isInit) {
@@ -40,7 +39,6 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
     }
     super.didChangeDependencies();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,56 +65,65 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
                     children: [
                       isLoading
                           ? LoadingDataPresenter()
-                          :DataPresenter(
-                        width: MediaQuery.of(context).size.width,
-                        height: (MediaQuery.of(context).size.height - 250) / 3,
-                        title: "Water tank state",
-                        visualization: Image(
-                            image: AssetImage("assets/images/water_level.png"),
-                        height: 200,),
-                        data: raisedGardenController.data == null
-                            ? Text(
-                                'no data',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 56),
-                              )
-                            : Text(
-                                (raisedGardenController.watertankEmpty
-                                    ? 'Empty'
-                                    : 'Full'),
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 56,),
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.height - 250) /
+                                      4,
+                              title: "Water tank state",
+                              visualization: Image(
+                                image:
+                                    AssetImage("assets/images/water_level.png"),
+                                height: 200,
+                                width: 200,
                               ),
-                      ),
+                              data: raisedGardenController.data == null
+                                  ? Text(
+                                      'no data',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 12),
+                                    )
+                                  : Text(
+                                      (raisedGardenController.watertankEmpty
+                                          ? 'Empty'
+                                          : 'Full'),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                            ),
                       SizedBox(height: verticalOffset),
                       isLoading
                           ? LoadingDataPresenter()
-                          :DataPresenter(
-                        width: MediaQuery.of(context).size.width,
-                        height: (MediaQuery.of(context).size.height - 250) / 3,
-                        title: "Ground Humidity",
-                        visualization:
-                            Image(image: AssetImage("assets/images/vwc.png"),
-                            height: 200,),
-                        data: raisedGardenController.data == null
-                            ? Text(
-                                '0 %',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 56),
-                              )
-                            : Text(
-                                raisedGardenController.humidity.toString() +
-                                    " " +
-                                    "%",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 56,
-                                    fontWeight: FontWeight.w600),
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.height - 250) /
+                                      4,
+                              title: "Ground Humidity",
+                              visualization: Image(
+                                image: AssetImage("assets/images/vwc.png"),
+                                height: 200,
+                                width: 200,
                               ),
-                      ),
+                              data: raisedGardenController.data == null
+                                  ? Text(
+                                      '0 %',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 12),
+                                    )
+                                  : Text(
+                                      raisedGardenController.humidity
+                                              .toString() +
+                                          " " +
+                                          "%",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                            ),
                       SizedBox(height: verticalOffset),
                     ]),
               ),

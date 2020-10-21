@@ -76,13 +76,14 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                             visualization: Image(
                               image: AssetImage("assets/images/sun.png"),
                               height: 200,
+                              width: 200,
                             ),
                             data: weatherStationController.data == null
                                 ? Text(
                                     '0 °C',
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 56,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600),
                                   )
                                 : Text(
@@ -92,7 +93,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                                         "°C",
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 56,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600),
                                   ),
                           ),
@@ -107,13 +108,14 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                             visualization: Image(
                               image: AssetImage("assets/images/cloud.png"),
                               height: 200,
+                              width: 200,
                             ),
                             data: weatherStationController.data == null
                                 ? Text(
                                     '0 mm',
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 56,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600),
                                   )
                                 : Text(
@@ -123,7 +125,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                                         "mm",
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 56,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600),
                                   ),
                           ),

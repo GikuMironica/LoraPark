@@ -71,18 +71,19 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                               width: MediaQuery.of(context).size.width,
                               height:
                                   (MediaQuery.of(context).size.height - 250) /
-                                      3,
+                                      4,
                               title: "Volumetric Water Content",
                               visualization: Image(
                                 image: AssetImage("assets/images/vwc.png"),
                                 height: 200,
+                                width: 200,
                               ),
                               data: groundHumidityController.data == null
                                   ? Text(
                                       '0 %',
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 56,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w600),
                                     )
                                   : Text(
@@ -91,7 +92,7 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                                           "%",
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 56,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w600),
                                     ),
                             ),
@@ -102,18 +103,19 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                               width: MediaQuery.of(context).size.width,
                               height:
                                   (MediaQuery.of(context).size.height - 250) /
-                                      3,
+                                      4,
                               title: "Ground Temperature",
                               visualization: Image(
                                 image: AssetImage("assets/images/temp.png"),
                                 height: 200,
+                                width: 200,
                               ),
                               data: groundHumidityController.data == null
                                   ? Text(
                                       '0 °C',
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 56,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w600),
                                     )
                                   : Text(
@@ -123,7 +125,7 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                                           "°C",
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 56,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w600),
                                     ),
                             ),
