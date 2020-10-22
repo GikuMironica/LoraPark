@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/weather_station_controller.dart';
@@ -70,8 +69,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                         ? LoadingDataPresenter()
                         : DataPresenter(
                             width: MediaQuery.of(context).size.width,
-                            height:
-                                (MediaQuery.of(context).size.height - 250) / 4,
+                            height: (MediaQuery.of(context).size.width) * 0.30,
                             title: "Temperature",
                             visualization: Image(
                               image: AssetImage("assets/images/sun.png"),
@@ -102,8 +100,7 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                         ? LoadingDataPresenter()
                         : DataPresenter(
                             width: MediaQuery.of(context).size.width,
-                            height:
-                                (MediaQuery.of(context).size.height - 250) / 4,
+                            height: (MediaQuery.of(context).size.width) * 0.30,
                             title: "Precipitation",
                             visualization: Image(
                               image: AssetImage("assets/images/cloud.png"),
@@ -135,19 +132,18 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                         : WeeklyBarChart(
                             temperatureDayData:
                                 weatherStationController.getWeeklyReport(),
-                            height:
-                                (MediaQuery.of(context).size.height - 250) / 3,
+                            height: (MediaQuery.of(context).size.width) * 0.7,
                             width: (MediaQuery.of(context).size.width),
-                          )
+                          ),
+                    SizedBox(height: pageOffset),
+                    SensorDescription(
+                      text:
+                          'Diese Station ist eine Kombination aus verschiedenen Sensoren. Gemessen werden Temperatur, Luftfeuchtigkeit, Luftdruck, Regen-menge, Kondensationspunkt, Windgeschwindigkeit und -richtung, Sonneneinstrahlung und Anzahl von Partikeln verschiedener Größein der Luft (Feinstaub). Die Wetterstation wird autark mittels Solar-modul betrieben. Die gemessenen Ergebnisse werden periodisch über das lokale LORAWAN Netz an unser Backend gesendet, welches die Datenzur Anzeige verarbeitet. Dieser Sensor ist Teil des LoRaParks am Weinhof. Daten und Visualisierung auf demdortigen Display oder unter lorapark.de. Die Sensordaten werden der Öffentlichkeitebenfalls auf der Ulmer Datenplattform unter CC-0-Lizenz frei verfügbar gemacht.',
+                      image: AssetImage("assets/images/weather_station.jpg"),
+                    )
                   ],
                 ),
               ),
-              SizedBox(height: pageOffset),
-              SensorDescription(
-                text:
-                    'Diese Station ist eine Kombination aus verschiedenen Sensoren. Gemessen werden Temperatur, Luftfeuchtigkeit, Luftdruck, Regen-menge, Kondensationspunkt, Windgeschwindigkeit und -richtung, Sonneneinstrahlung und Anzahl von Partikeln verschiedener Größein der Luft (Feinstaub). Die Wetterstation wird autark mittels Solar-modul betrieben. Die gemessenen Ergebnisse werden periodisch über das lokale LORAWAN Netz an unser Backend gesendet, welches die Datenzur Anzeige verarbeitet. Dieser Sensor ist Teil des LoRaParks am Weinhof. Daten und Visualisierung auf demdortigen Display oder unter lorapark.de. Die Sensordaten werden der Öffentlichkeitebenfalls auf der Ulmer Datenplattform unter CC-0-Lizenz frei verfügbar gemacht.',
-                image: AssetImage("assets/images/weather_station.jpg"),
-              )
             ],
           ),
         ),

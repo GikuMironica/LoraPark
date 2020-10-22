@@ -54,8 +54,6 @@ class WeeklyAirQualityBarChart extends StatelessWidget {
                             margin: 10,
                             getTitles: (double value) {
                               switch (value.toInt()) {
-                                // case 6:
-                                //   return airQualityDayData[6].dateTime;
                                 case 5:
                                   return airQualityDayData[5].dateTime;
                                 case 4:
@@ -99,7 +97,7 @@ class WeeklyAirQualityBarChart extends StatelessWidget {
                 ),
               ),
             ),
-            Column(children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               ChartLegend(
                 color: dark,
                 text: "NO2 Concentration",
@@ -124,24 +122,6 @@ class WeeklyAirQualityBarChart extends StatelessWidget {
 
   List<BarChartGroupData> getData() {
     return [
-      // BarChartGroupData(
-      //   x: 6,
-      //   barsSpace: 0,
-      //   barRods: [
-      //     BarChartRodData(
-      //         y: airQualityDayData[6].noconcentration,
-      //         colors: [light],
-      //         borderRadius: const BorderRadius.all(Radius.zero)),
-      //     BarChartRodData(
-      //         y: airQualityDayData[6].no2concentration,
-      //         colors: [dark],
-      //         borderRadius: const BorderRadius.all(Radius.zero)),
-      //     BarChartRodData(
-      //         y: airQualityDayData[6].coconcentration,
-      //         colors: [normal],
-      //         borderRadius: const BorderRadius.all(Radius.zero)),
-      //   ],
-      // ),
       BarChartGroupData(
         x: 5,
         barsSpace: 0,

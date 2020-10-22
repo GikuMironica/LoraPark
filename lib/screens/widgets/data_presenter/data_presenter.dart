@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/themes/lorapark_theme.dart';
 
 class DataPresenter extends StatelessWidget {
   final double width;
@@ -29,12 +30,7 @@ class DataPresenter extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
         boxShadow: [
-          BoxShadow(
-            color: Color(0xff657582).withOpacity(0.17),
-            blurRadius: 20,
-            spreadRadius: 2,
-            offset: Offset(5, 5),
-          ),
+          LoraParkTheme.boxShadow,
         ],
       ),
       child: IntrinsicHeight(

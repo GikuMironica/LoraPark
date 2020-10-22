@@ -20,96 +20,91 @@ class WeeklyBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: DataPresenter(
-        width: width,
-        height: height,
-        title: "Weekly Report",
-        data: Row(
-          children: [
-            Container(
-              height: height,
-              width: width,
-              child: AspectRatio(
-                aspectRatio: 1.66,
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: BarChart(
-                      BarChartData(
-                        alignment: BarChartAlignment.center,
-                        barTouchData: BarTouchData(
-                          enabled: true,
-                        ),
-                        titlesData: FlTitlesData(
-                          show: true,
-                          bottomTitles: SideTitles(
-                            showTitles: true,
-                            rotateAngle: 25,
-                            getTextStyles: (value) => const TextStyle(
-                                color: Colors.black, fontSize: 12),
-                            margin: 10,
-                            getTitles: (double value) {
-                              switch (value.toInt()) {
-                                case 6:
-                                  return temperatureDayData[6].dateTime;
-                                case 5:
-                                  return temperatureDayData[5].dateTime;
-                                case 4:
-                                  return temperatureDayData[4].dateTime;
-                                case 3:
-                                  return temperatureDayData[3].dateTime;
-                                case 2:
-                                  return temperatureDayData[2].dateTime;
-                                case 1:
-                                  return "Yesterday";
-                                case 0:
-                                  return "Today";
-                                default:
-                                  return '';
-                              }
-                            },
-                          ),
-                          leftTitles: SideTitles(
-                            showTitles: true,
-                            getTextStyles: (value) => const TextStyle(
-                                color: Colors.black, fontSize: 12),
-                            margin: 0,
-                          ),
-                        ),
-                        gridData: FlGridData(
-                          show: true,
-                          checkToShowHorizontalLine: (value) => value % 1 == 0,
-                          getDrawingHorizontalLine: (value) => FlLine(
-                            color: const Color(0xffe7e8ec),
-                            strokeWidth: 1,
-                          ),
-                        ),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        groupsSpace: 20,
-                        barGroups: getData(),
+    return DataPresenter(
+      width: width,
+      height: height,
+      title: "Weekly Report",
+      data: Row(
+        children: [
+          Container(
+            height: height,
+            width: width,
+            child: AspectRatio(
+              aspectRatio: 1.66,
+              child: Container(
+                child: BarChart(
+                  BarChartData(
+                    alignment: BarChartAlignment.center,
+                    barTouchData: BarTouchData(
+                      enabled: true,
+                    ),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      bottomTitles: SideTitles(
+                        showTitles: true,
+                        rotateAngle: 25,
+                        getTextStyles: (value) =>
+                            const TextStyle(color: Colors.black, fontSize: 12),
+                        margin: 10,
+                        getTitles: (double value) {
+                          switch (value.toInt()) {
+                            case 6:
+                              return temperatureDayData[6].dateTime;
+                            case 5:
+                              return temperatureDayData[5].dateTime;
+                            case 4:
+                              return temperatureDayData[4].dateTime;
+                            case 3:
+                              return temperatureDayData[3].dateTime;
+                            case 2:
+                              return temperatureDayData[2].dateTime;
+                            case 1:
+                              return "Yesterday";
+                            case 0:
+                              return "Today";
+                            default:
+                              return '';
+                          }
+                        },
+                      ),
+                      leftTitles: SideTitles(
+                        showTitles: true,
+                        getTextStyles: (value) =>
+                            const TextStyle(color: Colors.black, fontSize: 12),
+                        margin: 0,
                       ),
                     ),
+                    gridData: FlGridData(
+                      show: true,
+                      checkToShowHorizontalLine: (value) => value % 1 == 0,
+                      getDrawingHorizontalLine: (value) => FlLine(
+                        color: const Color(0xffe7e8ec),
+                        strokeWidth: 1,
+                      ),
+                    ),
+                    borderData: FlBorderData(
+                      show: false,
+                    ),
+                    groupsSpace: 20,
+                    barGroups: getData(),
                   ),
                 ),
               ),
             ),
-            Column(children: [
-              ChartLegend(
-                color: dark,
-                text: "Night",
-                isSquare: false,
-              ),
-              ChartLegend(
-                color: light,
-                text: "Day",
-                isSquare: false,
-              ),
-            ])
-          ],
-        ),
+          ),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            ChartLegend(
+              color: dark,
+              text: "Night",
+              isSquare: false,
+            ),
+            ChartLegend(
+              color: light,
+              text: "Day",
+              isSquare: false,
+            ),
+          ])
+        ],
       ),
     );
   }

@@ -68,8 +68,7 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height:
-                                  (MediaQuery.of(context).size.height - 250) /
-                                      4,
+                                  (MediaQuery.of(context).size.width) * 0.30,
                               title: "Water tank state",
                               visualization: Image(
                                 image:
@@ -99,8 +98,7 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height:
-                                  (MediaQuery.of(context).size.height - 250) /
-                                      4,
+                                  (MediaQuery.of(context).size.width) * 0.30,
                               title: "Ground Humidity",
                               visualization: Image(
                                 image: AssetImage("assets/images/vwc.png"),
@@ -124,15 +122,14 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
                                           fontWeight: FontWeight.w600),
                                     ),
                             ),
-                      SizedBox(height: verticalOffset),
+                      SizedBox(height: pageOffset),
+                      SensorDescription(
+                        text:
+                            "Das autarke Hochbeet bewässert sich je nach Feuchtigkeit der Erdeim Beet selbständig und automatisch über einen integrierten Wasser-tank. Die Messung der Bodenfeuchtigkeit wird über Tensiometergeregelt, die - ähnlich wie Pflanzen selbst - über die Saugspannungden Wassergehalt im Boden bestimmen. Ist der Feuchtigkeitswertzu gering, wird die Bewässerung ausgelöst. Für die Überwachung des Beets, vor allem des Wasserstands im Tank sowie der Bodenfeuchtigkeit, werden regelmäßig Sensordatenvia LORAWAN versendet, so können zum Beispiel gemeinschaftlicheUrban Gardening-Projekte erleichtert werden.",
+                        image: AssetImage("assets/images/raised_garden.jpg"),
+                      )
                     ]),
               ),
-              SizedBox(height: pageOffset),
-              SensorDescription(
-                text:
-                    "Das autarke Hochbeet bewässert sich je nach Feuchtigkeit der Erdeim Beet selbständig und automatisch über einen integrierten Wasser-tank. Die Messung der Bodenfeuchtigkeit wird über Tensiometergeregelt, die - ähnlich wie Pflanzen selbst - über die Saugspannungden Wassergehalt im Boden bestimmen. Ist der Feuchtigkeitswertzu gering, wird die Bewässerung ausgelöst. Für die Überwachung des Beets, vor allem des Wasserstands im Tank sowie der Bodenfeuchtigkeit, werden regelmäßig Sensordatenvia LORAWAN versendet, so können zum Beispiel gemeinschaftlicheUrban Gardening-Projekte erleichtert werden.",
-                image: AssetImage("assets/images/raised_garden.jpg"),
-              )
             ],
           ),
         ),

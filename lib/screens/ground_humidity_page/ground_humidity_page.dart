@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/ground_humidity_controller.dart';
-import 'package:lorapark_app/screens/widgets/charts/weather_station_weekly_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
@@ -70,8 +69,7 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height:
-                                  (MediaQuery.of(context).size.height - 250) /
-                                      4,
+                                  (MediaQuery.of(context).size.width) * 0.30,
                               title: "Volumetric Water Content",
                               visualization: Image(
                                 image: AssetImage("assets/images/vwc.png"),
@@ -102,8 +100,7 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height:
-                                  (MediaQuery.of(context).size.height - 250) /
-                                      4,
+                                  (MediaQuery.of(context).size.width) * 0.30,
                               title: "Ground Temperature",
                               visualization: Image(
                                 image: AssetImage("assets/images/temp.png"),
@@ -129,14 +126,14 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                                           fontWeight: FontWeight.w600),
                                     ),
                             ),
+                      SizedBox(height: pageOffset),
+                      SensorDescription(
+                        text:
+                            "Dieser Sensor befindet sich im Boden in circa 50 cm Tiefe. Dort misstder Sensor die elektrische Leitfähigkeit, den Volumenwassergehalt, dieTemperatur und den Grad der Wassersättigung im Boden. Über einKabel ist der Sensor mit dem oberhalb der Bodenoberfläche befindli-chen Sendemodul verbunden. Auf diese Weise kann eine gezielte undsparsame Bewässerung erfolgen. Die Messdaten werden periodisch über das lokale LORAWAN Netzan unser Backend gesendet. Diese Daten werden dort zur Anzeigeverarbeitet.",
+                        image: AssetImage("assets/images/ground_humidity.jpg"),
+                      )
                     ]),
               ),
-              SizedBox(height: pageOffset),
-              SensorDescription(
-                text:
-                    "Dieser Sensor befindet sich im Boden in circa 50 cm Tiefe. Dort misstder Sensor die elektrische Leitfähigkeit, den Volumenwassergehalt, dieTemperatur und den Grad der Wassersättigung im Boden. Über einKabel ist der Sensor mit dem oberhalb der Bodenoberfläche befindli-chen Sendemodul verbunden. Auf diese Weise kann eine gezielte undsparsame Bewässerung erfolgen. Die Messdaten werden periodisch über das lokale LORAWAN Netzan unser Backend gesendet. Diese Daten werden dort zur Anzeigeverarbeitet.",
-                image: AssetImage("assets/images/ground_humidity.jpg"),
-              )
             ],
           ),
         ),
