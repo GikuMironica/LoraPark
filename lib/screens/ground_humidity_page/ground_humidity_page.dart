@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lorapark_app/controller/ground_humidity_controller/ground_humidity_controller.dart';
+import 'package:lorapark_app/controller/sensor_controller/ground_humidity_controller.dart';
 import 'package:lorapark_app/screens/widgets/charts/weather_station_weekly_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
