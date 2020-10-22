@@ -50,7 +50,7 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
       context,
       listen: false,
     );
-    structureDamageController.addListener(_scrollListener);
+    structureDamageController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
       onRefresh: () =>
@@ -70,8 +70,7 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
                       ? LoadingDataPresenter()
                       : DataPresenter(
                           width: MediaQuery.of(context).size.width,
-                          height:
-                              (MediaQuery.of(context).size.height - 250) / 3,
+                          height: MediaQuery.of(context).size.width * 0.3,
                           title: 'Current Distance',
                           visualization: Image(
                             image: AssetImage('assets/images/broken-house.png'),
@@ -94,8 +93,7 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
                       ? LoadingDataPresenter()
                       : DataPresenter(
                           width: MediaQuery.of(context).size.width,
-                          height:
-                              (MediaQuery.of(context).size.height - 250) / 3,
+                          height: MediaQuery.of(context).size.width * 0.3,
                           title: 'Change in the last 10 days',
                           visualization: Image(
                             image: AssetImage('assets/images/resize.png'),
@@ -124,7 +122,7 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
                   ),
                 ],
               ),
-            )
+            ),
           ]),
         ),
       ),
@@ -132,13 +130,13 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
   }
 
   void _scrollListener() {
-    var wasteLevelController = Provider.of<StructureDamageController>(
+    var structureDamageController = Provider.of<StructureDamageController>(
       context,
       listen: false,
     );
 
     setState(() {
-      clipSize = (wasteLevelController.scrollController.offset / 2);
+      clipSize = (structureDamageController.scrollController.offset / 2);
     });
   }
 }

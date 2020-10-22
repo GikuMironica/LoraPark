@@ -71,29 +71,22 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Consumer<WasteLevelController>(
-                      builder: (context, controller, _) => isLoading
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
+                    isLoading
+                        ? LoadingDataPresenter()
+                        : Consumer<WasteLevelController>(
+                            builder: (context, controller, _) => DataPresenter(
                               width: MediaQuery.of(context).size.width,
-                              height:
-                                  (MediaQuery.of(context).size.height - 250) /
-                                      3,
+                              height: MediaQuery.of(context).size.width * 0.3,
                               title: 'Current State',
                               visualization: Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: controller.data == null
                                       ? Colors.green
-                                      : Color.fromARGB(
-                                          255,
-                                          min(
-                                            (255 / controller.fillRatio - 255)
-                                                .round(),
-                                            255,
-                                          ),
-                                          (255 * controller.fillRatio).round(),
-                                          0,
+                                      : Color.lerp(
+                                          Colors.green,
+                                          Colors.red,
+                                          controller.fillRatio,
                                         ),
                                 ),
                                 width: 15,
@@ -110,7 +103,7 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                                 ),
                               ),
                             ),
-                    ),
+                          ),
                     SizedBox(
                       height: 24,
                     ),
@@ -118,8 +111,7 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                         ? LoadingDataPresenter()
                         : DataPresenter(
                             width: MediaQuery.of(context).size.width,
-                            height:
-                                (MediaQuery.of(context).size.height - 250) / 2,
+                            height: MediaQuery.of(context).size.width * 0.5,
                             title: 'Last 7 days',
                             data: Consumer<WasteLevelController>(
                               builder: (context, controller, _) =>
@@ -147,17 +139,17 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                               ),
                             ),
                           ),
+                    SizedBox(height: 20),
+                    SensorDescription(
+                      text:
+                          'Mit diesem Sensor kann über eine Ultra­schall­abstands­messung der Füllgrad eines Behälters bestimmt werden. Sollte der Behälter voll sein, kann automatisch eine Abholung ausgelöst werden. Dies bietet nicht nur den Vorteil, dass es zu keiner Vermüllung in der Stadt kommt, sondern es können auch unnötige Leerungen eingespart werden und die Route bei der Abholung entsprechend an den tatsächlichen Bedarf angepasst werden.',
+                      image: AssetImage(
+                        'assets/images/container.jpg',
+                      ),
+                    )
                   ],
                 ),
               ),
-              SizedBox(height: 20),
-              SensorDescription(
-                text:
-                    'Mit diesem Sensor kann über eine Ultra­schall­abstands­messung der Füllgrad eines Behälters bestimmt werden. Sollte der Behälter voll sein, kann automatisch eine Abholung ausgelöst werden. Dies bietet nicht nur den Vorteil, dass es zu keiner Vermüllung in der Stadt kommt, sondern es können auch unnötige Leerungen eingespart werden und die Route bei der Abholung entsprechend an den tatsächlichen Bedarf angepasst werden.',
-                image: AssetImage(
-                  'assets/images/container.jpg',
-                ),
-              )
             ],
           ),
         ),

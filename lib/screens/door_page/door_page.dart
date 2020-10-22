@@ -71,8 +71,7 @@ class _DoorPageState extends State<DoorPage> {
                       ? LoadingDataPresenter()
                       : DataPresenter(
                           width: MediaQuery.of(context).size.width,
-                          height:
-                              (MediaQuery.of(context).size.height - 250) / 3,
+                          height: MediaQuery.of(context).size.width * 0.3,
                           title: 'Door Openings Today',
                           visualization: Icon(
                             Icons.sensor_door_outlined,
@@ -97,8 +96,7 @@ class _DoorPageState extends State<DoorPage> {
                       ? LoadingDataPresenter()
                       : DataPresenter(
                           width: MediaQuery.of(context).size.width,
-                          height:
-                              (MediaQuery.of(context).size.height - 250) / 3,
+                          height: MediaQuery.of(context).size.width * 0.3,
                           title: 'Last Opened',
                           visualization: Icon(
                             Icons.access_time_rounded,
@@ -121,7 +119,7 @@ class _DoorPageState extends State<DoorPage> {
                       ? LoadingDataPresenter()
                       : DataPresenter(
                           width: MediaQuery.of(context).size.width,
-                          height: (MediaQuery.of(context).size.height - 250),
+                          height: MediaQuery.of(context).size.width * 0.95,
                           title: 'Last 8 Days',
                           data: Consumer<DoorController>(
                             builder: (_, __, ___) => DoorChart(),
