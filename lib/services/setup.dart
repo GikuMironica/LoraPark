@@ -9,11 +9,12 @@ import 'services.dart';
 final getIt = GetIt.instance;
 
 void servicesSetup({bool isProductionEnv}) {
-  getIt.registerSingleton<LoggingService>(LoggingService(enableColors: LOG_COLORS));
+  getIt.registerSingleton<LoggingService>(
+      LoggingService(enableColors: LOG_COLORS));
   getIt.registerSingleton<DioService>(DioService());
   getIt.registerSingleton<SecureService>(SecureService());
   getIt.registerSingleton<AuthService>(AuthServiceImpl());
-  if(isProductionEnv) {
+  if (isProductionEnv) {
     getIt.registerSingleton<AirQualityRepository>(AirQualityRepositoryImpl());
     getIt.registerSingleton<CO2Repository>(CO2RepositoryImpl());
     getIt.registerSingleton<DoorRepository>(DoorRepositoryImpl());
@@ -35,5 +36,6 @@ void servicesSetup({bool isProductionEnv}) {
     getIt.registerSingleton<WasteLevelRepository>(WasteLevelRepositoryImpl());
     getIt.registerSingleton<WeatherStationRepository>(
         WeatherStationRepositoryImpl());
+    getIt.registerSingleton<EnergyDataRepository>(EnergyDataRepositoryImpl());
   }
 }
