@@ -22,8 +22,10 @@ void servicesSetup({bool isProductionEnv}) {
     getIt.registerSingleton<FloodDataRepository>(FloodDataRepositoryImpl());
     getIt.registerSingleton<GroundHumidityRepository>(
         GroundHumidityRepositoryImpl());
+    getIt.registerSingleton<ParkingStateRepository>(ParkingStateRepositoryImpl());
     getIt.registerSingleton<ParkingAverageRepository>(
         ParkingAverageRepositoryImpl());
+    getIt.registerSingleton<ParkingEventRepository>(ParkingEventRepositoryImpl());
     getIt.registerSingleton<PersonCountRepository>(PersonCountRepositoryImpl());
     getIt.registerSingleton<RaisedGardenRepository>(
         RaisedGardenRepositoryImpl());
