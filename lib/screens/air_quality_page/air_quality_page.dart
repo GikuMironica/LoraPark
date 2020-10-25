@@ -14,8 +14,6 @@ const double verticalOffset = 24;
 const double pageOffset = 20;
 var airQualityController;
 double clipSize = 0;
-bool isInit = true;
-bool isLoading = true;
 
 class AirQualityPage extends StatefulWidget {
   @override
@@ -23,25 +21,6 @@ class AirQualityPage extends StatefulWidget {
 }
 
 class _AirQualityPage extends State<AirQualityPage> {
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      isInit = false;
-
-      airQualityController = Provider.of<AirQualityController>(
-        context,
-        listen: false,
-      );
-
-      airQualityController.getAirQualityDataByTime(7).then((_) {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     airQualityController = Provider.of<AirQualityController>(
@@ -62,112 +41,93 @@ class _AirQualityPage extends State<AirQualityPage> {
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: (MediaQuery.of(context).size.width) * 0.30,
-                            title: "NO2 Concentration",
-                            visualization: Image(
-                              image: AssetImage("assets/images/polution.png"),
-                              height: 200,
-                              width: 200,
+                child: Consumer<AirQualityController>(
+                  builder: (context, controller, _) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      airQualityController.data == null
+                          ? LoadingDataPresenter()
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.width) * 0.30,
+                              title: "NO2 Concentration",
+                              visualization: Image(
+                                image: AssetImage("assets/images/polution.png"),
+                                height: 200,
+                                width: 200,
+                              ),
+                              data: Text(
+                                airQualityController.no2Concentration
+                                        .toString() +
+                                    " " +
+                                    "ppm",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
-                            data: airQualityController.data == null
-                                ? Text(
-                                    '0 ppm',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                : Text(
-                                    airQualityController.no2Concentration
-                                            .toString() +
-                                        " " +
-                                        "ppm",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                          ),
-                    SizedBox(height: verticalOffset),
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: (MediaQuery.of(context).size.width) * 0.30,
-                            title: "NO Concentration",
-                            visualization: Image(
-                              image: AssetImage("assets/images/polution.png"),
-                              height: 200,
-                              width: 200,
+                      SizedBox(height: verticalOffset),
+                      airQualityController.data == null
+                          ? LoadingDataPresenter()
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.width) * 0.30,
+                              title: "NO Concentration",
+                              visualization: Image(
+                                image: AssetImage("assets/images/polution.png"),
+                                height: 200,
+                                width: 200,
+                              ),
+                              data: Text(
+                                airQualityController.noConcentration
+                                        .toString() +
+                                    " " +
+                                    "ppm",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
-                            data: airQualityController.data == null
-                                ? Text(
-                                    '0 ppm',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                : Text(
-                                    airQualityController.noConcentration
-                                            .toString() +
-                                        " " +
-                                        "ppm",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                          ),
-                    SizedBox(height: verticalOffset),
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: (MediaQuery.of(context).size.width) * 0.30,
-                            title: "CO Concentration",
-                            visualization: Image(
-                              image: AssetImage("assets/images/polution.png"),
-                              height: 200,
-                              width: 200,
+                      SizedBox(height: verticalOffset),
+                      airQualityController.data == null
+                          ? LoadingDataPresenter()
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.width) * 0.30,
+                              title: "CO Concentration",
+                              visualization: Image(
+                                image: AssetImage("assets/images/polution.png"),
+                                height: 200,
+                                width: 200,
+                              ),
+                              data: Text(
+                                airQualityController.coConcentration
+                                        .toString() +
+                                    " " +
+                                    "ppm",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
-                            data: airQualityController.data == null
-                                ? Text(
-                                    '0 ppm',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                : Text(
-                                    airQualityController.coConcentration
-                                            .toString() +
-                                        " " +
-                                        "ppm",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                          ),
-                    SizedBox(height: verticalOffset),
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : WeeklyAirQualityBarChart(
-                            airQualityDayData:
-                                airQualityController.getWeeklyReport(),
-                            height: (MediaQuery.of(context).size.width) * 0.7,
-                            width: (MediaQuery.of(context).size.width),
-                          ),
-                    SizedBox(height: pageOffset),
-                  ],
+                      SizedBox(height: verticalOffset),
+                      airQualityController.data == null
+                          ? LoadingDataPresenter()
+                          : WeeklyAirQualityBarChart(
+                              airQualityDayData:
+                                  airQualityController.getWeeklyReport(),
+                              height: (MediaQuery.of(context).size.width) * 0.7,
+                              width: (MediaQuery.of(context).size.width),
+                            ),
+                      SizedBox(height: pageOffset),
+                    ],
+                  ),
                 ),
               ),
             ],

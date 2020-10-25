@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class LoadingDataPresenter extends StatefulWidget {
+  final double height;
+  final double width;
+
   @override
   _LoadingDataPresenterState createState() => _LoadingDataPresenterState();
+
+  LoadingDataPresenter({this.height, this.width});
 }
 
 class _LoadingDataPresenterState extends State<LoadingDataPresenter>
@@ -51,8 +56,12 @@ class _LoadingDataPresenterState extends State<LoadingDataPresenter>
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: (MediaQuery.of(context).size.height - 250) / 3,
+      width: widget.width ?? MediaQuery.of(context).size.width,
+      height: widget.height == null
+          ? widget.width == null
+              ? MediaQuery.of(context).size.width * 0.3
+              : widget.width * 0.3
+          : widget.height,
       padding: EdgeInsets.all(18),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -82,7 +91,9 @@ class _LoadingDataPresenterState extends State<LoadingDataPresenter>
             Expanded(
               flex: 3,
               child: Container(
-                width: MediaQuery.of(context).size.width / 2,
+                width: widget.width == null
+                    ? MediaQuery.of(context).size.width / 2
+                    : widget.width / 2,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
@@ -95,7 +106,7 @@ class _LoadingDataPresenterState extends State<LoadingDataPresenter>
             Expanded(
               flex: 7,
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: widget.width ?? MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),

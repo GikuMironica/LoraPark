@@ -1,18 +1,12 @@
 import 'dart:core';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:lorapark_app/data/models/sensor_data.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/air_quality.dart';
-
-import 'package:lorapark_app/data/repositories/sensor_repository/weather_station.dart';
-import 'package:lorapark_app/data/models/sensors/weather_station_data.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/screens/widgets/charts/air_quality_day_data.dart';
-import 'package:lorapark_app/screens/widgets/charts/temperature_day_data.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
 import 'package:intl/intl.dart';
 
@@ -24,8 +18,14 @@ class AirQualityController extends ChangeNotifier {
   ScrollController _scrollController = ScrollController();
   List<AirQualityData> _data;
 
-  AirQualityController({AirQualityRepository repository})
-      : _repository = repository;
+  AirQualityController({AirQualityRepository repository}) {
+    _repository = repository;
+    this.Init();
+  }
+
+  void Init() {
+    getAirQualityDataByTime(7);
+  }
 
   Future<void> getActualAirQualityData() async {
     _data = await _repository.get(id: Sensors.airQuality_one);

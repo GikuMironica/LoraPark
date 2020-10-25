@@ -69,6 +69,7 @@ class WeeklyBarChart extends StatelessWidget {
                       ),
                       leftTitles: SideTitles(
                         showTitles: true,
+                        interval: 2,
                         getTextStyles: (value) =>
                             const TextStyle(color: Colors.black, fontSize: 12),
                         margin: 0,

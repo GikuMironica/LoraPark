@@ -14,8 +14,6 @@ const double verticalOffset = 24;
 const double pageOffset = 20;
 var weatherStationController;
 double clipSize = 0;
-bool isInit = true;
-bool isLoading = true;
 
 class WeatherStationPage extends StatefulWidget {
   @override
@@ -23,25 +21,6 @@ class WeatherStationPage extends StatefulWidget {
 }
 
 class _WeatherStationPage extends State<WeatherStationPage> {
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      isInit = false;
-
-      weatherStationController = Provider.of<WeatherStationController>(
-        context,
-        listen: false,
-      );
-
-      weatherStationController.getWeatherStationDataByTime(7).then((_) {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     weatherStationController = Provider.of<WeatherStationController>(
@@ -62,86 +41,74 @@ class _WeatherStationPage extends State<WeatherStationPage> {
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: (MediaQuery.of(context).size.width) * 0.30,
-                            title: "Temperature",
-                            visualization: Image(
-                              image: AssetImage("assets/images/sun.png"),
-                              height: 200,
-                              width: 200,
+                child: Consumer<WeatherStationController>(
+                  builder: (context, controller, _) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      weatherStationController.data == null
+                          ? LoadingDataPresenter()
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.width) * 0.30,
+                              title: "Temperature",
+                              visualization: Image(
+                                image: AssetImage("assets/images/sun.png"),
+                                height: 200,
+                                width: 200,
+                              ),
+                              data: Text(
+                                weatherStationController.temperature
+                                        .toString() +
+                                    " " +
+                                    "°C",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
-                            data: weatherStationController.data == null
-                                ? Text(
-                                    '0 °C',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                : Text(
-                                    weatherStationController.temperature
-                                            .toString() +
-                                        " " +
-                                        "°C",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                          ),
-                    SizedBox(height: verticalOffset),
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: (MediaQuery.of(context).size.width) * 0.30,
-                            title: "Precipitation",
-                            visualization: Image(
-                              image: AssetImage("assets/images/cloud.png"),
-                              height: 200,
-                              width: 200,
+                      SizedBox(height: verticalOffset),
+                      weatherStationController.data == null
+                          ? LoadingDataPresenter()
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.width) * 0.30,
+                              title: "Precipitation",
+                              visualization: Image(
+                                image: AssetImage("assets/images/cloud.png"),
+                                height: 200,
+                                width: 200,
+                              ),
+                              data: Text(
+                                weatherStationController.rainrate.toString() +
+                                    " " +
+                                    "mm",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
-                            data: weatherStationController.data == null
-                                ? Text(
-                                    '0 mm',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  )
-                                : Text(
-                                    weatherStationController.rainrate
-                                            .toString() +
-                                        " " +
-                                        "mm",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                          ),
-                    SizedBox(height: verticalOffset),
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : WeeklyBarChart(
-                            temperatureDayData:
-                                weatherStationController.getWeeklyReport(),
-                            height: (MediaQuery.of(context).size.width) * 0.7,
-                            width: (MediaQuery.of(context).size.width),
-                          ),
-                    SizedBox(height: pageOffset),
-                    SensorDescription(
-                      text:
-                          'Diese Station ist eine Kombination aus verschiedenen Sensoren. Gemessen werden Temperatur, Luftfeuchtigkeit, Luftdruck, Regen-menge, Kondensationspunkt, Windgeschwindigkeit und -richtung, Sonneneinstrahlung und Anzahl von Partikeln verschiedener Größein der Luft (Feinstaub). Die Wetterstation wird autark mittels Solar-modul betrieben. Die gemessenen Ergebnisse werden periodisch über das lokale LORAWAN Netz an unser Backend gesendet, welches die Datenzur Anzeige verarbeitet. Dieser Sensor ist Teil des LoRaParks am Weinhof. Daten und Visualisierung auf demdortigen Display oder unter lorapark.de. Die Sensordaten werden der Öffentlichkeitebenfalls auf der Ulmer Datenplattform unter CC-0-Lizenz frei verfügbar gemacht.',
-                      image: AssetImage("assets/images/weather_station.jpg"),
-                    )
-                  ],
+                      SizedBox(height: verticalOffset),
+                      weatherStationController.data == null
+                          ? LoadingDataPresenter(
+                              height: (MediaQuery.of(context).size.width) * 0.7)
+                          : WeeklyBarChart(
+                              temperatureDayData:
+                                  weatherStationController.getWeeklyReport(),
+                              height: (MediaQuery.of(context).size.width) * 0.7,
+                              width: (MediaQuery.of(context).size.width),
+                            ),
+                      SizedBox(height: pageOffset),
+                      SensorDescription(
+                        text:
+                            'Diese Station ist eine Kombination aus verschiedenen Sensoren. Gemessen werden Temperatur, Luftfeuchtigkeit, Luftdruck, Regen-menge, Kondensationspunkt, Windgeschwindigkeit und -richtung, Sonneneinstrahlung und Anzahl von Partikeln verschiedener Größein der Luft (Feinstaub). Die Wetterstation wird autark mittels Solar-modul betrieben. Die gemessenen Ergebnisse werden periodisch über das lokale LORAWAN Netz an unser Backend gesendet, welches die Datenzur Anzeige verarbeitet. Dieser Sensor ist Teil des LoRaParks am Weinhof. Daten und Visualisierung auf demdortigen Display oder unter lorapark.de. Die Sensordaten werden der Öffentlichkeitebenfalls auf der Ulmer Datenplattform unter CC-0-Lizenz frei verfügbar gemacht.',
+                        image: AssetImage("assets/images/weather_station.jpg"),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

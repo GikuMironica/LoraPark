@@ -13,8 +13,6 @@ const double verticalOffset = 24;
 const double pageOffset = 20;
 var groundHumidityController;
 double clipSize = 0;
-bool isInit = true;
-bool isLoading = true;
 
 class GroundHumidityPage extends StatefulWidget {
   @override
@@ -22,25 +20,6 @@ class GroundHumidityPage extends StatefulWidget {
 }
 
 class _GroundHumidityPage extends State<GroundHumidityPage> {
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      isInit = false;
-
-      groundHumidityController = Provider.of<GrouundHumidityController>(
-        context,
-        listen: false,
-      );
-
-      groundHumidityController.getActualGroundHumidityData().then((_) {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     groundHumidityController = Provider.of<GrouundHumidityController>(
@@ -61,78 +40,65 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      isLoading
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height:
-                                  (MediaQuery.of(context).size.width) * 0.30,
-                              title: "Volumetric Water Content",
-                              visualization: Image(
-                                image: AssetImage("assets/images/vwc.png"),
-                                height: 200,
-                                width: 200,
+                child: Consumer<GrouundHumidityController>(
+                  builder: (context, controller, _) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        groundHumidityController.data == null
+                            ? LoadingDataPresenter()
+                            : DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    (MediaQuery.of(context).size.width) * 0.30,
+                                title: "Volumetric Water Content",
+                                visualization: Image(
+                                  image: AssetImage("assets/images/vwc.png"),
+                                  height: 200,
+                                  width: 200,
+                                ),
+                                data: Text(
+                                  groundHumidityController.vwc.toString() +
+                                      " " +
+                                      "%",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                              data: groundHumidityController.data == null
-                                  ? Text(
-                                      '0 %',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    )
-                                  : Text(
-                                      groundHumidityController.vwc.toString() +
-                                          " " +
-                                          "%",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                            ),
-                      SizedBox(height: verticalOffset),
-                      isLoading
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height:
-                                  (MediaQuery.of(context).size.width) * 0.30,
-                              title: "Ground Temperature",
-                              visualization: Image(
-                                image: AssetImage("assets/images/temp.png"),
-                                height: 200,
-                                width: 200,
+                        SizedBox(height: verticalOffset),
+                        groundHumidityController.data == null
+                            ? LoadingDataPresenter()
+                            : DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    (MediaQuery.of(context).size.width) * 0.30,
+                                title: "Ground Temperature",
+                                visualization: Image(
+                                  image: AssetImage("assets/images/temp.png"),
+                                  height: 200,
+                                  width: 200,
+                                ),
+                                data: Text(
+                                  groundHumidityController.temperature
+                                          .toString() +
+                                      " " +
+                                      "°C",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                              data: groundHumidityController.data == null
-                                  ? Text(
-                                      '0 °C',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    )
-                                  : Text(
-                                      groundHumidityController.temperature
-                                              .toString() +
-                                          " " +
-                                          "°C",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                            ),
-                      SizedBox(height: pageOffset),
-                      SensorDescription(
-                        text:
-                            "Dieser Sensor befindet sich im Boden in circa 50 cm Tiefe. Dort misstder Sensor die elektrische Leitfähigkeit, den Volumenwassergehalt, dieTemperatur und den Grad der Wassersättigung im Boden. Über einKabel ist der Sensor mit dem oberhalb der Bodenoberfläche befindli-chen Sendemodul verbunden. Auf diese Weise kann eine gezielte undsparsame Bewässerung erfolgen. Die Messdaten werden periodisch über das lokale LORAWAN Netzan unser Backend gesendet. Diese Daten werden dort zur Anzeigeverarbeitet.",
-                        image: AssetImage("assets/images/ground_humidity.jpg"),
-                      )
-                    ]),
+                        SizedBox(height: pageOffset),
+                        SensorDescription(
+                          text:
+                              "Dieser Sensor befindet sich im Boden in circa 50 cm Tiefe. Dort misstder Sensor die elektrische Leitfähigkeit, den Volumenwassergehalt, dieTemperatur und den Grad der Wassersättigung im Boden. Über einKabel ist der Sensor mit dem oberhalb der Bodenoberfläche befindli-chen Sendemodul verbunden. Auf diese Weise kann eine gezielte undsparsame Bewässerung erfolgen. Die Messdaten werden periodisch über das lokale LORAWAN Netzan unser Backend gesendet. Diese Daten werden dort zur Anzeigeverarbeitet.",
+                          image:
+                              AssetImage("assets/images/ground_humidity.jpg"),
+                        )
+                      ]),
+                ),
               ),
             ],
           ),

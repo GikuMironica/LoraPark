@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/charts/waste_level_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
@@ -18,35 +15,6 @@ class WasteLevelPage extends StatefulWidget {
 
 class _WasteLevelPageState extends State<WasteLevelPage> {
   double clipSize = 0;
-  bool isInit = true;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-  }
-
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      isInit = false;
-
-      var wasteLevelController = Provider.of<WasteLevelController>(
-        context,
-        listen: false,
-      );
-
-      wasteLevelController.getWasteLevelDataByTime(7).then((_) {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +36,13 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
             [
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : Consumer<WasteLevelController>(
-                            builder: (context, controller, _) => DataPresenter(
+                child: Consumer<WasteLevelController>(
+                  builder: (context, controller, _) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      wasteLevelController.data == null
+                          ? LoadingDataPresenter()
+                          : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.width * 0.3,
                               title: 'Current State',
@@ -93,9 +61,7 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                                 height: 15,
                               ),
                               data: Text(
-                                controller.data == null
-                                    ? '0% full'
-                                    : controller.filling.toString() + '% full',
+                                controller.filling.toString() + '% full',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w700,
@@ -103,19 +69,16 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                                 ),
                               ),
                             ),
-                          ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    isLoading
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width * 0.5,
-                            title: 'Last 7 days',
-                            data: Consumer<WasteLevelController>(
-                              builder: (context, controller, _) =>
-                                  WasteLevelChart(
+                      SizedBox(
+                        height: 24,
+                      ),
+                      wasteLevelController.data == null
+                          ? LoadingDataPresenter(height: MediaQuery.of(context).size.width * 0.5,)
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.width * 0.5,
+                              title: 'Last 7 days',
+                              data: WasteLevelChart(
                                 sectionData: [
                                   WasteLevelChartSectionData(
                                     controller.getPercentEmpty(),
@@ -138,16 +101,16 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                                 ],
                               ),
                             ),
-                          ),
-                    SizedBox(height: 20),
-                    SensorDescription(
-                      text:
-                          'Mit diesem Sensor kann über eine Ultra­schall­abstands­messung der Füllgrad eines Behälters bestimmt werden. Sollte der Behälter voll sein, kann automatisch eine Abholung ausgelöst werden. Dies bietet nicht nur den Vorteil, dass es zu keiner Vermüllung in der Stadt kommt, sondern es können auch unnötige Leerungen eingespart werden und die Route bei der Abholung entsprechend an den tatsächlichen Bedarf angepasst werden.',
-                      image: AssetImage(
-                        'assets/images/container.jpg',
-                      ),
-                    )
-                  ],
+                      SizedBox(height: 20),
+                      SensorDescription(
+                        text:
+                            'Mit diesem Sensor kann über eine Ultra­schall­abstands­messung der Füllgrad eines Behälters bestimmt werden. Sollte der Behälter voll sein, kann automatisch eine Abholung ausgelöst werden. Dies bietet nicht nur den Vorteil, dass es zu keiner Vermüllung in der Stadt kommt, sondern es können auch unnötige Leerungen eingespart werden und die Route bei der Abholung entsprechend an den tatsächlichen Bedarf angepasst werden.',
+                        image: AssetImage(
+                          'assets/images/container.jpg',
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

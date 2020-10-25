@@ -16,35 +16,6 @@ class DoorPage extends StatefulWidget {
 
 class _DoorPageState extends State<DoorPage> {
   double clipSize = 0;
-  bool isInit = true;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-  }
-
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      isInit = false;
-
-      var doorController = Provider.of<DoorController>(
-        context,
-        listen: false,
-      );
-
-      doorController.getDoorDataByTime(7).then((_) {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,21 +36,21 @@ class _DoorPageState extends State<DoorPage> {
           delegate: SliverChildListDelegate([
             Padding(
               padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  isLoading
-                      ? LoadingDataPresenter()
-                      : DataPresenter(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width * 0.3,
-                          title: 'Door Openings Today',
-                          visualization: Icon(
-                            Icons.sensor_door_outlined,
-                            color: Color(0xff2c5364),
-                            size: 60,
-                          ),
-                          data: Consumer<DoorController>(
-                            builder: (_, controller, __) => Text(
+              child: Consumer<DoorController>(
+                builder: (_, controller, __) => Column(
+                  children: [
+                    doorController.data == null
+                        ? LoadingDataPresenter()
+                        : DataPresenter(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width * 0.3,
+                            title: 'Door Openings Today',
+                            visualization: Icon(
+                              Icons.sensor_door_outlined,
+                              color: Color(0xff2c5364),
+                              size: 60,
+                            ),
+                            data: Text(
                               controller
                                   .getTotalDailyNumberOfOpenings(DateTime.now())
                                   .toString(),
@@ -90,21 +61,19 @@ class _DoorPageState extends State<DoorPage> {
                               ),
                             ),
                           ),
-                        ),
-                  const SizedBox(height: 24),
-                  isLoading
-                      ? LoadingDataPresenter()
-                      : DataPresenter(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width * 0.3,
-                          title: 'Last Opened',
-                          visualization: Icon(
-                            Icons.access_time_rounded,
-                            size: 60,
-                            color: Color(0xff2c5364),
-                          ),
-                          data: Consumer<DoorController>(
-                            builder: (_, controller, __) => Text(
+                    const SizedBox(height: 24),
+                    doorController.data == null
+                        ? LoadingDataPresenter()
+                        : DataPresenter(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width * 0.3,
+                            title: 'Last Opened',
+                            visualization: Icon(
+                              Icons.access_time_rounded,
+                              size: 60,
+                              color: Color(0xff2c5364),
+                            ),
+                            data: Text(
                               controller.getLastOpeningTime(),
                               style: TextStyle(
                                 color: Colors.black,
@@ -113,25 +82,23 @@ class _DoorPageState extends State<DoorPage> {
                               ),
                             ),
                           ),
-                        ),
-                  const SizedBox(height: 24),
-                  isLoading
-                      ? LoadingDataPresenter()
-                      : DataPresenter(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width * 0.95,
-                          title: 'Last 8 Days',
-                          data: Consumer<DoorController>(
-                            builder: (_, __, ___) => DoorChart(),
+                    const SizedBox(height: 24),
+                    doorController.data == null
+                        ? LoadingDataPresenter(height: MediaQuery.of(context).size.width * 0.95,)
+                        : DataPresenter(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width * 0.95,
+                            title: 'Last 8 Days',
+                            data: DoorChart(),
                           ),
-                        ),
-                  const SizedBox(height: 24),
-                  SensorDescription(
-                    image: AssetImage('assets/images/door.jpg'),
-                    text:
-                        'Dieser Türöffnungssensor ist am gemeinsamen Eingang zur Digitalen Agenda und zum Digitalisierungszentrum am Weinhof 7 verbaut. Über ein Magnetfeld wird gemessen, ob die Eingangstüre gerade geöffnet oder geschlossen ist. Anschließend wird der Status über LoRaWAN energiesparend übertragen. Als Stromquelle genügt hierfür eine Batterie, welche mehrere Jahre hält. Es laufen erste Experimente, den Magnetkontakt selbst als Stromquelle zu benutzen.',
-                  )
-                ],
+                    const SizedBox(height: 24),
+                    SensorDescription(
+                      image: AssetImage('assets/images/door.jpg'),
+                      text:
+                          'Dieser Türöffnungssensor ist am gemeinsamen Eingang zur Digitalen Agenda und zum Digitalisierungszentrum am Weinhof 7 verbaut. Über ein Magnetfeld wird gemessen, ob die Eingangstüre gerade geöffnet oder geschlossen ist. Anschließend wird der Status über LoRaWAN energiesparend übertragen. Als Stromquelle genügt hierfür eine Batterie, welche mehrere Jahre hält. Es laufen erste Experimente, den Magnetkontakt selbst als Stromquelle zu benutzen.',
+                    )
+                  ],
+                ),
               ),
             )
           ]),

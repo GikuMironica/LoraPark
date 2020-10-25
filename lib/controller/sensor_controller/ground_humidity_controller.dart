@@ -1,14 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/data/models/sensor_data.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/ground_humidity.dart';
-import 'package:lorapark_app/screens/widgets/charts/temperature_day_data.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
-import 'package:intl/intl.dart';
 
 class GrouundHumidityController extends ChangeNotifier {
   GroundHumidityRepository _repository;
@@ -18,8 +15,14 @@ class GrouundHumidityController extends ChangeNotifier {
   ScrollController _scrollController = ScrollController();
   List<GroundHumidityData> _data;
 
-  GrouundHumidityController({GroundHumidityRepository repository})
-      : _repository = repository;
+  GrouundHumidityController({GroundHumidityRepository repository}) {
+    _repository = repository;
+    this.Init();
+  }
+
+  void Init() {
+    getGroundHumidityDataByTime(7);
+  }
 
   Future<void> getActualGroundHumidityData() async {
     _data = await _repository.get(id: Sensors.groundHumidity_one);

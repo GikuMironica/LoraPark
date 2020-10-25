@@ -10,15 +10,21 @@ import 'package:lorapark_app/data/repositories/sensor_repository/door.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
 class DoorController extends ChangeNotifier {
-  final DoorRepository _repository;
+  DoorRepository _repository;
   final ScrollController _scrollController = ScrollController();
   List<DoorData> _data;
 
   final Logger _logger =
       GetIt.I.get<LoggingService>().getLogger((DoorRepository).toString());
 
-  DoorController({@required DoorRepository repository})
-      : _repository = repository;
+  DoorController({@required DoorRepository repository}){
+    _repository = repository;
+    this.Init();
+  }
+
+  void Init() {
+    getDoorDataByTime(7);
+  }
 
   Future<void> getActualDoorData() async {
     _logger.d('Fetching data');

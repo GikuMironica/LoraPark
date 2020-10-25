@@ -1,11 +1,10 @@
 import 'dart:core';
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
-
 import 'package:lorapark_app/data/repositories/sensor_repository/weather_station.dart';
 import 'package:lorapark_app/data/models/sensors/weather_station_data.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
@@ -21,8 +20,14 @@ class WeatherStationController extends ChangeNotifier {
   ScrollController _scrollController = ScrollController();
   List<WeatherStationData> _data;
 
-  WeatherStationController({WeatherStationRepository repository})
-      : _repository = repository;
+  WeatherStationController({WeatherStationRepository repository}) {
+    _repository = repository;
+    this.Init();
+  }
+
+  void Init() {
+    getWeatherStationDataByTime(7);
+  }
 
   Future<void> getActualWeatherStationData() async {
     _data = await _repository.get(id: Sensors.weatherStation_one);
@@ -33,7 +38,10 @@ class WeatherStationController extends ChangeNotifier {
   Future<void> getWeatherStationDataByTime(int days) async {
     var endDate = DateTime.now();
     var startDate = endDate.subtract(Duration(days: days));
-    _logger.d('Fetching data');
+    _logger.d('Fetching data for period of :' +
+        startDate.toString() +
+        " - " +
+        endDate.toString());
     _data = await _repository.getByTime(
       id: Sensors.weatherStation_one,
       start: startDate,

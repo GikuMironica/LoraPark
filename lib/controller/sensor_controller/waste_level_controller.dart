@@ -8,7 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 class WasteLevelController extends ChangeNotifier {
-  final WasteLevelRepository _repository;
+  WasteLevelRepository _repository;
   final ScrollController _scrollController = ScrollController();
   List<WasteLevelData> _data;
 
@@ -16,8 +16,14 @@ class WasteLevelController extends ChangeNotifier {
       .get<LoggingService>()
       .getLogger((WasteLevelRepository).toString());
 
-  WasteLevelController({@required WasteLevelRepository repository})
-      : _repository = repository;
+  WasteLevelController({@required WasteLevelRepository repository}) {
+    _repository = repository;
+    this.Init();
+  }
+
+  void Init() {
+    getWasteLevelDataByTime(7);
+  }
 
   Future<void> getActualWasteLevelData() async {
     _logger.d('Fetching data');

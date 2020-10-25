@@ -73,6 +73,7 @@ class WeeklyAirQualityBarChart extends StatelessWidget {
                           ),
                           leftTitles: SideTitles(
                             showTitles: true,
+                            interval: 40,
                             getTextStyles: (value) => const TextStyle(
                                 color: Colors.black, fontSize: 12),
                             margin: 15,
@@ -80,7 +81,7 @@ class WeeklyAirQualityBarChart extends StatelessWidget {
                         ),
                         gridData: FlGridData(
                           show: true,
-                          checkToShowHorizontalLine: (value) => value % 10 == 0,
+                          checkToShowHorizontalLine: (value) => value % 20 == 0,
                           getDrawingHorizontalLine: (value) => FlLine(
                             color: const Color(0xffe7e8ec),
                             strokeWidth: 1,

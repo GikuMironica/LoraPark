@@ -7,7 +7,7 @@ import 'package:lorapark_app/data/repositories/sensor_repository/structure_damag
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
 class StructureDamageController extends ChangeNotifier {
-  final StructureDamageRepository _repository;
+  StructureDamageRepository _repository;
   final ScrollController _scrollController = ScrollController();
   List<StructureDamageData> _data;
 
@@ -15,8 +15,14 @@ class StructureDamageController extends ChangeNotifier {
       .get<LoggingService>()
       .getLogger((StructureDamageRepository).toString());
 
-  StructureDamageController({@required StructureDamageRepository repository})
-      : _repository = repository;
+  StructureDamageController({@required StructureDamageRepository repository}) {
+    _repository = repository;
+    this.Init();
+  }
+
+  void Init() {
+    getStructureDamageDataByTime(10);
+  }
 
   Future<void> getActualStructureDamageData() async {
     _logger.d('Fetching data');
