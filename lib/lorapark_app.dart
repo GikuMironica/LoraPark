@@ -8,6 +8,8 @@ import 'package:lorapark_app/controller/sensor_controller/structure_damage_contr
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
 import 'package:lorapark_app/controller/sensor_controller/waste_level_controller.dart';
 import 'package:lorapark_app/data/models/sensors/current_parking_state_data.dart';
+import 'package:lorapark_app/controller/sensor_controller/flood_data_controller.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/flood_data.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 import 'package:lorapark_app/screens/screens.dart';
@@ -107,6 +109,12 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
             create: (_) => EnergyDataController(
               repository: GetIt.I.get<EnergyDataRepository>(),
             ),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => FloodDataController(
+              repository: GetIt.I.get<FloodDataRepository>(),
+            ),
+            lazy: true,
           ),
         ],
             child: MaterialApp(
