@@ -1,7 +1,7 @@
 String queryBuilder(List<String> sensorIds) {
   var query = '?';
   for (var id in sensorIds) {
-    query = id == sensorIds.last ? '$query=$id' : '${query}id=$id&';
+    query = id == sensorIds.last ? '${query}id=$id' : '${query}id=$id&';
   }
   return query;
 }
