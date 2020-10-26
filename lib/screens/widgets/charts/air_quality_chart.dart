@@ -52,24 +52,9 @@ class WeeklyAirQualityBarChart extends StatelessWidget {
                             getTextStyles: (value) => const TextStyle(
                                 color: Colors.black, fontSize: 12),
                             margin: 10,
-                            getTitles: (double value) {
-                              switch (value.toInt()) {
-                                case 5:
-                                  return airQualityDayData[5].dateTime;
-                                case 4:
-                                  return airQualityDayData[4].dateTime;
-                                case 3:
-                                  return airQualityDayData[3].dateTime;
-                                case 2:
-                                  return airQualityDayData[2].dateTime;
-                                case 1:
-                                  return "Yesterday";
-                                case 0:
-                                  return "Today";
-                                default:
-                                  return '';
-                              }
-                            },
+                            getTitles: (value) => airQualityDayData
+                                .elementAt(value.toInt())
+                                .dateTime,
                           ),
                           leftTitles: SideTitles(
                             showTitles: true,
@@ -122,115 +107,26 @@ class WeeklyAirQualityBarChart extends StatelessWidget {
   }
 
   List<BarChartGroupData> getData() {
-    return [
-      BarChartGroupData(
-        x: 5,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: airQualityDayData[5].noconcentration,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[5].no2concentration,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[5].coconcentration,
-              colors: [normal],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 4,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: airQualityDayData[4].noconcentration,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[4].no2concentration,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[4].coconcentration,
-              colors: [normal],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 3,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: airQualityDayData[3].noconcentration,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[3].no2concentration,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[3].coconcentration,
-              colors: [normal],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 2,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: airQualityDayData[2].noconcentration,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[2].no2concentration,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[2].coconcentration,
-              colors: [normal],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 1,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: airQualityDayData[1].noconcentration,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[1].no2concentration,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[1].coconcentration,
-              colors: [normal],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 0,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: airQualityDayData[0].noconcentration,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[0].no2concentration,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: airQualityDayData[0].coconcentration,
-              colors: [normal],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-    ];
+    return airQualityDayData
+        .map(
+          (dayData) => BarChartGroupData(
+            x: airQualityDayData.indexOf(dayData),
+            barRods: [
+              BarChartRodData(
+                  y: dayData.noconcentration,
+                  colors: [light],
+                  borderRadius: const BorderRadius.all(Radius.zero)),
+              BarChartRodData(
+                  y: dayData.no2concentration,
+                  colors: [dark],
+                  borderRadius: const BorderRadius.all(Radius.zero)),
+              BarChartRodData(
+                  y: dayData.coconcentration,
+                  colors: [normal],
+                  borderRadius: const BorderRadius.all(Radius.zero)),
+            ],
+          ),
+        )
+        .toList();
   }
 }

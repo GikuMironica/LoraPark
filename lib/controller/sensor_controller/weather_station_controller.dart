@@ -63,24 +63,29 @@ class WeatherStationController extends ChangeNotifier {
       if (DateFormat('E').format(element.timeStamp) != day) {
         report.add(TemperatureDayData(
             day,
-            double.parse(
-                (nightTemp.reduce((value, element) => value + element) /
-                        nightTemp.length)
-                    .toStringAsFixed(1)),
-            double.parse((dayTemp.reduce((value, element) => value + element) /
-                    dayTemp.length)
-                .toStringAsFixed(1))));
+            nightTemp.isEmpty
+                ? 0.0
+                : double.parse(
+                    (nightTemp.reduce((value, element) => value + element) /
+                            nightTemp.length)
+                        .toStringAsFixed(1)),
+            dayTemp.isEmpty
+                ? 0.0
+                : double.parse(
+                    (dayTemp.reduce((value, element) => value + element) /
+                            dayTemp.length)
+                        .toStringAsFixed(1))));
         dayTemp = [];
         nightTemp = [];
         day = DateFormat('E').format(element.timeStamp);
       }
-      if (element.timeStamp.hour > 18 || element.timeStamp.hour < 6) {
+      if (element.timeStamp.hour > 18 || element.timeStamp.hour <= 6) {
         nightTemp.add(element.temperature);
-      } else if (element.timeStamp.hour < 18 || element.timeStamp.hour > 6) {
+      } else if (element.timeStamp.hour <= 18 || element.timeStamp.hour > 6) {
         dayTemp.add(element.temperature);
       }
     });
-    return report;
+    return report.reversed.toList();
   }
 
   List<WeatherStationData> get data => _data;

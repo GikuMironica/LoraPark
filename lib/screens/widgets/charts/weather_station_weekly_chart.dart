@@ -46,26 +46,9 @@ class WeeklyBarChart extends StatelessWidget {
                         getTextStyles: (value) =>
                             const TextStyle(color: Colors.black, fontSize: 12),
                         margin: 10,
-                        getTitles: (double value) {
-                          switch (value.toInt()) {
-                            case 6:
-                              return temperatureDayData[6].dateTime;
-                            case 5:
-                              return temperatureDayData[5].dateTime;
-                            case 4:
-                              return temperatureDayData[4].dateTime;
-                            case 3:
-                              return temperatureDayData[3].dateTime;
-                            case 2:
-                              return temperatureDayData[2].dateTime;
-                            case 1:
-                              return "Yesterday";
-                            case 0:
-                              return "Today";
-                            default:
-                              return '';
-                          }
-                        },
+                        getTitles: (value) => temperatureDayData
+                            .elementAt(value.toInt())
+                            .dateTime,
                       ),
                       leftTitles: SideTitles(
                         showTitles: true,
@@ -111,105 +94,24 @@ class WeeklyBarChart extends StatelessWidget {
   }
 
   List<BarChartGroupData> getData() {
-    return [
-      BarChartGroupData(
-        x: 6,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: temperatureDayData[6].dayTemp,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: temperatureDayData[6].nightTemp,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 5,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: temperatureDayData[5].dayTemp,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: temperatureDayData[5].nightTemp,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 4,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: temperatureDayData[4].dayTemp,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: temperatureDayData[4].nightTemp,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 3,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: temperatureDayData[3].dayTemp,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: temperatureDayData[3].nightTemp,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 2,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: temperatureDayData[2].dayTemp,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: temperatureDayData[2].nightTemp,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 1,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: temperatureDayData[1].dayTemp,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: temperatureDayData[1].nightTemp,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-      BarChartGroupData(
-        x: 0,
-        barsSpace: 0,
-        barRods: [
-          BarChartRodData(
-              y: temperatureDayData[0].dayTemp,
-              colors: [light],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-          BarChartRodData(
-              y: temperatureDayData[0].nightTemp,
-              colors: [dark],
-              borderRadius: const BorderRadius.all(Radius.zero)),
-        ],
-      ),
-    ];
+    return temperatureDayData
+        .map(
+          (dayData) => BarChartGroupData(
+            x: temperatureDayData.indexOf(dayData),
+            barRods: [
+              BarChartRodData(
+                y: dayData.dayTemp ?? 0.0,
+                colors: [light],
+                borderRadius: const BorderRadius.all(Radius.zero),
+              ),
+              BarChartRodData(
+                y: dayData.nightTemp ?? 0.0,
+                colors: [dark],
+                borderRadius: const BorderRadius.all(Radius.zero),
+              )
+            ],
+          ),
+        )
+        .toList();
   }
 }

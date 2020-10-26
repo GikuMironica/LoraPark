@@ -34,11 +34,7 @@ class DioService {
     _dio = Dio(LoraParkOptions())
       // Development purposes
       ..interceptors.addAll([
-        PrettyDioLogger(
-          requestHeader: true,
-          responseHeader: true,
-          responseBody: false
-        ),
+        PrettyDioLogger(),
         InterceptorsWrapper(onError: (DioError error) async {
           if (error.response?.statusCode == 403) {
             var _authService = GetIt.I.get<AuthService>();

@@ -82,7 +82,7 @@ class AirQualityController extends ChangeNotifier {
       no2concentration.add(element.no2Concentration);
       coconcentration.add(element.coConcentration);
     });
-    return report;
+    return report.reversed.toList();
   }
 
   List<AirQualityData> get data => _data;
