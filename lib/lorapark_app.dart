@@ -13,7 +13,7 @@ import 'package:lorapark_app/data/repositories/sensor_repository/flood_data.dart
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 import 'package:lorapark_app/screens/screens.dart';
-import 'package:flutter/material.dart' hide Router;
+import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
 import 'package:provider/provider.dart';
@@ -32,12 +32,12 @@ class LoRaParkApp extends StatefulWidget {
 }
 
 class _LoRaParkAppState extends State<LoRaParkApp> {
-  Router router;
+  FluroRouter router;
 
   @override
   void initState() {
     super.initState();
-    router = Router();
+    router = FluroRouter();
     Application.router = router;
     Application.navigatorKey = GlobalKey<NavigatorState>();
   }
