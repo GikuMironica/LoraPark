@@ -8,6 +8,8 @@ import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/data/models/sensors/door_data.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/door.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
+import 'package:lorapark_app/utils/date_operations.dart'
+    show getDistinctDatesAsString;
 
 class DoorController extends ChangeNotifier {
   DoorRepository _repository;
@@ -17,12 +19,12 @@ class DoorController extends ChangeNotifier {
   final Logger _logger =
       GetIt.I.get<LoggingService>().getLogger((DoorRepository).toString());
 
-  DoorController({@required DoorRepository repository}){
+  DoorController({@required DoorRepository repository}) {
     _repository = repository;
-    this.Init();
+    init();
   }
 
-  void Init() {
+  void init() {
     getDoorDataByTime(7);
   }
 
@@ -73,10 +75,9 @@ class DoorController extends ChangeNotifier {
   }
 
   List<String> getDistinctDates({String dateFormat = 'yyyy-MM-dd'}) {
-    var formatter = DateFormat(dateFormat);
-    return _data.reversed
-        .map((e) => formatter.format(e.timestamp))
-        .toSet()
-        .toList();
+    return getDistinctDatesAsString(
+      _data.reversed.map((e) => e.timestamp),
+      dateFormat: dateFormat,
+    );
   }
 }

@@ -13,3 +13,9 @@ String getWeekday(String date,
 DateTime getDateTime(String date) {
   return DateFormat('yyyy-MM-dd HH:mm:ss').parse(date + ' 00:00:00');
 }
+
+List<String> getDistinctDatesAsString(Iterable<DateTime> dates,
+    {String dateFormat = 'yyyy-MM-dd'}) {
+  var formatter = DateFormat(dateFormat);
+  return dates.map((date) => formatter.format(date)).toSet().toList();
+}

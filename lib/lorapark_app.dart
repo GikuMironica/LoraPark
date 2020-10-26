@@ -3,6 +3,7 @@ import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/controller/sensor_controller/air_quality_controller.dart';
 import 'package:lorapark_app/controller/sensor_controller/door_controller.dart';
 import 'package:lorapark_app/controller/sensor_controller/person_count_controller.dart';
+import 'package:lorapark_app/controller/sensor_controller/energy_data_controller.dart';
 import 'package:lorapark_app/controller/sensor_controller/structure_damage_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
 import 'package:lorapark_app/controller/sensor_controller/waste_level_controller.dart';
@@ -91,10 +92,9 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
           ),
           ChangeNotifierProvider(
             create: (_) => ParkingSensorController(
-              stateRepo: GetIt.I.get<ParkingStateRepository>(),
-              avgRepo: GetIt.I.get<ParkingAverageRepository>(),
-              eventRepo: GetIt.I.get<ParkingEventRepository>()
-            ),
+                stateRepo: GetIt.I.get<ParkingStateRepository>(),
+                avgRepo: GetIt.I.get<ParkingAverageRepository>(),
+                eventRepo: GetIt.I.get<ParkingEventRepository>()),
             lazy: true,
           ),
           ChangeNotifierProvider(
@@ -102,6 +102,11 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
               repository: GetIt.I.get<PersonCountRepository>(),
             ),
             lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => EnergyDataController(
+              repository: GetIt.I.get<EnergyDataRepository>(),
+            ),
           ),
         ],
             child: MaterialApp(
