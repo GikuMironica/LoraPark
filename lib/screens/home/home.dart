@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/screens/screens.dart';
+import 'package:lorapark_app/screens/sensor_list_page/sensor_list_page.dart';
 import 'package:lorapark_app/screens/widgets/lp_nav_bar/lp_nav_bar.dart';
 import 'package:lorapark_app/screens/widgets/lp_nav_bar/lp_nav_bar_item.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _buildScreens() {
     return [
       MapPage(),
-      SettingsPage(),
+      SensorListPage(),
       SettingsPage(),
     ];
   }
