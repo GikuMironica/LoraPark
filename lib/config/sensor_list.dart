@@ -1,5 +1,9 @@
 library sensors;
 
+import 'package:lorapark_app/config/obj/sensors/person_count.dart';
+import 'package:lorapark_app/config/obj/sensors/sensor_obj_lists.dart';
+import 'package:lorapark_app/data/models/sensor.dart';
+
 enum SensorType {
   WEATHER_STATION,
   PERSON_COUNT,
@@ -15,7 +19,10 @@ enum SensorType {
   AIR_QUALITY,
   CO2,
   STRUCTURE_DAMAGE,
-  PARKING
+  PARKING,
+  RAT_SENSOR,
+  SMART_BANK,
+  DISPLAY
 }
 
 class Sensors {
@@ -112,3 +119,25 @@ class Sensors {
   /// CO2 Sensor ID: elsysco2-048e67
   static const String c02Data_two = 'elsysco2-048e67';
 }
+
+
+final List<Sensor> sensorList = [
+  ...weatherStationList,
+  ...wasteLevelList,
+  ...structureDamageSensorList,
+  ...soundSensorList,
+  ...smartBankList,
+  ...ratSensorList,
+  ...raisedGardenList,
+  ...personCountList,
+  ...parkingSensorList,
+  ...groundHumidityList,
+  ...floodDataList,
+  ...feedbackButtonList,
+  ...energyList,
+  ...electricityList,
+  ...doorSensorList,
+  ...co2SensorList,
+  ...displayList,
+  ...airQualityList
+];

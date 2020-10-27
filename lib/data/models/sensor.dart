@@ -1,23 +1,14 @@
 import 'package:lorapark_app/config/sensor_list.dart' show SensorType;
+import 'package:lorapark_app/data/models/coordinates.dart';
 
 class Sensor {
-  SensorType _type;
-  String _id;
-  double _longitude;
-  double _latitude;
+  final SensorType type;
+  final String id;
+  final SensorLocation location;
 
-  Sensor({SensorType sensorType, String id, double longitude, double latitude}){
-    _type = sensorType;
-    _id = id;
-    _latitude = latitude;
-    _longitude = longitude;
-  }
+  Sensor({this.type, this.id, this.location});
 
-  double get latitude => _latitude;
+  double get latitude => location.latitude;
 
-  double get longitude => _longitude;
-
-  String get id => _id;
-
-  SensorType get type => _type;
+  double get longitude => location.longitude;
 }

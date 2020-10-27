@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 0.3.0
 
 environment:
   sdk: ">=2.10.0 <3.0.0"
@@ -32,11 +32,11 @@ dependencies:
   provider: ^4.3.2+2
   logger: ^0.9.4
   flutter_launcher_icons: ^0.8.1
-  fluro: ^1.7.3
+  fluro: ^1.7.7
   get_it: ^5.0.1
   permission_handler: ^5.0.1+1
   fl_chart: ^0.12.0
-  url_launcher: ^5.7.5
+  url_launcher: ^5.7.8
   package_info: ^0.4.3
   device_info: ^0.4.2+9
   location: ^3.0.2
@@ -46,9 +46,9 @@ dependencies:
   jwt_decode: ^0.1.0
   persistent_bottom_nav_bar: ^2.1.0
   jiffy: ^3.0.1
-  catcher: ^0.3.20
-  connectivity: ^0.4.9+5
-  flutter_svg: ^0.19.0
+  catcher: ^0.3.22
+  connectivity: ^2.0.0
+  flutter_svg: ^0.19.1
 
   here_sdk:
     path: 'plugins/here-sdk/'
