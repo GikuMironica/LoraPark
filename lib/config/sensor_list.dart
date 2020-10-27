@@ -70,7 +70,7 @@ class Sensors {
   // Structure Damage ----------------------------------------------------------
 
   /// Structure Damage Sensor ID: sensor000
-  static const String structureDamage = 'sensor000';
+  static const String structureDamage = 'feather01';
 
   // Ground Humidity -----------------------------------------------------------
 
@@ -100,7 +100,6 @@ class Sensors {
 
   /// Energy Sensor ID: 70113173
   static const String energyData_one = '70113173';
-
 
   /// Energy Sensor ID: '000003'
   static const String energyData_two = '000003';

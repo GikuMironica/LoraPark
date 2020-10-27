@@ -8,14 +8,14 @@ class Endpoints {
   static const String CO2 = '/elsysvalues';
   static const String WEATHER_STATION = '/weatherstation';
   static const String PERSON_COUNT = '/besucherstrom';
-  static const String DOOR = '/door';
+  static const String DOOR = '/elsysvalues';
   static const String FEEDBACK_BUTTON = '/action_button';
   static const String ELECTRICITY = '/electricity';
   static const String WASTE_LEVEL = '/swufillvalues';
   static const String SOUND_SENSOR = '/lautstaerke';
   static const String FLOOD_DATA = '/hochwasser';
   static const String RAISED_GARDEN = '/loraparkhochbeet';
-  static const String STRUCTURE_DAMAGE = '/rissensor';
+  static const String STRUCTURE_DAMAGE = '/risssensor';
   static const String GROUND_HUMIDITY = '/bodenfeuchte';
   static const String AIR_QUALITY = '/airquality';
   static const String PARKING_STATE = '/swuparkingvalues';
