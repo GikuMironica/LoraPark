@@ -49,6 +49,9 @@ dependencies:
   catcher: ^0.3.22
   connectivity: ^2.0.0
   flutter_svg: ^0.19.1
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
+
 
   here_sdk:
     path: 'plugins/here-sdk/'
