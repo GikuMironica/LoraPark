@@ -38,7 +38,7 @@ class SensorWidget extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.58,
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
-                      sensor.title,
+                      "abcd",
                       overflow: TextOverflow.ellipsis,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -49,7 +49,7 @@ class SensorWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        sensor.sensorNumber,
+                      "abcd",
                         style: TextStyle(fontSize: 20, color: Colors.grey[700]),
                       ),
                     ],
@@ -61,7 +61,7 @@ class SensorWidget extends StatelessWidget {
                 child: Row(children: <Widget>[
                   Flexible(
                     child: Text(
-                      sensor.description,
+                      "abcd",
                     ),
                   ),
                   Spacer(),
@@ -72,7 +72,7 @@ class SensorWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(sensor.address, style: TextStyle(fontSize: 20.0)),
+                    Text("abcd", style: TextStyle(fontSize: 20.0)),
                     Icon(Icons.arrow_forward)
                   ],
                 ),
