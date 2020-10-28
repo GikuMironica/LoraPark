@@ -40,7 +40,7 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                   builder: (context, controller, _) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      wasteLevelController.data == null
+                      controller.data == null
                           ? LoadingDataPresenter()
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
@@ -49,19 +49,18 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                               visualization: Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: controller.data == null
-                                      ? Colors.green
-                                      : Color.lerp(
-                                          Colors.green,
-                                          Colors.red,
-                                          controller.fillRatio,
-                                        ),
+                                  color: controller.currentFillRatio <=
+                                          WasteLevelController
+                                              .FILL_RATIO_THRESHOLD
+                                      ? Color(0xff91b54b)
+                                      : Color(0xffd35668),
                                 ),
                                 width: 15,
                                 height: 15,
                               ),
                               data: Text(
-                                controller.filling.toString() + '% full',
+                                controller.currentFillRatio.toStringAsFixed(0) +
+                                    '% full',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w700,
@@ -73,7 +72,9 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                         height: 24,
                       ),
                       wasteLevelController.data == null
-                          ? LoadingDataPresenter(height: MediaQuery.of(context).size.width * 0.5,)
+                          ? LoadingDataPresenter(
+                              height: MediaQuery.of(context).size.width * 0.5,
+                            )
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.width * 0.5,
@@ -84,19 +85,17 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                                     controller.getPercentEmpty(),
                                     controller
                                             .getPercentEmpty()
-                                            .toInt()
-                                            .toString() +
+                                            .toStringAsFixed(0) +
                                         '%',
-                                    Colors.green,
+                                    Color(0xff91b54b),
                                   ),
                                   WasteLevelChartSectionData(
                                     controller.getPercentFull(),
                                     controller
                                             .getPercentFull()
-                                            .toInt()
-                                            .toString() +
+                                            .toStringAsFixed(0) +
                                         '%',
-                                    Colors.red,
+                                    Color(0xffd35668),
                                   ),
                                 ],
                               ),

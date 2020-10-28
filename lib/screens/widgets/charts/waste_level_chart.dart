@@ -32,7 +32,7 @@ class WasteLevelChart extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ChartLegend(
-                color: Colors.green,
+                color: Color(0xff91b54b),
                 text: 'Empty',
                 isSquare: true,
               ),
@@ -40,7 +40,7 @@ class WasteLevelChart extends StatelessWidget {
                 height: 10,
               ),
               ChartLegend(
-                color: Colors.red,
+                color: Color(0xffd35668),
                 text: 'Full',
                 isSquare: true,
               ),
