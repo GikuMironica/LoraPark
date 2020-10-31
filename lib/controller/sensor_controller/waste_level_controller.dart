@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
@@ -8,6 +10,10 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 class WasteLevelController extends ChangeNotifier {
+  static final MAX_LENGTH = 132;
+  static final MIN_LENGTH = 30;
+  static final FILL_RATIO_THRESHOLD = 75;
+
   WasteLevelRepository _repository;
   final ScrollController _scrollController = ScrollController();
   List<WasteLevelData> _data;
@@ -18,11 +24,11 @@ class WasteLevelController extends ChangeNotifier {
 
   WasteLevelController({@required WasteLevelRepository repository}) {
     _repository = repository;
-    this.Init();
+    init();
   }
 
-  void Init() {
-    getWasteLevelDataByTime(7);
+  void init() {
+    getWasteLevelDataByTime(6);
   }
 
   Future<void> getActualWasteLevelData() async {
@@ -51,25 +57,29 @@ class WasteLevelController extends ChangeNotifier {
 
   int get length => _data.first.length;
 
-  int get filling => _data.first.filling;
+  double get currentFillRatio => _getFillRatio(_data.first.length);
 
-  double get fillRatio => _data.first.filling / 100;
-
-  bool isFull() {
-    return _data.first.length <= 30;
+  double _getFillRatio(int length) {
+    return min((MAX_LENGTH - length).abs(), (MAX_LENGTH - MIN_LENGTH)) /
+        (MAX_LENGTH - MIN_LENGTH) *
+        100;
   }
 
   double getPercentFull() {
-    return (data.where((e) => e.filling / 100 > 0.8).toList().length /
-            data.length *
+    return (_data
+                .where((e) => _getFillRatio(e.length) > FILL_RATIO_THRESHOLD)
+                .length /
+            _data.length *
             100)
         .round()
         .toDouble();
   }
 
   double getPercentEmpty() {
-    return (data.where((e) => e.filling / 100 <= 0.8).toList().length /
-            data.length *
+    return (_data
+                .where((e) => _getFillRatio(e.length) <= FILL_RATIO_THRESHOLD)
+                .length /
+            _data.length *
             100)
         .round()
         .toDouble();
