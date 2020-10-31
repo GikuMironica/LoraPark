@@ -6,6 +6,8 @@ List<Sensor> airQualityList = [
   Sensor(
     type: SensorType.AIR_QUALITY,
     id: Sensors.airQuality_one,
+    name: 'Air Quality',
+    number: 'xx',
     location: SensorLocations.luftQualitaet,
   ),
 ];

@@ -120,24 +120,23 @@ class Sensors {
   static const String c02Data_two = 'elsysco2-048e67';
 }
 
-
 final List<Sensor> sensorList = [
   ...weatherStationList,
   ...wasteLevelList,
   ...structureDamageSensorList,
-  ...soundSensorList,
-  ...smartBankList,
-  ...ratSensorList,
+  // ...soundSensorList,
+  // ...smartBankList,
+  // ...ratSensorList,
   ...raisedGardenList,
   ...personCountList,
   ...parkingSensorList,
   ...groundHumidityList,
   ...floodDataList,
-  ...feedbackButtonList,
+  // ...feedbackButtonList,
   ...energyList,
-  ...electricityList,
+  // ...electricityList,
   ...doorSensorList,
-  ...co2SensorList,
-  ...displayList,
+  // ...co2SensorList,
+  // ...displayList,
   ...airQualityList
 ];
