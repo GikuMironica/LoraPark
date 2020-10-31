@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/screens/widgets/sensor/sensor_number.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
-
 
 class SensorViewHeader extends StatelessWidget {
   final String sensorName;
@@ -48,7 +48,7 @@ class SensorViewHeader extends StatelessWidget {
         icon: Icon(Icons.arrow_back_ios),
         alignment: Alignment.center,
         onPressed: () {
-          /* ... */ //#TODO
+          Application.router.pop(context);
         },
       ),
     );

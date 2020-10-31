@@ -1,4 +1,7 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/config/router/application.dart';
+import 'package:lorapark_app/config/router/routes.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
 
 import '../../../data/models/sensor.dart';
@@ -13,7 +16,13 @@ class SensorCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Application.router.navigateTo(
+            context,
+            Routes.sensorPage + sensor.id,
+            transition: TransitionType.inFromRight,
+          );
+        },
         child: Container(
           width: double.infinity,
           margin: EdgeInsets.symmetric(vertical: 10),

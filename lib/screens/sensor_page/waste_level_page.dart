@@ -25,7 +25,7 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
     wasteLevelController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => wasteLevelController.getWasteLevelDataByTime(7),
+      onRefresh: () => wasteLevelController.getWasteLevelDataByTime(6),
       child: SingleSensorViewTemplate(
         scrollController: wasteLevelController.scrollController,
         clipSize: clipSize,

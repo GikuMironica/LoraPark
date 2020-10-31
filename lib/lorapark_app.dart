@@ -6,6 +6,7 @@ import 'package:lorapark_app/themes/lorapark_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:lorapark_app/utils/utils.dart'
     show DisableScrollGlow, hideKeyboardOnTap;
+import 'config/router/routes.dart';
 import 'provider_list.dart';
 
 class LoRaParkApp extends StatefulWidget {
@@ -22,6 +23,7 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
     router = FluroRouter();
     Application.router = router;
     Application.navigatorKey = GlobalKey<NavigatorState>();
+    Routes.configureRoutes(router);
   }
 
   @override
