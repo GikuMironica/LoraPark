@@ -3,8 +3,8 @@ class ElectricityData {
   double _value;
 
   ElectricityData({String timestamp, double value}) {
-    this._timestamp = DateTime.parse(timestamp);
-    this._value = value;
+    _timestamp = DateTime.parse(timestamp);
+    _value = value;
   }
 
   DateTime get timestamp => _timestamp;

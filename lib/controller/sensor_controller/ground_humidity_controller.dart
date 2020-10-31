@@ -17,10 +17,10 @@ class GrouundHumidityController extends ChangeNotifier {
 
   GrouundHumidityController({GroundHumidityRepository repository}) {
     _repository = repository;
-    this.Init();
+    init();
   }
 
-  void Init() {
+  void init() {
     getGroundHumidityDataByTime(7);
   }
 
