@@ -3,6 +3,7 @@ library sensors;
 import 'package:lorapark_app/config/obj/sensors/person_count.dart';
 import 'package:lorapark_app/config/obj/sensors/sensor_obj_lists.dart';
 import 'package:lorapark_app/data/models/sensor.dart';
+import 'package:darq/darq.dart';
 
 enum SensorType {
   WEATHER_STATION,
@@ -139,4 +140,4 @@ final List<Sensor> sensorList = [
   // ...co2SensorList,
   // ...displayList,
   ...airQualityList
-];
+].distinct((sensor) => sensor.type).toList();
