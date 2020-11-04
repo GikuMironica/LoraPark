@@ -4,6 +4,7 @@ import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/air_quality.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/flood_data.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
+import 'package:lorapark_app/services/location_service/location_service.dart';
 
 import 'services.dart';
 
@@ -15,6 +16,7 @@ void servicesSetup({bool isProductionEnv}) {
   getIt.registerSingleton<DioService>(DioService());
   getIt.registerSingleton<SecureService>(SecureService());
   getIt.registerSingleton<AuthService>(AuthServiceImpl());
+  getIt.registerSingleton<LocationService>(LocationService());
   getIt.registerSingleton<Sensors>(Sensors());
   if (isProductionEnv) {
     getIt.registerSingleton<AirQualityRepository>(AirQualityRepositoryImpl());

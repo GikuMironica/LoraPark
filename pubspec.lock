@@ -244,13 +244,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  flutter_plugin_android_lifecycle:
-    dependency: transitive
-    description:
-      name: flutter_plugin_android_lifecycle
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.11"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -270,13 +263,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_unity_widget:
-    dependency: "direct main"
-    description:
-      name: flutter_unity_widget
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0+2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -569,13 +555,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.2+2"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.4+1"
   sentry:
     dependency: transitive
     description:

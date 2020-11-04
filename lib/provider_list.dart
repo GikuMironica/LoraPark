@@ -4,6 +4,8 @@ import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/controller/ocr_controller/ocr_controller.dart';
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
+import 'package:lorapark_app/data/models/coordinates.dart';
+import 'package:lorapark_app/services/location_service/location_service.dart';
 import 'package:lorapark_app/services/services.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -90,4 +92,6 @@ List<SingleChildWidget> providerList = [
     create: (_) => OcrController(),
     lazy: true,
   ),
+  ChangeNotifierProvider<MapController>(create: (_) => MapController(), lazy: true,),
+  StreamProvider<UserLocation>.value(value: GetIt.I.get<LocationService>().locationStream,)
 ];
