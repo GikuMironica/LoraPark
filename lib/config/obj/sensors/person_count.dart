@@ -10,6 +10,6 @@ List<Sensor> personCountList = [
     name: 'Person Count',
     number: '10',
     image: AssetImage('assets/images/person_count.png'),
-    location: SensorLocations.besucherStrom,
+    location: SensorLocations.personCount,
   )
 ];

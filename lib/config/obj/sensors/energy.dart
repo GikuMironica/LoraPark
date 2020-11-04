@@ -18,5 +18,6 @@ List<Sensor> energyList = [
     name: 'Energy Data',
     number: '15',
     image: AssetImage('assets/images/energy.jpg'),
+    location: SensorLocations.energySensor,
   )
 ];

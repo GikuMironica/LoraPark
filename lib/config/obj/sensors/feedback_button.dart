@@ -7,5 +7,6 @@ List<Sensor> feedbackButtonList = [
     id: Sensors.feedbackButton_one,
     location: SensorLocations.feedbackButton,
     type: SensorType.FEEDBACK_BUTTON,
+    number: '07',
   )
 ];

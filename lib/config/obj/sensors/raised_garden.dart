@@ -10,6 +10,6 @@ List<Sensor> raisedGardenList = [
     name: 'Raised Garden',
     number: '12',
     image: AssetImage('assets/images/raised_garden.jpg'),
-    location: SensorLocations.autarkesHochbeet,
+    location: SensorLocations.raisedGarden,
   ),
 ];

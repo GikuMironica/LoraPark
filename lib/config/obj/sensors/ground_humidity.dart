@@ -10,6 +10,6 @@ List<Sensor> groundHumidityList = [
     name: 'Ground Humidity',
     number: '09',
     image: AssetImage('assets/images/ground_humidity.jpg'),
-    location: SensorLocations.bodenFeuchte,
+    location: SensorLocations.groundHumidity,
   )
 ];

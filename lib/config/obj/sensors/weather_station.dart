@@ -10,6 +10,6 @@ List<Sensor> weatherStationList = [
     name: 'Weather Station',
     number: '01',
     image: AssetImage('assets/images/weather_station.jpg'),
-    location: SensorLocations.wetterStation,
+    location: SensorLocations.weatherStation,
   ),
 ];

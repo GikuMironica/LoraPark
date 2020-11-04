@@ -7,6 +7,8 @@ List<Sensor> ratSensorList = [
   Sensor(
     type: SensorType.RAT_SENSOR,
     id: 'RatSensor',
-    location: SensorLocations.schaedlingsBekaempfung
+    location: SensorLocations.ratSensor,
+    number: '03',
+    name: 'Rat Sensor'
   )
 ];

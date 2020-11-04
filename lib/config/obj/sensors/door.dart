@@ -10,6 +10,6 @@ List<Sensor> doorSensorList = [
     name: 'Door',
     number: '11',
     image: AssetImage('assets/images/door.jpg'),
-    location: SensorLocations.oeffnungsSensor,
+    location: SensorLocations.doorSensor,
   )
 ];

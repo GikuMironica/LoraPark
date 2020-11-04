@@ -6,7 +6,7 @@ import 'package:lorapark_app/data/models/sensor.dart';
 List<Sensor> floodDataList = [
   Sensor(
     id: Sensors.floodData,
-    location: SensorLocations.hochwasser,
+    location: SensorLocations.floodData,
     name: 'Flood Data',
     number: '08',
     image: AssetImage('assets/images/flood.jpg'),

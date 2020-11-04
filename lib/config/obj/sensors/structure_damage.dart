@@ -10,6 +10,6 @@ List<Sensor> structureDamageSensorList = [
     name: 'Structure Damage',
     number: '14',
     image: AssetImage('assets/images/structuredamage.jpg'),
-    location: SensorLocations.strukturSchaeden,
+    location: SensorLocations.structureDamage,
   ),
 ];

@@ -6,6 +6,8 @@ List<Sensor> soundSensorList = [
   Sensor(
     type: SensorType.SOUND_SENSOR,
     id: Sensors.soundSensor_one,
-    location: SensorLocations.geraeuschSensor,
+    location: SensorLocations.soundSensor,
+    name: 'Sound Sensor',
+    number: '03',
   )
 ];

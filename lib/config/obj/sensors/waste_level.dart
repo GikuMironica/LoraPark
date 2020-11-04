@@ -10,6 +10,6 @@ List<Sensor> wasteLevelList = [
     name: 'Waste Level',
     number: '04',
     image: AssetImage('assets/images/container.jpg'),
-    location: SensorLocations.muellSensor,
+    location: SensorLocations.wasteLevel,
   ),
 ];
