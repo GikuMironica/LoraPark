@@ -37,7 +37,6 @@ class LocationService extends ChangeNotifier {
     });
   }
 
-  // ignore: missing_return
   Future<UserLocation> getLocation() async {
     await requestPermisions().then(
         (granted) async {

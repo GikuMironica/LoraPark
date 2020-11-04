@@ -52,10 +52,10 @@ dependencies:
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   darq: ^0.4.0+1
-  firebase_core: ^0.5.1
-  firebase_ml_vision: ^0.9.8
+  # firebase_core: ^0.5.1
+  # firebase_ml_vision: ^0.9.8
   camera: ^0.5.8+11
-  flutter_unity_widget: ^2.0.0+2
+  # flutter_unity_widget: ^2.0.0+2
 
   here_sdk:
     path: 'plugins/here-sdk/'
