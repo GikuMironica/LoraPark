@@ -44,3 +44,4 @@ app.*.map.json
 # LoraPark
 lib/config/credentials.dart
 plugins/
+unity/
