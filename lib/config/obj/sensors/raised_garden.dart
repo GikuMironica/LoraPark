@@ -5,8 +5,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> raisedGardenList = [
   Sensor(
-    type: SensorType.RAISED_GARDEN,
-    id: Sensors.raisedGarden,
+    type: SensorType.raised_garden,
+    id: SensorEndpoints.raisedGarden,
     name: 'Raised Garden',
     number: '12',
     image: AssetImage('assets/images/raised_garden.jpg'),

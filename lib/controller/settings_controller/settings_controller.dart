@@ -12,7 +12,7 @@ class SettingsController extends ChangeNotifier {
   SettingsController({PersonCountRepository repository}) : _repository = repository;
 
   Future<void> fetchData() async {
-    _data = await _repository.get(id: Sensors.personCount_one);
+    _data = await _repository.get(id: SensorEndpoints.personCount_one);
     notifyListeners();
   }
 }

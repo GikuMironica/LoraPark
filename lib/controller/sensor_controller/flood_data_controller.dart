@@ -25,7 +25,7 @@ class FloodDataController extends ChangeNotifier {
 
   Future<void> getActualFloodData() async {
     _logger.d('Fetching data');
-    _data = await _repository.get(id: Sensors.floodData);
+    _data = await _repository.get(id: SensorEndpoints.floodData);
     notifyListeners();
   }
 
@@ -35,7 +35,7 @@ class FloodDataController extends ChangeNotifier {
 
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.floodData,
+      id: SensorEndpoints.floodData,
       start: startDate,
       end: endDate,
     );

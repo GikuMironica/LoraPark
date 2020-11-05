@@ -16,13 +16,14 @@ class Sensor {
       {this.type, this.id, this.name, this.number, this.image, this.location, this.rotation, this.address});
   
   factory Sensor.fromJSON(Map<String, dynamic> json) => Sensor(
-    type: SensorType.values[int.parse(json['type'])],
+    type: SensorType.values[json['type']],
     id: json.containsKey('id') ? json['id'] : '',
     name: json['name'],
     number: json['number'].toString(),
+    image: json.containsKey('image') ? AssetImage(json['image']) : null,
     location: SensorLocation.fromJSON(json['location']),
     rotation: json.containsKey('rotation') ? json['rotation'] : null,
-    address: json['address']
+    address: ''
   );
 
   double get latitude => location.latitude;

@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
+import 'package:lorapark_app/config/sensors.dart';
+import 'package:lorapark_app/data/models/sensor.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -10,8 +15,12 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    var _controller = Provider.of<SettingsController>(context);
     return Scaffold(
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
@@ -20,26 +29,14 @@ class _SettingsPageState extends State<SettingsPage> {
           shrinkWrap: true,
           children: [
             ListTile(
-              onTap: () async => await _controller.fetchData(),
+              onTap: () {
+                for(var sensor in GetIt.I.get<Sensors>().list){
+                  print('${sensor.number} - ${sensor.name} - ${sensor.latitude},${sensor.longitude}');
+                }
+              },
               title: Text('Jello'),
             ),
-            _controller.data.isEmpty ? Text('No Data Here') : ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: _controller.data.length,
-              shrinkWrap: true,
-              itemBuilder: (_, i) {
-                return Card(
-                  child: Container(
-                    child: Column(
-                    children: [
-                      Text('Pax Count: ${_controller.data[i].paxCount}'),
-                      Text('Timestamp: ${_controller.data[i].timestamp.toString()}'),
-                    ],
-                  ),)
-                );
-              },
-            )
-          ],
+           ],
         ),
       ),
     );

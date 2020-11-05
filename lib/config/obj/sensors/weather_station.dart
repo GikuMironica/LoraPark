@@ -5,8 +5,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> weatherStationList = [
   Sensor(
-    type: SensorType.WEATHER_STATION,
-    id: Sensors.weatherStation_one,
+    type: SensorType.weather_station,
+    id: SensorEndpoints.weatherStation_one,
     name: 'Weather Station',
     number: '01',
     image: AssetImage('assets/images/weather_station.jpg'),

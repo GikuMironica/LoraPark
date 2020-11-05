@@ -33,7 +33,7 @@ class WasteLevelController extends ChangeNotifier {
 
   Future<void> getActualWasteLevelData() async {
     _logger.d('Fetching data');
-    _data = await _repository.get(id: Sensors.wasteLevel);
+    _data = await _repository.get(id: SensorEndpoints.wasteLevel);
     notifyListeners();
   }
 
@@ -43,7 +43,7 @@ class WasteLevelController extends ChangeNotifier {
 
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.wasteLevel,
+      id: SensorEndpoints.wasteLevel,
       start: startDate,
       end: endDate,
     );

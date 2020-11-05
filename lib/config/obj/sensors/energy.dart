@@ -13,8 +13,8 @@ List<Sensor> energyList = [
   //   image: AssetImage('assets/images/energy.jpg'),
   // ),
   Sensor(
-    id: Sensors.energyData_two,
-    type: SensorType.ENERGY,
+    id: SensorEndpoints.energyData_two,
+    type: SensorType.energy,
     name: 'Energy Data',
     number: '15',
     image: AssetImage('assets/images/energy.jpg'),

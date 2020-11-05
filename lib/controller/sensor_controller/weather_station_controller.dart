@@ -30,7 +30,7 @@ class WeatherStationController extends ChangeNotifier {
   }
 
   Future<void> getActualWeatherStationData() async {
-    _data = await _repository.get(id: Sensors.weatherStation_one);
+    _data = await _repository.get(id: SensorEndpoints.weatherStation_one);
     _logger.d('Fetching data');
     notifyListeners();
   }
@@ -43,7 +43,7 @@ class WeatherStationController extends ChangeNotifier {
         " - " +
         endDate.toString());
     _data = await _repository.getByTime(
-      id: Sensors.weatherStation_one,
+      id: SensorEndpoints.weatherStation_one,
       start: startDate,
       end: endDate,
     );

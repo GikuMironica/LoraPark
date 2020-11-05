@@ -25,7 +25,7 @@ class GrouundHumidityController extends ChangeNotifier {
   }
 
   Future<void> getActualGroundHumidityData() async {
-    _data = await _repository.get(id: Sensors.groundHumidity_one);
+    _data = await _repository.get(id: SensorEndpoints.groundHumidity_one);
     _logger.d('Fetching data');
     notifyListeners();
   }
@@ -35,7 +35,7 @@ class GrouundHumidityController extends ChangeNotifier {
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.groundHumidity_one,
+      id: SensorEndpoints.groundHumidity_one,
       start: startDate,
       end: endDate,
     );

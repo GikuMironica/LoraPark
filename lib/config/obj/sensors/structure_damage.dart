@@ -5,8 +5,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> structureDamageSensorList = [
   Sensor(
-    id: Sensors.structureDamage,
-    type: SensorType.STRUCTURE_DAMAGE,
+    id: SensorEndpoints.structureDamage,
+    type: SensorType.structure_damage,
     name: 'Structure Damage',
     number: '14',
     image: AssetImage('assets/images/structuredamage.jpg'),

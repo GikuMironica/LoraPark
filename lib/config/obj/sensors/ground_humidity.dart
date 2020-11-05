@@ -5,8 +5,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> groundHumidityList = [
   Sensor(
-    type: SensorType.GROUND_HUMIDITY,
-    id: Sensors.groundHumidity_one,
+    type: SensorType.ground_humidity,
+    id: SensorEndpoints.groundHumidity_one,
     name: 'Ground Humidity',
     number: '09',
     image: AssetImage('assets/images/ground_humidity.jpg'),

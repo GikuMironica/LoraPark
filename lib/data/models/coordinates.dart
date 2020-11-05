@@ -10,7 +10,7 @@ class SensorLocation extends Coordinates {
       : super(latitude: latitude, longitude: longitude);
 
   factory SensorLocation.fromJSON(Map<String, dynamic> json){
-    return SensorLocation(json['latitude'], json['longitude']);
+    return SensorLocation(double.parse(json['latitude'].toString()), double.parse(json['longitude'].toString()));
   }
 }
 

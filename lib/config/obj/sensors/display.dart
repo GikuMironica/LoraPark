@@ -4,7 +4,7 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> displayList = [
   Sensor(
-    type: SensorType.DISPLAY,
+    type: SensorType.display,
     id: 'display-01',
     location: SensorLocations.display,
   )

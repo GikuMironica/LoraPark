@@ -5,11 +5,11 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> floodDataList = [
   Sensor(
-    id: Sensors.floodData,
+    id: SensorEndpoints.floodData,
     location: SensorLocations.floodData,
     name: 'Flood Data',
     number: '08',
     image: AssetImage('assets/images/flood.jpg'),
-    type: SensorType.FLOOD_DATA,
+    type: SensorType.flood_data,
   )
 ];

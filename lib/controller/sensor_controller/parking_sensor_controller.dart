@@ -41,7 +41,7 @@ class ParkingSensorController extends ChangeNotifier {
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
     _data = await _stateRepository.getByTime(
-      id: Sensors.parking_one,
+      id: SensorEndpoints.parking_one,
       start: startDate,
       end: endDate,
     );
@@ -54,10 +54,10 @@ class ParkingSensorController extends ChangeNotifier {
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
     _avgData = await _averageRepository.getByTime(ids: [
-      Sensors.parking_one,
-      Sensors.parking_two,
-      Sensors.parking_three,
-      Sensors.parking_four
+      SensorEndpoints.parking_one,
+      SensorEndpoints.parking_two,
+      SensorEndpoints.parking_three,
+      SensorEndpoints.parking_four
     ], start: startDate, end: endDate);
     _logger.d(_avgData);
     notifyListeners();
@@ -68,10 +68,10 @@ class ParkingSensorController extends ChangeNotifier {
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
     _eventData = await _eventRepo.getByTime(ids: [
-      Sensors.parking_one,
-      Sensors.parking_two,
-      Sensors.parking_three,
-      Sensors.parking_four
+      SensorEndpoints.parking_one,
+      SensorEndpoints.parking_two,
+      SensorEndpoints.parking_three,
+      SensorEndpoints.parking_four
     ], start: startDate, end: endDate);
 
     notifyListeners();

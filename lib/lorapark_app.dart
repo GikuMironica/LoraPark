@@ -5,7 +5,7 @@ import 'package:fluro/fluro.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:lorapark_app/utils/utils.dart'
-    show DisableScrollGlow, hideKeyboardOnTap;
+    show DisableScrollGlow, hideKeyboardWrapper;
 import 'config/router/routes.dart';
 import 'provider_list.dart';
 
@@ -28,7 +28,7 @@ class _LoRaParkAppState extends State<LoRaParkApp> {
 
   @override
   Widget build(BuildContext context) {
-    return hideKeyboardOnTap(
+    return hideKeyboardWrapper(
         child: MultiProvider(
             providers: providerList,
             child: MaterialApp(

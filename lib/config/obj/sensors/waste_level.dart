@@ -5,8 +5,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> wasteLevelList = [
   Sensor(
-    type: SensorType.WASTE_LEVEL,
-    id: Sensors.wasteLevel,
+    type: SensorType.waste_level,
+    id: SensorEndpoints.wasteLevel,
     name: 'Waste Level',
     number: '04',
     image: AssetImage('assets/images/container.jpg'),

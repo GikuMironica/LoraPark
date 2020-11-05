@@ -5,8 +5,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> doorSensorList = [
   Sensor(
-    id: Sensors.door_one,
-    type: SensorType.DOOR,
+    id: SensorEndpoints.door_one,
+    type: SensorType.door,
     name: 'Door',
     number: '11',
     image: AssetImage('assets/images/door.jpg'),

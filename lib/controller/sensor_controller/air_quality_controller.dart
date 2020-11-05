@@ -28,7 +28,7 @@ class AirQualityController extends ChangeNotifier {
   }
 
   Future<void> getActualAirQualityData() async {
-    _data = await _repository.get(id: Sensors.airQuality_one);
+    _data = await _repository.get(id: SensorEndpoints.airQuality_one);
     _logger.d('Fetching data');
     notifyListeners();
   }
@@ -38,7 +38,7 @@ class AirQualityController extends ChangeNotifier {
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.airQuality_one,
+      id: SensorEndpoints.airQuality_one,
       start: startDate,
       end: endDate,
     );

@@ -4,8 +4,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> airQualityList = [
   Sensor(
-    type: SensorType.AIR_QUALITY,
-    id: Sensors.airQuality_one,
+    type: SensorType.air_quality,
+    id: SensorEndpoints.airQuality_one,
     name: 'Air Quality',
     number: '02',
     location: SensorLocations.airQuality,

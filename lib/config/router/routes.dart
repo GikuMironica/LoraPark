@@ -16,22 +16,22 @@ class Routes {
 
     router.define(root, handler: rootHandler);
     router.define(settings, handler: settingsHandler);
-    router.define(sensorPage + Sensors.airQuality_one,
+    router.define(sensorPage + SensorEndpoints.airQuality_one,
         handler: airQualityHandler);
-    router.define(sensorPage + Sensors.door_one, handler: doorHandler);
-    router.define(sensorPage + Sensors.energyData_two, handler: energyHandler);
-    router.define(sensorPage + Sensors.floodData, handler: floodHandler);
-    router.define(sensorPage + Sensors.groundHumidity_one,
+    router.define(sensorPage + SensorEndpoints.door_one, handler: doorHandler);
+    router.define(sensorPage + SensorEndpoints.energyData_two, handler: energyHandler);
+    router.define(sensorPage + SensorEndpoints.floodData, handler: floodHandler);
+    router.define(sensorPage + SensorEndpoints.groundHumidity_one,
         handler: groundHumidityHandler);
-    router.define(sensorPage + Sensors.parking_one, handler: parkingHandler);
-    router.define(sensorPage + Sensors.personCount_one,
+    router.define(sensorPage + SensorEndpoints.parking_one, handler: parkingHandler);
+    router.define(sensorPage + SensorEndpoints.personCount_one,
         handler: personCountHandler);
-    router.define(sensorPage + Sensors.raisedGarden,
+    router.define(sensorPage + SensorEndpoints.raisedGarden,
         handler: raisedGardenHandler);
-    router.define(sensorPage + Sensors.structureDamage,
+    router.define(sensorPage + SensorEndpoints.structureDamage,
         handler: structureDamageHandler);
-    router.define(sensorPage + Sensors.wasteLevel, handler: wasteLevelHandler);
-    router.define(sensorPage + Sensors.weatherStation_one,
+    router.define(sensorPage + SensorEndpoints.wasteLevel, handler: wasteLevelHandler);
+    router.define(sensorPage + SensorEndpoints.weatherStation_one,
         handler: weatherStationHandler);
   }
 }

@@ -1,6 +1,6 @@
 {
   "sensors": {
-    "weather-station": [
+    "weather_station": [
       {
         "type": 0,
         "name": "Weather Station",
@@ -13,7 +13,7 @@
         "rotation": 270
       }
     ],
-    "air-quality": [
+    "air_quality": [
       {
         "type": 1,
         "name": "Air Quality",
@@ -26,7 +26,7 @@
         "rotation": 90
       }
     ],
-    "sound-sensor": [
+    "sound_sensor": [
       {
         "type": 2,
         "name": "Sound Sensor",
@@ -39,7 +39,7 @@
         "rotation": 90
       }
     ],
-    "waste-level": [
+    "waste_level": [
       {
         "type": 3,
         "name": "Waste Level",
@@ -64,7 +64,7 @@
         }
       }
     ],
-    "water-temperature": [
+    "water_temperature": [
       {
         "type": 5,
         "name": "Water Temperature",
@@ -76,7 +76,7 @@
         }
       }
     ],
-    "feedback-button": [
+    "feedback_button": [
       {
         "type": 6,
         "name": "Feedback Button",
@@ -88,7 +88,7 @@
         }
       }
     ],
-    "flood-data": [
+    "flood_data": [
       {
         "type": 7,
         "name": "Flood Data",
@@ -100,7 +100,7 @@
         }
       }
     ],
-    "ground-humidity": [
+    "ground_humidity": [
       {
         "type": 8,
         "name": "Ground Humidity",
@@ -113,7 +113,7 @@
         "rotation": 0
       }
     ],
-    "person-count": [
+    "person_count": [
       {
         "type": 9,
         "name": "Person Count",
@@ -139,7 +139,7 @@
         "rotation": 270
       }
     ],
-    "raised-garden": [
+    "raised_garden": [
       {
         "type": 11,
         "name": "Raised Garden",
@@ -152,7 +152,7 @@
         "rotation": 270
       }
     ],
-    "rat-sensor": [
+    "rat_sensor": [
       {
         "type": 12,
         "name": "Rat Sensor",
@@ -165,7 +165,7 @@
         "rotation": 0
       }
     ],
-    "structure-damage": [
+    "structure_damage": [
       {
         "type": 13,
         "name": "Structure Damage",
@@ -191,7 +191,7 @@
         "rotation": 90
       }
     ],
-    "smart-bank": [
+    "smart_bank": [
       {
         "type": 15,
         "name": "Smart Bank",

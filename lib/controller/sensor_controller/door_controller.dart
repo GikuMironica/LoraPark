@@ -30,7 +30,7 @@ class DoorController extends ChangeNotifier {
 
   Future<void> getActualDoorData() async {
     _logger.d('Fetching data');
-    _data = await _repository.get(id: Sensors.door_one);
+    _data = await _repository.get(id: SensorEndpoints.door_one);
     notifyListeners();
   }
 
@@ -40,7 +40,7 @@ class DoorController extends ChangeNotifier {
 
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.door_one,
+      id: SensorEndpoints.door_one,
       start: startDate,
       end: endDate,
     );

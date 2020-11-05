@@ -4,7 +4,7 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> smartBankList = [
   Sensor(
-    type: SensorType.SMART_BANK,
+    type: SensorType.smart_bank,
     id: 'smartbank_01',
     location: SensorLocations.smartBank,
   ),

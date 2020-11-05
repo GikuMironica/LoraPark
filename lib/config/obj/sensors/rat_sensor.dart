@@ -5,7 +5,7 @@ import 'package:lorapark_app/data/models/sensor.dart';
 // TODO: specify rat sensor id
 List<Sensor> ratSensorList = [
   Sensor(
-    type: SensorType.RAT_SENSOR,
+    type: SensorType.rat_sensor,
     id: 'RatSensor',
     location: SensorLocations.ratSensor,
     number: '03',

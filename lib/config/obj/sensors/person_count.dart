@@ -5,8 +5,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> personCountList = [
   Sensor(
-    type: SensorType.PERSON_COUNT,
-    id: Sensors.personCount_one,
+    type: SensorType.person_count,
+    id: SensorEndpoints.personCount_one,
     name: 'Person Count',
     number: '10',
     image: AssetImage('assets/images/person_count.png'),

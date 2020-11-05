@@ -4,8 +4,8 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> soundSensorList = [
   Sensor(
-    type: SensorType.SOUND_SENSOR,
-    id: Sensors.soundSensor_one,
+    type: SensorType.sound_sensor,
+    id: SensorEndpoints.soundSensor_one,
     location: SensorLocations.soundSensor,
     name: 'Sound Sensor',
     number: '03',
