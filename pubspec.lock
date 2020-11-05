@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.1"
+  camera:
+    dependency: "direct main"
+    description:
+      name: camera
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.8+11"
   catcher:
     dependency: "direct main"
     description:
@@ -169,6 +176,41 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.1"
+  firebase:
+    dependency: transitive
+    description:
+      name: firebase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.3.2"
+  firebase_core:
+    dependency: "direct main"
+    description:
+      name: firebase_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.1"
+  firebase_core_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_core_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  firebase_core_web:
+    dependency: transitive
+    description:
+      name: firebase_core_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
+  firebase_ml_vision:
+    dependency: "direct main"
+    description:
+      name: firebase_ml_vision
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.8"
   fl_chart:
     dependency: "direct main"
     description:
@@ -202,6 +244,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.11"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -221,6 +270,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_unity_widget:
+    dependency: "direct main"
+    description:
+      name: flutter_unity_widget
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0+2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -513,6 +569,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.2+2"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.4+1"
   sentry:
     dependency: transitive
     description:
