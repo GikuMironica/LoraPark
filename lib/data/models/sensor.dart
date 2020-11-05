@@ -9,9 +9,21 @@ class Sensor {
   final String number;
   final AssetImage image;
   final SensorLocation location;
+  final int rotation;
+  final String address;
 
   Sensor(
-      {this.type, this.id, this.name, this.number, this.image, this.location});
+      {this.type, this.id, this.name, this.number, this.image, this.location, this.rotation, this.address});
+  
+  factory Sensor.fromJSON(Map<String, dynamic> json) => Sensor(
+    type: SensorType.values[int.parse(json['type'])],
+    id: json.containsKey('id') ? json['id'] : '',
+    name: json['name'],
+    number: json['number'].toString(),
+    location: SensorLocation.fromJSON(json['location']),
+    rotation: json.containsKey('rotation') ? json['rotation'] : null,
+    address: json['address']
+  );
 
   double get latitude => location.latitude;
 
