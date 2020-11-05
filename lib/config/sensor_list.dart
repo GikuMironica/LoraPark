@@ -3,29 +3,29 @@ library sensors;
 import 'package:lorapark_app/config/obj/sensors/person_count.dart';
 import 'package:lorapark_app/config/obj/sensors/sensor_obj_lists.dart';
 import 'package:lorapark_app/data/models/sensor.dart';
+import 'package:darq/darq.dart';
 
 enum SensorType {
-  WEATHER_STATION,
-  PERSON_COUNT,
-  DOOR,
-  FEEDBACK_BUTTON,
-  ELECTRICITY,
-  ENERGY,
-  FLOOD_DATA,
-  GROUND_HUMIDITY,
-  RAISED_GARDEN,
-  SOUND_SENSOR,
-  WASTE_LEVEL,
-  AIR_QUALITY,
-  CO2,
-  STRUCTURE_DAMAGE,
-  PARKING,
-  RAT_SENSOR,
-  SMART_BANK,
-  DISPLAY
+  weather_station,
+  air_quality,
+  sound_sensor,
+  waste_level,
+  parking,
+  water_temperature,
+  feedback_button,
+  flood_data,
+  ground_humidity,
+  person_count,
+  door,
+  raised_garden,
+  rat_sensor,
+  structure_damage,
+  energy,
+  smart_bank,
+  display
 }
 
-class Sensors {
+class SensorEndpoints {
   // Weather Station Data
 
   /// Weather Station ID: davis-013d4d
@@ -120,24 +120,23 @@ class Sensors {
   static const String c02Data_two = 'elsysco2-048e67';
 }
 
-
 final List<Sensor> sensorList = [
   ...weatherStationList,
   ...wasteLevelList,
   ...structureDamageSensorList,
-  ...soundSensorList,
-  ...smartBankList,
-  ...ratSensorList,
+  // ...soundSensorList,
+  // ...smartBankList,
+  // ...ratSensorList,
   ...raisedGardenList,
   ...personCountList,
   ...parkingSensorList,
   ...groundHumidityList,
   ...floodDataList,
-  ...feedbackButtonList,
+  // ...feedbackButtonList,
   ...energyList,
-  ...electricityList,
+  // ...electricityList,
   ...doorSensorList,
-  ...co2SensorList,
-  ...displayList,
+  // ...co2SensorList,
+  // ...displayList,
   ...airQualityList
-];
+].distinct((sensor) => sensor.type).toList();

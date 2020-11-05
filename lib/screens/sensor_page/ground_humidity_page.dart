@@ -11,7 +11,6 @@ const double padding = 24.0;
 const double horizontalOffset = 20;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-var groundHumidityController;
 double clipSize = 0;
 
 class GroundHumidityPage extends StatefulWidget {
@@ -22,7 +21,7 @@ class GroundHumidityPage extends StatefulWidget {
 class _GroundHumidityPage extends State<GroundHumidityPage> {
   @override
   Widget build(BuildContext context) {
-    groundHumidityController = Provider.of<GrouundHumidityController>(
+    var groundHumidityController = Provider.of<GrouundHumidityController>(
       context,
       listen: false,
     );
@@ -108,6 +107,10 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
   }
 
   void _scrollListener() {
+    var groundHumidityController = Provider.of<GrouundHumidityController>(
+      context,
+      listen: false,
+    );
     setState(() {
       clipSize = (groundHumidityController.scrollController.offset / 2);
     });

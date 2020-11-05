@@ -4,8 +4,9 @@ import 'package:lorapark_app/data/models/sensor.dart';
 
 List<Sensor> feedbackButtonList = [
   Sensor(
-    id: Sensors.feedbackButton_one,
+    id: SensorEndpoints.feedbackButton_one,
     location: SensorLocations.feedbackButton,
-    type: SensorType.FEEDBACK_BUTTON,
+    type: SensorType.feedback_button,
+    number: '07',
   )
 ];

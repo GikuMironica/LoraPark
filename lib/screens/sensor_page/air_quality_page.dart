@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lorapark_app/controller/sensor_controller/weather_station_controller.dart';
-import 'package:lorapark_app/screens/widgets/charts/weather_station_weekly_chart.dart';
+import 'package:lorapark_app/controller/sensor_controller/air_quality_controller.dart';
+import 'package:lorapark_app/screens/widgets/charts/air_quality_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
-import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
 
@@ -12,56 +11,55 @@ const double padding = 24.0;
 const double horizontalOffset = 20;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-var weatherStationController;
 double clipSize = 0;
 
-class WeatherStationPage extends StatefulWidget {
+class AirQualityPage extends StatefulWidget {
   @override
-  _WeatherStationPage createState() => _WeatherStationPage();
+  _AirQualityPage createState() => _AirQualityPage();
 }
 
-class _WeatherStationPage extends State<WeatherStationPage> {
+class _AirQualityPage extends State<AirQualityPage> {
   @override
   Widget build(BuildContext context) {
-    weatherStationController = Provider.of<WeatherStationController>(
+    var airQualityController = Provider.of<AirQualityController>(
       context,
       listen: false,
     );
-    weatherStationController.scrollController.addListener(_scrollListener);
+    airQualityController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => weatherStationController.getWeatherStationDataByTime(7),
+      onRefresh: () => airQualityController.getAirQualityDataByTime(7),
       child: SingleSensorViewTemplate(
-        scrollController: weatherStationController.scrollController,
+        scrollController: airQualityController.scrollController,
         clipSize: clipSize,
-        sensorName: "Weather Station",
-        sensorNumber: "01",
+        sensorName: "Air Quality",
+        sensorNumber: "xx",
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Consumer<WeatherStationController>(
+                child: Consumer<AirQualityController>(
                   builder: (context, controller, _) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      weatherStationController.data == null
+                      airQualityController.data == null
                           ? LoadingDataPresenter()
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height:
                                   (MediaQuery.of(context).size.width) * 0.30,
-                              title: "Temperature",
+                              title: "NO2 Concentration",
                               visualization: Image(
-                                image: AssetImage("assets/images/sun.png"),
+                                image: AssetImage("assets/images/polution.png"),
                                 height: 200,
                                 width: 200,
                               ),
                               data: Text(
-                                weatherStationController.temperature
+                                airQualityController.no2Concentration
                                         .toString() +
                                     " " +
-                                    "°C",
+                                    "ppm",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
@@ -69,22 +67,23 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                               ),
                             ),
                       SizedBox(height: verticalOffset),
-                      weatherStationController.data == null
+                      airQualityController.data == null
                           ? LoadingDataPresenter()
                           : DataPresenter(
                               width: MediaQuery.of(context).size.width,
                               height:
                                   (MediaQuery.of(context).size.width) * 0.30,
-                              title: "Precipitation",
+                              title: "NO Concentration",
                               visualization: Image(
-                                image: AssetImage("assets/images/cloud.png"),
+                                image: AssetImage("assets/images/polution.png"),
                                 height: 200,
                                 width: 200,
                               ),
                               data: Text(
-                                weatherStationController.rainrate.toString() +
+                                airQualityController.noConcentration
+                                        .toString() +
                                     " " +
-                                    "mm",
+                                    "ppm",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
@@ -92,21 +91,39 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                               ),
                             ),
                       SizedBox(height: verticalOffset),
-                      weatherStationController.data == null
-                          ? LoadingDataPresenter(
-                              height: (MediaQuery.of(context).size.width) * 0.7)
-                          : WeeklyBarChart(
-                              temperatureDayData:
-                                  weatherStationController.getWeeklyReport(),
+                      airQualityController.data == null
+                          ? LoadingDataPresenter()
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height:
+                                  (MediaQuery.of(context).size.width) * 0.30,
+                              title: "CO Concentration",
+                              visualization: Image(
+                                image: AssetImage("assets/images/polution.png"),
+                                height: 200,
+                                width: 200,
+                              ),
+                              data: Text(
+                                airQualityController.coConcentration
+                                        .toString() +
+                                    " " +
+                                    "ppm",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                      SizedBox(height: verticalOffset),
+                      airQualityController.data == null
+                          ? LoadingDataPresenter()
+                          : WeeklyAirQualityBarChart(
+                              airQualityDayData:
+                                  airQualityController.getWeeklyReport(),
                               height: (MediaQuery.of(context).size.width) * 0.7,
                               width: (MediaQuery.of(context).size.width),
                             ),
                       SizedBox(height: pageOffset),
-                      SensorDescription(
-                        text:
-                            'Diese Station ist eine Kombination aus verschiedenen Sensoren. Gemessen werden Temperatur, Luftfeuchtigkeit, Luftdruck, Regen-menge, Kondensationspunkt, Windgeschwindigkeit und -richtung, Sonneneinstrahlung und Anzahl von Partikeln verschiedener Größein der Luft (Feinstaub). Die Wetterstation wird autark mittels Solar-modul betrieben. Die gemessenen Ergebnisse werden periodisch über das lokale LORAWAN Netz an unser Backend gesendet, welches die Datenzur Anzeige verarbeitet. Dieser Sensor ist Teil des LoRaParks am Weinhof. Daten und Visualisierung auf demdortigen Display oder unter lorapark.de. Die Sensordaten werden der Öffentlichkeitebenfalls auf der Ulmer Datenplattform unter CC-0-Lizenz frei verfügbar gemacht.',
-                        image: AssetImage("assets/images/weather_station.jpg"),
-                      )
                     ],
                   ),
                 ),
@@ -119,8 +136,12 @@ class _WeatherStationPage extends State<WeatherStationPage> {
   }
 
   void _scrollListener() {
+    var airQualityController = Provider.of<AirQualityController>(
+      context,
+      listen: false,
+    );
     setState(() {
-      clipSize = (weatherStationController.scrollController.offset / 2);
+      clipSize = (airQualityController.scrollController.offset / 2);
     });
   }
 }

@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 const double padding = 24.0;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-var raisedGardenController;
 double clipSize = 0;
 
 class RaisedGardenPage extends StatefulWidget {
@@ -21,7 +20,7 @@ class RaisedGardenPage extends StatefulWidget {
 class _RaisedGardenPage extends State<RaisedGardenPage> {
   @override
   Widget build(BuildContext context) {
-    raisedGardenController = Provider.of<RaisedGardenController>(
+    var raisedGardenController = Provider.of<RaisedGardenController>(
       context,
       listen: false,
     );
@@ -106,6 +105,10 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
   }
 
   void _scrollListener() {
+    var raisedGardenController = Provider.of<RaisedGardenController>(
+      context,
+      listen: false,
+    );
     setState(() {
       clipSize = (raisedGardenController.scrollController.offset / 2);
     });

@@ -24,7 +24,7 @@ class RaisedGardenController extends ChangeNotifier {
   }
 
   Future<void> getRaisedGardennData() async {
-    _data = await _repository.get(id: Sensors.raisedGarden);
+    _data = await _repository.get(id: SensorEndpoints.raisedGarden);
     _logger.d('Fetching data');
     notifyListeners();
   }
@@ -34,7 +34,7 @@ class RaisedGardenController extends ChangeNotifier {
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.raisedGarden,
+      id: SensorEndpoints.raisedGarden,
       start: startDate,
       end: endDate,
     );

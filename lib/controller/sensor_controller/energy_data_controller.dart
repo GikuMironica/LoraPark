@@ -30,7 +30,7 @@ class EnergyDataController extends ChangeNotifier {
 
   Future<void> getActualEnergyData() async {
     _logger.d('Fetching data');
-    _data = await _repository.get(id: Sensors.energyData_two);
+    _data = await _repository.get(id: SensorEndpoints.energyData_two);
     notifyListeners();
   }
 
@@ -40,7 +40,7 @@ class EnergyDataController extends ChangeNotifier {
 
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.energyData_two,
+      id: SensorEndpoints.energyData_two,
       start: startDate,
       end: endDate,
     );

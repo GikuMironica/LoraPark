@@ -14,14 +14,7 @@ class _MapPageState extends State<MapPage> {
     return Container(
       padding: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            BG_TOP_GRADIENT,
-            BG_BOTTOM_GRADIENT,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter
-        )
+
       ),
       child: Center(
         child: Column(

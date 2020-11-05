@@ -28,7 +28,7 @@ class PersonCountController extends ChangeNotifier {
   }
 
   Future<void> fetchData() async {
-    _data = await _repository.get(id: Sensors.personCount_one);
+    _data = await _repository.get(id: SensorEndpoints.personCount_one);
     _logger.d('Fetching data');
     notifyListeners();
   }
@@ -38,7 +38,7 @@ class PersonCountController extends ChangeNotifier {
     var startDate = endDate.subtract(Duration(days: days));
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.personCount_one,
+      id: SensorEndpoints.personCount_one,
       start: startDate,
       end: endDate,
     );

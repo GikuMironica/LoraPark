@@ -1,0 +1,215 @@
+{
+  "sensors": {
+    "weather_station": [
+      {
+        "type": 0,
+        "name": "Weather Station",
+        "image": "assets/images/weather-station.jpg",
+        "number": 1,
+        "location": {
+          "latitude": 48.396426,
+          "longitude": 9.990453
+        },
+        "rotation": 270
+      }
+    ],
+    "air_quality": [
+      {
+        "type": 1,
+        "name": "Air Quality",
+        "image": "assets/image/air-quality.jpg",
+        "number": 2,
+        "location": {
+          "latitude": 48.397206,
+          "longitude": 9.991628
+        },
+        "rotation": 90
+      }
+    ],
+    "sound_sensor": [
+      {
+        "type": 2,
+        "name": "Sound Sensor",
+        "image": "assets/image/sound-sensor.jpg",
+        "number": 3,
+        "location": {
+          "latitude": 48.397206,
+          "longitude": 9.991628
+        },
+        "rotation": 90
+      }
+    ],
+    "waste_level": [
+      {
+        "type": 3,
+        "name": "Waste Level",
+        "image": "assets/images/waste-sensor.jpg",
+        "number": 4,
+        "location": {
+          "latitude": 48.396395,
+          "longitude": 9.991161
+        },
+        "rotation": 90
+      }
+    ],
+    "parking": [
+      {
+        "type": 4,
+        "name": "Parking Sensor",
+        "image": "assets/images/parking-sensor.jpg",
+        "number": 5,
+        "location": {
+          "latitude": 48.397354,
+          "longitude": 9.993039
+        }
+      }
+    ],
+    "water_temperature": [
+      {
+        "type": 5,
+        "name": "Water Temperature",
+        "image": "assets/images/water-temperature.jpg",
+        "number": 6,
+        "location": {
+          "latitude": 48.396482,
+          "longitude": 48.396482
+        }
+      }
+    ],
+    "feedback_button": [
+      {
+        "type": 6,
+        "name": "Feedback Button",
+        "image": "assets/image/feedback-button.jpg",
+        "number": 7,
+        "location": {
+          "latitude": 48.397354,
+          "longitude": 9.993039
+        }
+      }
+    ],
+    "flood_data": [
+      {
+        "type": 7,
+        "name": "Flood Data",
+        "image": "assets/images/flood-data.jpg",
+        "number": 8,
+        "location": {
+          "longitude": 48.396016,
+          "latitude": 9.995969
+        }
+      }
+    ],
+    "ground_humidity": [
+      {
+        "type": 8,
+        "name": "Ground Humidity",
+        "image": "assets/images/ground-humidity.jpg",
+        "number": 9,
+        "location": {
+          "longitude": 48.396770,
+          "latitude": 9.990960
+        },
+        "rotation": 0
+      }
+    ],
+    "person_count": [
+      {
+        "type": 9,
+        "name": "Person Count",
+        "image": "assets/images/person-count.jpg",
+        "number": 10,
+        "location": {
+          "longitude": 48.396426,
+          "latitude": 9.990453
+        },
+        "rotation": 270
+      }
+    ],
+    "door": [
+      {
+        "type": 10,
+        "name": "Door",
+        "image": "assets/images/door.jpg",
+        "number": 11,
+        "location": {
+          "longitude": 48.396607,
+          "latitude": 9.990208
+        },
+        "rotation": 270
+      }
+    ],
+    "raised_garden": [
+      {
+        "type": 11,
+        "name": "Raised Garden",
+        "image": "assets/images/raised_garden.jpg",
+        "number": 12,
+        "location": {
+          "latitude": 48.396472,
+          "longitude": 9.99047
+        },
+        "rotation": 270
+      }
+    ],
+    "rat_sensor": [
+      {
+        "type": 12,
+        "name": "Rat Sensor",
+        "image": "",
+        "number": 13,
+        "location": {
+          "latitude": 48.396425,
+          "longitude": 9.990268
+        },
+        "rotation": 0
+      }
+    ],
+    "structure_damage": [
+      {
+        "type": 13,
+        "name": "Structure Damage",
+        "image": "assets/images/structuredamage.jpg",
+        "number": 14,
+        "location": {
+          "latitude": 48.39863,
+          "longitude": 9.992465
+        },
+        "rotation": 0
+      }
+    ],
+    "energy": [
+      {
+        "type": 14,
+        "name": "Energy",
+        "image": "assets/images/energy.jpg",
+        "number": 13,
+        "location": {
+          "latitude": 48.386126,
+          "longitude": 9.986219
+        },
+        "rotation": 90
+      }
+    ],
+    "smart_bank": [
+      {
+        "type": 15,
+        "name": "Smart Bank",
+        "location": {
+          "latitude": 0,
+          "longitude": 0
+        }
+      }
+    ],
+    "display": [
+      {
+        "type": 16,
+        "name": "Display",
+        "location": {
+          "latitude": 48.396736,
+          "longitude": 9.991055
+        }
+      }
+    ]
+  }
+}

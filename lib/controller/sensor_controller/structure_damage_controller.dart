@@ -26,7 +26,7 @@ class StructureDamageController extends ChangeNotifier {
 
   Future<void> getActualStructureDamageData() async {
     _logger.d('Fetching data');
-    _data = await _repository.get(id: Sensors.structureDamage);
+    _data = await _repository.get(id: SensorEndpoints.structureDamage);
     notifyListeners();
   }
 
@@ -36,7 +36,7 @@ class StructureDamageController extends ChangeNotifier {
 
     _logger.d('Fetching data');
     _data = await _repository.getByTime(
-      id: Sensors.structureDamage,
+      id: SensorEndpoints.structureDamage,
       start: startDate,
       end: endDate,
     );

@@ -36,8 +36,8 @@ dependencies:
   get_it: ^5.0.1
   permission_handler: ^5.0.1+1
   fl_chart: ^0.12.0
-  url_launcher: ^5.7.8
-  package_info: ^0.4.3
+  url_launcher: ^5.7.10
+  package_info: ^0.4.3+2
   device_info: ^0.4.2+9
   location: ^3.0.2
   flutter_secure_storage: ^3.3.5
@@ -47,11 +47,15 @@ dependencies:
   persistent_bottom_nav_bar: ^2.1.0
   jiffy: ^3.0.1
   catcher: ^0.3.22
-  connectivity: ^2.0.0
+  connectivity: ^2.0.1
   flutter_svg: ^0.19.1
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
-
+  darq: ^0.4.0+1
+  firebase_core: ^0.5.1
+  firebase_ml_vision: ^0.9.8
+  camera: ^0.5.8+11
+  flutter_unity_widget: ^2.0.0+2
 
   here_sdk:
     path: 'plugins/here-sdk/'
@@ -79,6 +83,7 @@ flutter:
     - assets/fonts/
     - assets/i18n/
     - assets/images/
+    - assets/json/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
