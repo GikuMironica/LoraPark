@@ -19,7 +19,7 @@ class SensorCard extends StatelessWidget {
         onTap: () {
           Application.router.navigateTo(
             context,
-            Routes.sensorPage + sensor.id,
+            Routes.sensorPage + sensor.number,
             transition: TransitionType.inFromRight,
           );
         },

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "288970087002",
+    "firebase_url": "https://loraparkapp-ee5d9.firebaseio.com",
+    "project_id": "loraparkapp-ee5d9",
+    "storage_bucket": "loraparkapp-ee5d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288970087002:android:78934e981ad89965135663",
+        "android_client_info": {
+          "package_name": "de.thu.lorapark_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288970087002-inupo13a1k4udvu6er26m5s5om770bbr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChQSHBCoRc9jW2fSNLsCtlccxfxUuj2mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288970087002-inupo13a1k4udvu6er26m5s5om770bbr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "288970087002-u69t9t6nhii9bjt45bfpnsjc35b70d07.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.thu.lorapark-app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

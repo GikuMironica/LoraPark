@@ -189,21 +189,21 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1"
+    version: "0.4.5"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.0.4"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "0.1.1+2"
   firebase_ml_vision:
     dependency: "direct main"
     description:
@@ -244,13 +244,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  flutter_plugin_android_lifecycle:
-    dependency: transitive
-    description:
-      name: flutter_plugin_android_lifecycle
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.11"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -270,13 +263,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_unity_widget:
-    dependency: "direct main"
-    description:
-      name: flutter_unity_widget
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0+2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
