@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:here_sdk/core.dart';
+import 'package:here_sdk/gestures.dart';
 import 'package:here_sdk/mapview.dart';
 import 'package:logger/logger.dart';
 import 'package:lorapark_app/config/sensors.dart';
@@ -13,7 +14,7 @@ class MapController extends ChangeNotifier {
   final Logger _logger =
       GetIt.I.get<LoggingService>().getLogger((MapController).toString());
 
-  LocationService _locationService = GetIt.I.get<LocationService>();
+  final LocationService _locationService = GetIt.I.get<LocationService>();
   MapPageState _pageState = MapPageState.MAP_LOADING;
 
   MapPageState get pageState => _pageState;
@@ -21,6 +22,11 @@ class MapController extends ChangeNotifier {
   HereMapController _hereMapController;
 
   HereMapController get hereMapController => _hereMapController;
+
+  MapMarker userMapMarker;
+
+  final MapImage _sensorMapIcon = MapImage.withFilePathAndWidthAndHeight('assets/icons/png/location-outline.png', 72, 72);
+  final MapImage userMapIcon = MapImage.withFilePathAndWidthAndHeight('assets/icons/svg/ellipse-outline.svg', 36, 36);
 
 
   void onMapCreated(HereMapController hereMapController) async {
@@ -46,13 +52,9 @@ class MapController extends ChangeNotifier {
               _locationService.location.longitude),
           distanceInMeters);
       for (var sensor in GetIt.I.get<Sensors>().list) {
-        if (sensor.latitude != 0.0) {
-          MapMarker marker = MapMarker(
-              GeoCoordinates(sensor.latitude, sensor.longitude),
-              MapImage.withFilePathAndSignedWidthAndHeight(
-                  '/assets/icons/svg/location-outline.svg', 48, 48));
+          var marker = MapMarker.withAnchor(
+              GeoCoordinates(sensor.latitude, sensor.longitude), _sensorMapIcon, Anchor2D());
           _hereMapController.mapScene.addMapMarker(marker);
-        }
       }
       setPageState(MapPageState.MAP_LOADED);
     });

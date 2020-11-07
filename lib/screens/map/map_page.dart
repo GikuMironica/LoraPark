@@ -19,15 +19,27 @@ class _MapPageState extends State<MapPage> {
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Consumer2<MapController, UserLocation>(
-            builder: (ctx, controller, user, child){
-              if(controller.pageState == MapPageState.MAP_LOADED){
-                var coordinate = GeoCoordinates(user.longitude, user.latitude);
-                controller.hereMapController.camera.lookAtPoint(coordinate);
+              builder: (ctx, controller, user, child) {
+            if (controller.pageState == MapPageState.MAP_LOADED) {
+              var geoCoordinates =
+              GeoCoordinates(user.latitude, user.longitude);
+              if(controller.userMapMarker != null){
+                if(controller.userMapMarker.coordinates != geoCoordinates) {
+                  controller.userMapMarker.coordinates = geoCoordinates;
+                }
+              } else {
+                controller.userMapMarker = MapMarker.withAnchor(
+                    geoCoordinates,
+                    controller.userMapIcon,
+                    Anchor2D());
+                controller.hereMapController.mapScene
+                    .addMapMarker(controller.userMapMarker);
               }
-              return HereMap(
+            }
+            return HereMap(
               onMapCreated: controller.onMapCreated,
-            );}
-          ),
+            );
+          }),
         ),
       ],
     );
