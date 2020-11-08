@@ -44,7 +44,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
             Center(
               child: Container(
               width: MediaQuery.of(context).size.width - 80,
-              height: MediaQuery.of(context).size.height / 3,
+              height: MediaQuery.of(context).size.width - 80,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.white,
