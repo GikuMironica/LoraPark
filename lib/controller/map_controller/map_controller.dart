@@ -12,7 +12,19 @@ enum MapPageState { MAP_LOADING, MAP_ERROR, MAP_LOADED, ROUTING }
 
 class MapController extends ChangeNotifier {
   final Logger _logger =
-      GetIt.I.get<LoggingService>().getLogger((MapController).toString());
+  GetIt.I.get<LoggingService>().getLogger((MapController).toString());
+
+  final LocationService _locationService = GetIt.I.get<LocationService>();
+  MapPageState _pageState = MapPageState.MAP_LOADING;
+  BottomSheetState _bottomSheetState = BottomSheetState.HIDDEN;
+
+  // Tap
+  BottomSheetState get sheetState => _bottomSheetState;
+  MapPageState get pageState => _pageState;
+
+  // Tap
+  List<Sensor> _bottomSheetSensorList = <Sensor>[];
+  List<Sensor> get bottomSheetSensorList => _bottomSheetSensorList;
 
   final LocationService _locationService = GetIt.I.get<LocationService>();
   MapPageState _pageState = MapPageState.MAP_LOADING;
@@ -63,5 +75,34 @@ class MapController extends ChangeNotifier {
   void setPageState(MapPageState pageState) {
     _pageState = pageState;
     notifyListeners();
+  }
+
+  // Tap
+  void _setTapGestureHandler() {
+    _hereMapController.gestures.tapListener = TapListener.fromLambdas(
+        lambda_onTap: (Point2D touchPoint) => _pickSensorOnMap(touchPoint));
+  }
+
+  // Tap
+  void _pickSensorOnMap(Point2D touchPoint) {
+    var radiusInPixel = 2.0;
+    _hereMapController.pickMapItems(touchPoint, radiusInPixel,
+            (sensorPickResult) {
+          var sensorMarkerList = sensorPickResult.markers;
+          if (sensorMarkerList.isEmpty) return;
+          var topMostSensor = sensorMarkerList.first;
+          var metadata = topMostSensor.metadata;
+          if (metadata != null) {
+            if(metadata.getString('number') == 'null') return;
+            var location = SensorLocation(
+                metadata.getDouble('lat'), metadata.getDouble('long'));
+            for (var sensor in GetIt.I.get<Sensors>().list) {
+              if (sensor.location.longitude == location.longitude) {
+                _bottomSheetSensorList.add(sensor);
+              }
+            }
+            toggleBottomSheet();
+          }
+        });
   }
 }
