@@ -19,7 +19,7 @@ class Sensor {
     type: SensorType.values[json['type']],
     id: json.containsKey('id') ? json['id'] : '',
     name: json['name'],
-    number: json['number'].toString(),
+    number: json['number'],
     image: json.containsKey('image') ? AssetImage(json['image']) : null,
     location: SensorLocation.fromJSON(json['location']),
     rotation: json.containsKey('rotation') ? json['rotation'] : null,

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:lorapark_app/config/sensor_list.dart' show sensorList;
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
 import 'package:lorapark_app/data/models/sensor.dart';
+import 'package:lorapark_app/screens/ocr_page/ocr_page.dart';
 import 'package:lorapark_app/screens/widgets/sensor/sensor_card.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 class SensorListPage extends StatefulWidget {
@@ -98,11 +101,19 @@ class _SensorListPageState extends State<SensorListPage> {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(
-                    Icons.camera_alt_outlined,
-                    color: Colors.white,
+                  icon: SvgPicture.asset(
+                    'assets/icons/svg/text-scan.svg',
+                    semanticsLabel: 'Sensor Number Scanner',
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    pushNewScreen(
+                      context,
+                      screen: OcrPage(),
+                      withNavBar: false,
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
+                    );
+                  },
                 )
               ],
             ),
