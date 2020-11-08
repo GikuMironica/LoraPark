@@ -38,6 +38,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                 ? Container(
                     height: MediaQuery.of(context).size.height - 150,
                     child: CameraPreview(_ocrController.camera),
+                    //color: Color.fromRGBO(255, 0, 0, 0.5),
                   )
                 : Container(color: Colors.black),
             Center(

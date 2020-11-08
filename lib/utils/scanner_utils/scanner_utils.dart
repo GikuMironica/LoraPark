@@ -23,6 +23,7 @@ class ScannerUtils {
     @required CameraImage image,
     @required Future<dynamic> Function(FirebaseVisionImage image) detectInImage,
     @required int imageRotation,
+
   }) async {
     return detectInImage(
       FirebaseVisionImage.fromBytes(
@@ -46,7 +47,7 @@ class ScannerUtils {
   ) {
     return FirebaseVisionImageMetadata(
       rawFormat: image.format.raw,
-      size: Size(image.width.toDouble(), image.height.toDouble()),
+      size: Size((image.width.toDouble()) + 150, ((image.height.toDouble()) - (image.height.toDouble() * 0.40))),
       rotation: rotation,
       planeData: image.planes.map(
         (Plane plane) {
