@@ -23,7 +23,7 @@ import 'package:lorapark_app/data/repositories/sensor_repository/raised_garden.d
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
-enum NavBottomSheetState {SHOWING, HIDDEN}
+enum NavBottomSheetState { SHOWING, HIDDEN }
 
 class ARController extends ChangeNotifier {
   AirQualityRepository _airQualityRepository;
@@ -86,12 +86,6 @@ class ARController extends ChangeNotifier {
     getActualData()
         .whenComplete(() => createJsonConfig())
         .whenComplete(() => configReady = true);
-
-  }
-
-  void setBottomSheetState(NavBottomSheetState newState) {
-    _bottomSheetState = newState;
-    notifyListeners();
   }
 
   void setBottomSheetState(NavBottomSheetState newState) {
@@ -348,7 +342,7 @@ class ARController extends ChangeNotifier {
 
   void setNavigationTo(int index) {
     navigationTo = index;
-    if(index != null) {
+    if (index != null) {
       navigateInUnity(_sensorList.list[index]);
     } else {
       stopNavigation();
@@ -372,9 +366,9 @@ class ARController extends ChangeNotifier {
     unityReady = true;
     if (configReady && !dataSent) {
       SendDataToUnity();
-    };
+    }
+    ;
   }
-
 
   // Communication from Unity when new scene is loaded to Flutter
   void onUnitySceneLoaded(

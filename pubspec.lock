@@ -569,6 +569,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.2+2"
+<<<<<<< HEAD
   quiver:
     dependency: transitive
     description:
@@ -576,6 +577,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> 0fd6781... Rat Repository added
+>>>>>>> Rat Repository added
   sentry:
     dependency: transitive
     description:
