@@ -40,12 +40,12 @@ class OcrController extends ChangeNotifier {
   }
 
   Future<void> closeCameraAndStream() async {
-     if (_camera.value.isStreamingImages) {
-       await _camera.stopImageStream();
-     }
-     await _camera.dispose();
+    if (_camera.value.isStreamingImages) {
+      await _camera.stopImageStream();
+    }
+    await _camera.dispose();
 
-     _detectedText = null;
+    _detectedText = null;
   }
 
   bool detectedTextFollowsPattern() {

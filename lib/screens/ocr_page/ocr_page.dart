@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/config/router/routes.dart';
 import 'package:lorapark_app/controller/ocr_controller/ocr_controller.dart';
-import 'package:lorapark_app/utils/ui/text_detector_painter.dart';
 import 'package:provider/provider.dart';
-import 'package:lorapark_app/utils/ui/InvertedRectangleClipper.dart';
+import 'package:lorapark_app/utils/ui/inverted_rectangle_clipper.dart';
+
 class OcrPage extends StatefulWidget {
   @override
   _OcrPageState createState() => _OcrPageState();
@@ -16,9 +16,9 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
   OcrController _ocrController;
 
   @override
-  void dispose() {;
-    _ocrController.closeCameraAndStream();
+  void dispose() async {
     super.dispose();
+    await _ocrController.closeCameraAndStream();
   }
 
   @override
@@ -38,21 +38,20 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                 ? Container(
                     height: MediaQuery.of(context).size.height - 150,
                     child: CameraPreview(_ocrController.camera),
-                    //color: Color.fromRGBO(255, 0, 0, 0.5),
                   )
                 : Container(color: Colors.black),
             Center(
               child: Container(
-              width: MediaQuery.of(context).size.width - 80,
-              height: MediaQuery.of(context).size.height / 3,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                  width: 3,
+                width: MediaQuery.of(context).size.width - 80,
+                height: MediaQuery.of(context).size.width - 80,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 3,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                borderRadius: BorderRadius.circular(10),
               ),
-            ),
             ),
             Container(
               child: ClipPath(
@@ -62,11 +61,26 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                 ),
               ),
             ),
+            SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.close_rounded,
+                      color: Colors.white54,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Application.router.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
             Consumer<OcrController>(
-              builder: (_, __, ___) => _ocrController.isCameraInitialized &&
-                  _ocrController.isStreaming
-                  ? _buildResults()
-                  : Container(),
+              builder: (_, __, ___) => _checkDetectedText(),
             ),
           ],
         ),
@@ -74,19 +88,12 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget _buildResults() {
-    if (_ocrController.detectedText != null) {
-      var imageSize = Size(
-        _ocrController.cameraHeight - 100,
-        _ocrController.cameraWidth,
-      );
-      var painter = TextDetectorPainter(imageSize, _ocrController.detectedText);
-
-      if (_ocrController.detectedTextFollowsPattern()) {
+  Widget _checkDetectedText() {
+    if (_ocrController.isCameraInitialized && _ocrController.isStreaming) {
+      if (_ocrController.detectedText != null &&
+          _ocrController.detectedTextFollowsPattern()) {
         _navigateToSensorPage();
       }
-
-      return CustomPaint(painter: painter);
     }
 
     return Container();

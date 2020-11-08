@@ -10,7 +10,7 @@ class InvertedRectangleClipper extends CustomClipper<Path> {
           Rect.fromCenter(
             center: Offset(size.width / 2, size.height / 2),
             width: size.width - 80,
-            height: size.height / 3,
+            height: size.width - 80,
           ),
           Radius.circular(10),
         ),

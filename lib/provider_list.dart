@@ -86,7 +86,7 @@ List<SingleChildWidget> providerList = [
     lazy: true,
   ),
   ChangeNotifierProvider(
-      create: (_) => OcrController(),
-      lazy: true,
+    create: (_) => OcrController(),
+    lazy: true,
   ),
 ];

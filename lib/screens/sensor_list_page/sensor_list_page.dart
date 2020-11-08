@@ -1,7 +1,5 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:lorapark_app/config/router/application.dart';
-import 'package:lorapark_app/config/router/routes.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:lorapark_app/config/sensor_list.dart' show sensorList;
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
@@ -75,10 +73,10 @@ class _SensorListPageState extends State<SensorListPage> {
                     suffixIcon: controller.query.isEmpty
                         ? Container()
                         : IconButton(
-                      icon: Icon(Icons.clear_rounded),
-                      onPressed: controller.clearQuery,
-                      iconSize: 16,
-                    ),
+                            icon: Icon(Icons.clear_rounded),
+                            onPressed: controller.clearQuery,
+                            iconSize: 16,
+                          ),
                     suffixIconConstraints: BoxConstraints(
                       maxWidth: 32,
                       maxHeight: 32,
@@ -103,9 +101,9 @@ class _SensorListPageState extends State<SensorListPage> {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(
-                    Icons.camera_alt_outlined,
-                    color: Colors.white,
+                  icon: SvgPicture.asset(
+                    'assets/icons/svg/text-scan.svg',
+                    semanticsLabel: 'Sensor Number Scanner',
                   ),
                   onPressed: () {
                     pushNewScreen(
@@ -113,7 +111,7 @@ class _SensorListPageState extends State<SensorListPage> {
                       screen: OcrPage(),
                       withNavBar: false,
                       pageTransitionAnimation:
-                      PageTransitionAnimation.cupertino,
+                          PageTransitionAnimation.cupertino,
                     );
                   },
                 )
@@ -126,32 +124,32 @@ class _SensorListPageState extends State<SensorListPage> {
                 [
                   controller.filteredSensors.isEmpty
                       ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'No Results',
-                          style: TextStyle(
-                            color: Colors.grey[700],
-                            fontWeight: FontWeight.w700,
-                            fontSize: 22,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'No Results',
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 22,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'There were no results for "${controller.query}".',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          'There were no results for "${controller.query}".',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  )
+                        )
                       : ListView.builder(
-                    primary: false,
-                    shrinkWrap: true,
-                    itemCount: controller.filteredSensors.length,
-                    itemBuilder: (_, index) => SensorCard(
-                        sensor: controller.filteredSensors[index]),
-                  ),
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: controller.filteredSensors.length,
+                          itemBuilder: (_, index) => SensorCard(
+                              sensor: controller.filteredSensors[index]),
+                        ),
                 ],
               ),
             ),
