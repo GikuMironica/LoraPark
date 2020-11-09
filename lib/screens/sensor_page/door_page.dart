@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lorapark_app/controller/sensor_controller/door_controller.dart';
 import 'package:lorapark_app/screens/widgets/charts/door_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
-import 'package:lorapark_app/themes/lorapark_theme.dart';
 import 'package:provider/provider.dart';
 
 class DoorPage extends StatefulWidget {
@@ -26,7 +25,7 @@ class _DoorPageState extends State<DoorPage> {
     doorController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => doorController.getDoorDataByTime(7),
+      onRefresh: () async => await doorController.getDoorDataByTime(7),
       child: SingleSensorViewTemplate(
         scrollController: doorController.scrollController,
         clipSize: clipSize,
@@ -45,10 +44,10 @@ class _DoorPageState extends State<DoorPage> {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.width * 0.3,
                             title: 'Door Openings Today',
-                            visualization: Icon(
-                              Icons.sensor_door_outlined,
-                              color: Color(0xff2c5364),
-                              size: 60,
+                            visualization: SvgPicture.asset(
+                              'assets/icons/svg/open-door.svg',
+                              height: 64,
+                              width: 64,
                             ),
                             data: Text(
                               controller
@@ -68,10 +67,10 @@ class _DoorPageState extends State<DoorPage> {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.width * 0.3,
                             title: 'Last Opened',
-                            visualization: Icon(
-                              Icons.access_time_rounded,
-                              size: 60,
-                              color: Color(0xff2c5364),
+                            visualization: SvgPicture.asset(
+                              'assets/icons/svg/clock.svg',
+                              height: 64,
+                              width: 64,
                             ),
                             data: Text(
                               controller.getLastOpeningTime(),
@@ -84,7 +83,9 @@ class _DoorPageState extends State<DoorPage> {
                           ),
                     const SizedBox(height: 24),
                     doorController.data == null
-                        ? LoadingDataPresenter(height: MediaQuery.of(context).size.width * 0.95,)
+                        ? LoadingDataPresenter(
+                            height: MediaQuery.of(context).size.width * 0.95,
+                          )
                         : DataPresenter(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.width * 0.95,

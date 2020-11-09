@@ -16,9 +16,8 @@ class DoorChart extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(15)),
         gradient: LinearGradient(
           colors: [
-            Color(0xff0f2027),
-            Color(0xff203a43),
-            Color(0xff2c5364),
+            Color(0xffece9e6),
+            Color(0xfff6f6f6),
           ],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
@@ -47,8 +46,8 @@ class DoorChart extends StatelessWidget {
                 return BarTooltipItem(
                   rod.y.round().toString(),
                   TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w600,
                   ),
                 );
               },
@@ -59,7 +58,7 @@ class DoorChart extends StatelessWidget {
             bottomTitles: SideTitles(
               showTitles: true,
               getTextStyles: (_) => const TextStyle(
-                color: Colors.white70,
+                color: Colors.black54,
                 fontWeight: FontWeight.w700,
                 fontSize: 14,
               ),
@@ -81,7 +80,10 @@ class DoorChart extends StatelessWidget {
                       y: doorController
                           .getTotalDailyNumberOfOpenings(getDateTime(date))
                           .toDouble(),
-                      colors: [Colors.lightBlueAccent, Colors.greenAccent],
+                      colors: [
+                        Color(0xff0083b0),
+                        Color(0xff00b4db),
+                      ],
                     )
                   ],
                   showingTooltipIndicators: [0],
