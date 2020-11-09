@@ -105,8 +105,19 @@ class _DoorPageState extends State<DoorPage> {
                               height: MediaQuery.of(context).size.width * 0.95,
                             ),
                       const SizedBox(height: 24),
+                      doorController.data == null
+                          ? LoadingDataPresenter(
+                              height: MediaQuery.of(context).size.width * 0.95,
+                            )
+                          : DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.width * 0.95,
+                              title: 'Last 8 Days',
+                              data: DoorChart(),
+                            ),
+                      const SizedBox(height: 24),
                       SensorDescription(
-                        image: AssetImage('assets/images/door.jpg'),
+                        image: AssetImage('assets/images/door-sensor.jpg'),
                         text:
                             'Dieser Türöffnungssensor ist am gemeinsamen Eingang zur Digitalen Agenda und zum Digitalisierungszentrum am Weinhof 7 verbaut. Über ein Magnetfeld wird gemessen, ob die Eingangstüre gerade geöffnet oder geschlossen ist. Anschließend wird der Status über LoRaWAN energiesparend übertragen. Als Stromquelle genügt hierfür eine Batterie, welche mehrere Jahre hält. Es laufen erste Experimente, den Magnetkontakt selbst als Stromquelle zu benutzen.',
                       )

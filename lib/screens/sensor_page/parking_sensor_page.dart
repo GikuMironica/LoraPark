@@ -318,7 +318,7 @@ class _ParkingPage extends State<ParkingPage> {
                       SensorDescription(
                           text:
                               "Im Beispiel sehen Sie eine Live-Ansicht der belegten E-Ladeplätze im Parkhaus am Rathaus, Neue Mitte. Zur Erkennung von freien oder belegten Parkplätzen werden Parksensoren eingesetzt, die den Belegungsstatus drahtlos per LoRaWAN übertragen und hier in Echtzeit anzeigen.",
-                          image: AssetImage("assets/images/parking_sensor.png"))
+                          image: AssetImage("assets/images/parking-sensor.png"))
                     ],
                   ),
                 ),

@@ -60,7 +60,7 @@ class _PersonCountPage extends State<PersonCountPage> {
                                   width: 200,
                                 ),
                                 data: Text(
-                                  controller.paxCount.toString() + 'people',
+                                  controller.paxCount.toString() + ' people',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 12,
@@ -71,9 +71,11 @@ class _PersonCountPage extends State<PersonCountPage> {
                           : LoadingDataPresenter(),
                       SizedBox(height: pageOffset / 2),
                       SensorDescription(
-                          text:
-                              "Diese Beacons verwendet der Personenzähler, um eine ungefähre Anzahl an Personen ermitteln zu können. Das geschieht anonym und ohne Identifizierung der Person selbst.",
-                          image: AssetImage("assets/images/person_count.png"))
+                        text:
+                            'Diese Beacons verwendet der Personenzähler, um eine ungefähre Anzahl an Personen ermitteln zu können. Das geschieht anonym und ohne Identifizierung der Person selbst.',
+                        image:
+                            AssetImage('assets/images/person-count-sensor.jpg'),
+                      )
                     ],
                   ),
                 ),
