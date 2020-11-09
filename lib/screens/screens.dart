@@ -17,5 +17,7 @@ export 'sensor_page/person_count_page.dart'
 export 'sensor_page/raised_garden_page.dart';
 export 'sensor_page/structure_damage_page.dart';
 export 'sensor_page/waste_level_page.dart';
+export 'sensor_page/insect_page.dart'
+    hide padding, horizontalOffset, clipSize, verticalOffset, pageOffset;
 export 'sensor_page/weather_station_page.dart'
     hide padding, horizontalOffset, clipSize, verticalOffset, pageOffset;
