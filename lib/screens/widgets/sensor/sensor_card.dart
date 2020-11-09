@@ -20,7 +20,7 @@ class SensorCard extends StatelessWidget {
           Application.router.navigateTo(
             context,
             Routes.sensorPage + sensor.number,
-            transition: TransitionType.inFromRight,
+            transition: TransitionType.cupertino,
           );
         },
         child: Container(
