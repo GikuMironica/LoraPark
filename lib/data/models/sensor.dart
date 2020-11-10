@@ -8,6 +8,7 @@ class Sensor {
   final String name;
   final String number;
   final AssetImage image;
+  final String description;
   final SensorLocation location;
   final int rotation;
   final String address;
@@ -18,6 +19,7 @@ class Sensor {
       this.name,
       this.number,
       this.image,
+      this.description,
       this.location,
       this.rotation,
       this.address});
@@ -27,9 +29,8 @@ class Sensor {
       id: json.containsKey('id') ? json['id'] : '',
       name: json['name'],
       number: json['number'],
-      image: json.containsKey('image')
-          ? AssetImage(json['image'])
-          : AssetImage('assets/images/image-placeholder.png'),
+      image: AssetImage(json['image']),
+      description: json['description'],
       location: SensorLocation.fromJSON(json['location']),
       rotation: json.containsKey('rotation') ? json['rotation'] : null,
       address: '');

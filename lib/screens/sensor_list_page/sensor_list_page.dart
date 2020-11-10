@@ -94,21 +94,24 @@ class _SensorListPageState extends State<SensorListPage> {
                 ),
               ),
               actions: [
-                IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/svg/text-scan.svg',
-                    semanticsLabel: 'Sensor Number Scanner',
+                Padding(
+                  padding: const EdgeInsets.only(right: 6),
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/svg/text-scan.svg',
+                      semanticsLabel: 'Sensor Number Scanner',
+                    ),
+                    onPressed: () {
+                      pushNewScreen(
+                        context,
+                        screen: OcrPage(),
+                        withNavBar: false,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    pushNewScreen(
-                      context,
-                      screen: OcrPage(),
-                      withNavBar: false,
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.cupertino,
-                    );
-                  },
-                )
+                ),
               ],
             ),
           ),
@@ -117,9 +120,9 @@ class _SensorListPageState extends State<SensorListPage> {
               delegate: SliverChildListDelegate(
                 [
                   controller.filteredSensors.isEmpty
-                      ? Center(
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 30),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'No Results',

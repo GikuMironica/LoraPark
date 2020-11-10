@@ -6,6 +6,7 @@
         "name": "Weather Station",
         "image": "assets/images/weather-station-sensor.jpg",
         "number": "01",
+        "description": "This station is a combination of different sensors. The temperature, humidity, air pressure, amount of rain, condensation point, wind speed and direction, solar radiation and the number of particles of various sizes in the air (fine dust) are measured. The weather station is operated independently using a solar module. The measured results are periodically sent via the local LoRaWAN network to our backend, which processes the data for display. This sensor is part of the LoRaPark at Weinhof. Data and visualization are presented on the local display or at lorapark.de. The sensor data are also made freely available to the public on the Ulm data platform under a CC-0 license.",
         "location": {
           "latitude": 48.396426,
           "longitude": 9.990453
@@ -19,6 +20,7 @@
         "name": "Air Quality",
         "image": "assets/images/air-quality-sensor.jpg",
         "number": "02",
+        "description": "",
         "location": {
           "latitude": 48.397206,
           "longitude": 9.991628
@@ -32,6 +34,7 @@
         "name": "Sound Sensor",
         "image": "assets/images/sound-sensor.jpg",
         "number": "03",
+        "description": "With the help of several microphones, an average noise exposure at the intersection with Neue Straße is determined.",
         "location": {
           "latitude": 48.397206,
           "longitude": 9.991628
@@ -45,6 +48,7 @@
         "name": "Waste Level",
         "image": "assets/images/waste-level-sensor.jpg",
         "number": "04",
+        "description": "With this sensor, the filling level of a container can be determined using an ultrasonic distance measurement. If the container is full, a collection can be triggered automatically. This not only offers the advantage that there is no littering in the city, but also unnecessary emptying can be saved and the route can be adapted to the actual needs during collection.",
         "location": {
           "latitude": 48.396395,
           "longitude": 9.991161
@@ -58,10 +62,12 @@
         "name": "Parking Sensor",
         "image": "assets/images/parking-sensor.png",
         "number": "05",
+        "description": "Anyone who has ever driven a car in a city, knows the problem: the ultimate search for a parking space can quickly become nerve-racking. How pleasant would it be if you could check the occupancy status of the parking spaces in the area on your smartphone? What sounds like a dream of the future to many ears is currently being actively tested in Ulm and introduced at various parking facilities.",
         "location": {
           "latitude": 48.397354,
           "longitude": 9.993039
-        }
+        },
+        "rotation": 0
       }
     ],
     "water_temperature": [
@@ -70,21 +76,26 @@
         "name": "Water Temperature",
         "image": "assets/images/water-temperature-sensor.jpg",
         "number": "06",
+        "description": "",
         "location": {
           "latitude": 48.396482,
           "longitude": 48.396482
-        }
+        },
+        "rotation": 0
       }
     ],
     "feedback_button": [
       {
         "type": 6,
         "name": "Feedback Button",
+        "image": "assets/images/image-placeholder.png",
         "number": "07",
+        "description": "",
         "location": {
           "latitude": 48.397354,
           "longitude": 9.993039
-        }
+        },
+        "rotation": 0
       }
     ],
     "flood_data": [
@@ -93,10 +104,12 @@
         "name": "Flood Data",
         "image": "assets/images/flood-data-sensor.jpg",
         "number": "08",
+        "description": "The beautiful bike and foot paths along the Danube are very popular. Under the bridges the path is only a few centimeters above the normal level of the river. This condition can change within a short time after rain, so that flooding quickly becomes a problem. With our solution, the flood is detected immediately, transmitted via the LoRaWAN network and further measures such as a blockade can be initiated. Battery operated, the sensor has a running time of approx. 4 years.",
         "location": {
           "longitude": 48.396016,
           "latitude": 9.995969
-        }
+        },
+        "rotation": 0
       }
     ],
     "ground_humidity": [
@@ -105,6 +118,7 @@
         "name": "Ground Humidity",
         "image": "assets/images/ground-humidity-sensor.jpg",
         "number": "09",
+        "description": "This sensor is located underground at a depth of approx. 50 cm. There, the sensor measures the electrical conductivity, the volume water content, the temperature and the degree of water saturation in the soil. The sensor is connected to the transmitter module located above the ground surface via a cable. This way, targeted and economical irrigation can take place. The measurement data are periodically sent to our backend via the local LoRaWAN network. This data is processed there for display purposes.",
         "location": {
           "longitude": 48.396770,
           "latitude": 9.990960
@@ -118,6 +132,7 @@
         "name": "Person Count",
         "image": "assets/images/person-count-sensor.jpg",
         "number": "10",
+        "description": "The person counter sensor used in the LoRaPark counts the number of people who carry their smartphones with them. Every smartphone with an activated Bluetooth or WiFi module sends out beacons that, e.g. signal to a router that a device is on site. The person counter uses these beacons to determine an approximate number of people. This happens anonymously and without identifying the person himself.",
         "location": {
           "longitude": 48.396426,
           "latitude": 9.990453
@@ -131,6 +146,7 @@
         "name": "Door",
         "image": "assets/images/door-sensor.jpg",
         "number": "11",
+        "description": "This door opening sensor is installed at the common entrance to the digital agenda and the digitization center at Weinhof 7. A magnetic field is used to measure whether the entrance door is currently open or closed. The status is then transmitted via LoRaWAN in an energy-saving manner. A battery that lasts for several years is sufficient as a power source. The first experiments are underway to use the magnetic contact itself as a power source.",
         "location": {
           "longitude": 48.396607,
           "latitude": 9.990208
@@ -144,6 +160,7 @@
         "name": "Raised Garden",
         "image": "assets/images/raised-garden-sensor.jpg",
         "number": "12",
+        "description": "The self-sufficient raised garden irrigates itself independently and automatically via an integrated water tank, depending on the humidity of the soil in the flowerpot. The measurement of the soil moisture is regulated by tensiometers, which - like plants themselves - determine the water content in the soil via the suction tension. If the humidity level is too low, watering is triggered. To monitor the flowerpot, especially the water level in the tank and the soil moisture, sensor data are regularly sent via LoRaWAN, which, for example, can facilitate joint urban gardening projects.",
         "location": {
           "latitude": 48.396472,
           "longitude": 9.99047
@@ -157,6 +174,7 @@
         "name": "Rat Sensor",
         "image": "assets/images/rat-sensor.jpg",
         "number": "13",
+        "description": "So far, in many German cities, poison bait has simply been left on a wire into the sewer system in order to contain a plague of rats. This inevitably led to the poison reaching many other living beings and ultimately us humans via the groundwater and our food. With more modern methods, you can not only use the poison in a much more targeted manner and reduce the requirement by over 95%, but also monitor the rat plague in real time.",
         "location": {
           "latitude": 48.396425,
           "longitude": 9.990268
@@ -170,6 +188,7 @@
         "name": "Structure Damage",
         "image": "assets/images/structure-damage-sensor.jpg",
         "number": "14",
+        "description": "Changes in cracks at Ulm Muenster are historically marked with graph paper. Today, a laser sensor with measuring accuracies in the micrometer range takes over this monitoring and sends the measurement data to our backend at regular intervals via LoRaWAN. A mathematical model analyzes the raw data and corrects noise and fluctuations in this high-precision measurement.",
         "location": {
           "latitude": 48.39863,
           "longitude": 9.992465
@@ -183,6 +202,7 @@
         "name": "Energy",
         "image": "assets/images/energy-data-sensor.jpg",
         "number": "15",
+        "description": "The Donaubad, the largest adventure pool in the region, with its flow channel, relaxation pool or the 36 degree warm thermal water pool also relies on LoRaWAN and IoT applications. In addition to the water temperature, the amount of heat and the CO2 value of the room air are also monitored.",
         "location": {
           "latitude": 48.386126,
           "longitude": 9.986219
@@ -195,22 +215,27 @@
         "type": 15,
         "name": "Smart Bench",
         "image": "assets/images/smart-bench-sensor.jpg",
-        "number": "xx",
+        "number": "18",
+        "description": "The smart benches can be used to charge smartphones via USB or induction. The special thing about this bench is that the electricity is generated completely independently via solar panels on the seat and therefore no physical power connection is necessary.",
         "location": {
-          "latitude": 0,
-          "longitude": 0
-        }
+          "latitude": 48.396867,
+          "longitude": 9.990939
+        },
+        "rotation": 0
       }
     ],
     "display": [
       {
         "type": 16,
         "name": "Display",
+        "image": "assets/images/image-placeholder.png",
         "number": "xx",
+        "description": "",
         "location": {
           "latitude": 48.396736,
           "longitude": 9.991055
-        }
+        },
+        "rotation": 0
       }
     ]
   }
