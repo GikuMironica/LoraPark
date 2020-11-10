@@ -27,68 +27,76 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
     raisedGardenController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => raisedGardenController.getRaisedGardennData(),
+      onRefresh: () async =>
+          await raisedGardenController.getRaisedGardennData(),
       child: SingleSensorViewTemplate(
         scrollController: raisedGardenController.scrollController,
         clipSize: clipSize,
-        sensorName: "Raised Garden",
-        sensorNumber: "12",
+        sensorName: 'Raised Garden',
+        sensorNumber: '12',
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Consumer<RaisedGardenController>(
-                  builder: (context, controller, _) => Column(
+                child: FutureBuilder(
+                  future: raisedGardenController.data == null
+                      ? raisedGardenController.getRaisedGardennData()
+                      : null,
+                  builder: (context, snapshot) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        raisedGardenController.data == null
-                            ? LoadingDataPresenter()
-                            : DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: "Water tank state",
-                                visualization: Image(
-                                  image: AssetImage(
-                                      "assets/images/water_level.png"),
-                                  height: 200,
-                                  width: 200,
-                                ),
-                                data: Text(
-                                  (raisedGardenController.watertankEmpty
-                                      ? 'Empty'
-                                      : 'Full'),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
+                        snapshot.connectionState == ConnectionState.done ||
+                                snapshot.connectionState == ConnectionState.none
+                            ? Consumer<RaisedGardenController>(
+                                builder: (_, controller, __) => DataPresenter(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  title: 'Water tank state',
+                                  visualization: Image(
+                                    image: AssetImage(
+                                        'assets/images/water_level.png'),
+                                    height: 200,
+                                    width: 200,
                                   ),
-                                ),
-                              ),
-                        SizedBox(height: verticalOffset),
-                        raisedGardenController.data == null
-                            ? LoadingDataPresenter()
-                            : DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: "Ground Humidity",
-                                visualization: Image(
-                                  image: AssetImage("assets/images/vwc.png"),
-                                  height: 200,
-                                  width: 200,
-                                ),
-                                data: Text(
-                                  raisedGardenController.humidity.toString() +
-                                      " " +
-                                      "%",
-                                  style: TextStyle(
+                                  data: Text(
+                                    (controller.watertankEmpty
+                                        ? 'Empty'
+                                        : 'Full'),
+                                    style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                        SizedBox(height: pageOffset),
+                              )
+                            : LoadingDataPresenter(),
+                        const SizedBox(height: verticalOffset),
+                        snapshot.connectionState == ConnectionState.done ||
+                                snapshot.connectionState == ConnectionState.none
+                            ? Consumer<RaisedGardenController>(
+                                builder: (_, controller, __) => DataPresenter(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  title: 'Ground Humidity',
+                                  visualization: Image(
+                                    image: AssetImage('assets/images/vwc.png'),
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                  data: Text(
+                                    controller.humidity.toString() + ' %',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              )
+                            : LoadingDataPresenter(),
+                        const SizedBox(height: pageOffset),
                         SensorDescription(
                           text:
                               "Das autarke Hochbeet bewässert sich je nach Feuchtigkeit der Erdeim Beet selbständig und automatisch über einen integrierten Wasser-tank. Die Messung der Bodenfeuchtigkeit wird über Tensiometergeregelt, die - ähnlich wie Pflanzen selbst - über die Saugspannungden Wassergehalt im Boden bestimmen. Ist der Feuchtigkeitswertzu gering, wird die Bewässerung ausgelöst. Für die Überwachung des Beets, vor allem des Wasserstands im Tank sowie der Bodenfeuchtigkeit, werden regelmäßig Sensordatenvia LORAWAN versendet, so können zum Beispiel gemeinschaftlicheUrban Gardening-Projekte erleichtert werden.",

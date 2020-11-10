@@ -17,11 +17,6 @@ class StructureDamageController extends ChangeNotifier {
 
   StructureDamageController({@required StructureDamageRepository repository}) {
     _repository = repository;
-    this.Init();
-  }
-
-  void Init() {
-    getStructureDamageDataByTime(10);
   }
 
   Future<void> getActualStructureDamageData() async {

@@ -32,7 +32,7 @@ class _FloodDataPageState extends State<FloodDataPage> {
     floodDataController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => floodDataController.getFloodDataByTime(7),
+      onRefresh: () async => await floodDataController.getFloodDataByTime(7),
       child: SingleSensorViewTemplate(
         scrollController: floodDataController.scrollController,
         clipSize: clipSize,
@@ -43,30 +43,36 @@ class _FloodDataPageState extends State<FloodDataPage> {
             [
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Consumer<FloodDataController>(
-                  builder: (context, controller, _) => Column(
+                child: FutureBuilder(
+                  future: floodDataController.data == null
+                      ? floodDataController.getFloodDataByTime(7)
+                      : null,
+                  builder: (context, snapshot) => Column(
                     children: [
-                      floodDataController.data == null
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.3,
-                              title: 'Current Distance',
-                              visualization: Image(
-                                width: 60,
-                                height: 60,
-                                image:
-                                    AssetImage('assets/images/sea-level.png'),
-                              ),
-                              data: Text(
-                                controller.currentDistance.toString() + ' cm',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 36,
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<FloodDataController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Current Distance',
+                                visualization: Image(
+                                  width: 60,
+                                  height: 60,
+                                  image:
+                                      AssetImage('assets/images/sea-level.png'),
+                                ),
+                                data: Text(
+                                  controller.currentDistance.toString() + ' cm',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 36,
+                                  ),
                                 ),
                               ),
-                            ),
+                            )
+                          : LoadingDataPresenter(),
                       const SizedBox(height: 24),
                       SensorDescription(
                         image: AssetImage('assets/images/flood.jpg'),

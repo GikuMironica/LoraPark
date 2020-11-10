@@ -20,13 +20,7 @@ class EnergyDataController extends ChangeNotifier {
       .getLogger((EnergyDataRepository).toString());
 
   EnergyDataController({@required EnergyDataRepository repository})
-      : _repository = repository {
-    init();
-  }
-
-  void init() {
-    getEnergyDataByTime(6);
-  }
+      : _repository = repository {}
 
   Future<void> getActualEnergyData() async {
     _logger.d('Fetching data');

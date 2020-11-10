@@ -15,13 +15,7 @@ class FloodDataController extends ChangeNotifier {
       GetIt.I.get<LoggingService>().getLogger((FloodDataRepository).toString());
 
   FloodDataController({@required FloodDataRepository repository})
-      : _repository = repository {
-    init();
-  }
-
-  void init() {
-    getFloodDataByTime(7);
-  }
+      : _repository = repository {}
 
   Future<void> getActualFloodData() async {
     _logger.d('Fetching data');

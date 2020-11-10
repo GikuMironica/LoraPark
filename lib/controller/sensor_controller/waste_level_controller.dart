@@ -24,11 +24,6 @@ class WasteLevelController extends ChangeNotifier {
 
   WasteLevelController({@required WasteLevelRepository repository}) {
     _repository = repository;
-    init();
-  }
-
-  void init() {
-    getWasteLevelDataByTime(6);
   }
 
   Future<void> getActualWasteLevelData() async {

@@ -21,11 +21,6 @@ class DoorController extends ChangeNotifier {
 
   DoorController({@required DoorRepository repository}) {
     _repository = repository;
-    init();
-  }
-
-  void init() async {
-    await getDoorDataByTime(7);
   }
 
   Future<void> getActualDoorData() async {

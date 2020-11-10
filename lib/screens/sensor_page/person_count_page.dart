@@ -29,63 +29,54 @@ class _PersonCountPage extends State<PersonCountPage> {
     personCountController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => personCountController.getPersonDataByTime(7),
+      onRefresh: () async => await personCountController.getPersonDataByTime(7),
       child: SingleSensorViewTemplate(
         scrollController: personCountController.scrollController,
         clipSize: clipSize,
-        sensorName: "Person Count",
-        sensorNumber: "xx",
+        sensorName: 'Person Count',
+        sensorNumber: '10',
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Consumer<PersonCountController>(
-                    builder: (context, controller, _) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            controller.data == null
-                                ? LoadingDataPresenter()
-                                : DataPresenter(
-                                    width: MediaQuery.of(context).size.width,
-                                    height:
-                                        (MediaQuery.of(context).size.height -
-                                                250) /
-                                            4,
-                                    title: "Number of people",
-                                    visualization: Image(
-                                      image:
-                                          AssetImage("assets/images/group.png"),
-                                      height: 200,
-                                      width: 200,
-                                    ),
-                                    data: personCountController.data == null
-                                        ? Text(
-                                            '0 people',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
-                                          )
-                                        : Text(
-                                            personCountController.paxCount
-                                                    .toString() +
-                                                " " +
-                                                "people",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                  ),
-                            SizedBox(height: pageOffset / 2),
-                            SensorDescription(
-                                text:
-                                    "Diese Beacons verwendet der Personenzähler, um eine ungefähre Anzahl an Personen ermitteln zu können. Das geschieht anonym und ohne Identifizierung der Person selbst.",
-                                image: AssetImage(
-                                    "assets/images/person_count.png"))
-                          ],
-                        )),
+                child: FutureBuilder(
+                  future: personCountController.data == null
+                      ? personCountController.getPersonDataByTime(7)
+                      : null,
+                  builder: (context, snapshot) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<PersonCountController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Number of people',
+                                visualization: Image(
+                                  image: AssetImage('assets/images/group.png'),
+                                  height: 200,
+                                  width: 200,
+                                ),
+                                data: Text(
+                                  controller.paxCount.toString() + 'people',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            )
+                          : LoadingDataPresenter(),
+                      SizedBox(height: pageOffset / 2),
+                      SensorDescription(
+                          text:
+                              "Diese Beacons verwendet der Personenzähler, um eine ungefähre Anzahl an Personen ermitteln zu können. Das geschieht anonym und ohne Identifizierung der Person selbst.",
+                          image: AssetImage("assets/images/person_count.png"))
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

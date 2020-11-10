@@ -32,80 +32,176 @@ class _DoorPageState extends State<DoorPage> {
         sensorName: 'Door',
         sensorNumber: '11',
         sliverlist: SliverList(
-          delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Consumer<DoorController>(
-                builder: (_, controller, __) => Column(
-                  children: [
-                    doorController.data == null
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width * 0.3,
-                            title: 'Door Openings Today',
-                            visualization: SvgPicture.asset(
-                              'assets/icons/svg/open-door.svg',
-                              height: 64,
-                              width: 64,
-                            ),
-                            data: Text(
-                              controller
-                                  .getTotalDailyNumberOfOpenings(DateTime.now())
-                                  .toString(),
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 36,
+          delegate: SliverChildListDelegate(
+            [
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: FutureBuilder(
+                  future: doorController.data == null
+                      ? doorController.getDoorDataByTime(7)
+                      : null,
+                  builder: (context, snapshot) => Column(
+                    children: [
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<DoorController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Door Openings Today',
+                                visualization: SvgPicture.asset(
+                                  'assets/icons/svg/open-door.svg',
+                                  height: 64,
+                                  width: 64,
+                                ),
+                                data: Text(
+                                  controller
+                                      .getTotalDailyNumberOfOpenings(
+                                          DateTime.now())
+                                      .toString(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 36,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                    const SizedBox(height: 24),
-                    doorController.data == null
-                        ? LoadingDataPresenter()
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width * 0.3,
-                            title: 'Last Opened',
-                            visualization: SvgPicture.asset(
-                              'assets/icons/svg/clock.svg',
-                              height: 64,
-                              width: 64,
-                            ),
-                            data: Text(
-                              controller.getLastOpeningTime(),
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 36,
+                            )
+                          : LoadingDataPresenter(),
+                      const SizedBox(height: 24),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<DoorController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Last Opened',
+                                visualization: SvgPicture.asset(
+                                  'assets/icons/svg/clock.svg',
+                                  height: 64,
+                                  width: 64,
+                                ),
+                                data: Text(
+                                  controller.getLastOpeningTime(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 36,
+                                  ),
+                                ),
                               ),
+                            )
+                          : LoadingDataPresenter(),
+                      const SizedBox(height: 24),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? DataPresenter(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.width * 0.95,
+                              title: 'Last 8 Days',
+                              data: DoorChart(),
+                            )
+                          : LoadingDataPresenter(
+                              height: MediaQuery.of(context).size.width * 0.95,
                             ),
-                          ),
-                    const SizedBox(height: 24),
-                    doorController.data == null
-                        ? LoadingDataPresenter(
-                            height: MediaQuery.of(context).size.width * 0.95,
-                          )
-                        : DataPresenter(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width * 0.95,
-                            title: 'Last 8 Days',
-                            data: DoorChart(),
-                          ),
-                    const SizedBox(height: 24),
-                    SensorDescription(
-                      image: AssetImage('assets/images/door.jpg'),
-                      text:
-                          'Dieser Türöffnungssensor ist am gemeinsamen Eingang zur Digitalen Agenda und zum Digitalisierungszentrum am Weinhof 7 verbaut. Über ein Magnetfeld wird gemessen, ob die Eingangstüre gerade geöffnet oder geschlossen ist. Anschließend wird der Status über LoRaWAN energiesparend übertragen. Als Stromquelle genügt hierfür eine Batterie, welche mehrere Jahre hält. Es laufen erste Experimente, den Magnetkontakt selbst als Stromquelle zu benutzen.',
-                    )
-                  ],
+                      const SizedBox(height: 24),
+                      SensorDescription(
+                        image: AssetImage('assets/images/door.jpg'),
+                        text:
+                            'Dieser Türöffnungssensor ist am gemeinsamen Eingang zur Digitalen Agenda und zum Digitalisierungszentrum am Weinhof 7 verbaut. Über ein Magnetfeld wird gemessen, ob die Eingangstüre gerade geöffnet oder geschlossen ist. Anschließend wird der Status über LoRaWAN energiesparend übertragen. Als Stromquelle genügt hierfür eine Batterie, welche mehrere Jahre hält. Es laufen erste Experimente, den Magnetkontakt selbst als Stromquelle zu benutzen.',
+                      )
+                    ],
+                  ),
                 ),
               ),
-            )
-          ]),
+            ],
+          ),
         ),
       ),
     );
+
+    // return RefreshIndicator(
+    //   onRefresh: () async => await doorController.getDoorDataByTime(7),
+    //   child: SingleSensorViewTemplate(
+    //     scrollController: doorController.scrollController,
+    //     clipSize: clipSize,
+    //     sensorName: 'Door',
+    //     sensorNumber: '11',
+    //     sliverlist: SliverList(
+    //       delegate: SliverChildListDelegate([
+    //         Padding(
+    //           padding: const EdgeInsets.all(24),
+    //           child: Consumer<DoorController>(
+    //             builder: (_, controller, __) => Column(
+    //               children: [
+    //                 doorController.data == null
+    //                     ? LoadingDataPresenter()
+    //                     : DataPresenter(
+    //                         width: MediaQuery.of(context).size.width,
+    //                         height: MediaQuery.of(context).size.width * 0.3,
+    //                         title: 'Door Openings Today',
+    //                         visualization: SvgPicture.asset(
+    //                           'assets/icons/svg/open-door.svg',
+    //                           height: 64,
+    //                           width: 64,
+    //                         ),
+    //                         data: Text(
+    //                           controller
+    //                               .getTotalDailyNumberOfOpenings(DateTime.now())
+    //                               .toString(),
+    //                           style: TextStyle(
+    //                             color: Colors.black,
+    //                             fontWeight: FontWeight.w700,
+    //                             fontSize: 36,
+    //                           ),
+    //                         ),
+    //                       ),
+    //                 const SizedBox(height: 24),
+    //                 doorController.data == null
+    //                     ? LoadingDataPresenter()
+    //                     : DataPresenter(
+    //                         width: MediaQuery.of(context).size.width,
+    //                         height: MediaQuery.of(context).size.width * 0.3,
+    //                         title: 'Last Opened',
+    //                         visualization: SvgPicture.asset(
+    //                           'assets/icons/svg/clock.svg',
+    //                           height: 64,
+    //                           width: 64,
+    //                         ),
+    //                         data: Text(
+    //                           controller.getLastOpeningTime(),
+    //                           style: TextStyle(
+    //                             color: Colors.black,
+    //                             fontWeight: FontWeight.w700,
+    //                             fontSize: 36,
+    //                           ),
+    //                         ),
+    //                       ),
+    //                 const SizedBox(height: 24),
+    //                 doorController.data == null
+    //                     ? LoadingDataPresenter(
+    //                         height: MediaQuery.of(context).size.width * 0.95,
+    //                       )
+    //                     : DataPresenter(
+    //                         width: MediaQuery.of(context).size.width,
+    //                         height: MediaQuery.of(context).size.width * 0.95,
+    //                         title: 'Last 8 Days',
+    //                         data: DoorChart(),
+    //                       ),
+    //                 const SizedBox(height: 24),
+    //                 SensorDescription(
+    //                   image: AssetImage('assets/images/door.jpg'),
+    //                   text:
+    //                       'Dieser Türöffnungssensor ist am gemeinsamen Eingang zur Digitalen Agenda und zum Digitalisierungszentrum am Weinhof 7 verbaut. Über ein Magnetfeld wird gemessen, ob die Eingangstüre gerade geöffnet oder geschlossen ist. Anschließend wird der Status über LoRaWAN energiesparend übertragen. Als Stromquelle genügt hierfür eine Batterie, welche mehrere Jahre hält. Es laufen erste Experimente, den Magnetkontakt selbst als Stromquelle zu benutzen.',
+    //                 )
+    //               ],
+    //             ),
+    //           ),
+    //         )
+    //       ]),
+    //     ),
+    //   ),
+    // );
   }
 
   void _scrollListener() {
