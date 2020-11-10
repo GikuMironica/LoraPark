@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class ScannerUtils {
   ScannerUtils._();
@@ -22,6 +23,7 @@ class ScannerUtils {
     @required CameraImage image,
     @required Future<dynamic> Function(FirebaseVisionImage image) detectInImage,
     @required int imageRotation,
+
   }) async {
     return detectInImage(
       FirebaseVisionImage.fromBytes(
@@ -45,7 +47,7 @@ class ScannerUtils {
   ) {
     return FirebaseVisionImageMetadata(
       rawFormat: image.format.raw,
-      size: Size(image.width.toDouble(), image.height.toDouble()),
+      size: Size((image.width + 150).toDouble(), (image.height * 0.8).toDouble()),
       rotation: rotation,
       planeData: image.planes.map(
         (Plane plane) {
