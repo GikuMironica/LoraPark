@@ -24,7 +24,7 @@ class _EnergyDataPageState extends State<EnergyDataPage> {
     energyDataController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => energyDataController.getEnergyDataByTime(6),
+      onRefresh: () async => await energyDataController.getEnergyDataByTime(6),
       child: SingleSensorViewTemplate(
         scrollController: energyDataController.scrollController,
         clipSize: clipSize,
@@ -35,66 +35,80 @@ class _EnergyDataPageState extends State<EnergyDataPage> {
             [
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Consumer<EnergyDataController>(
-                  builder: (context, controller, _) => Column(
+                child: FutureBuilder(
+                  future: energyDataController.data == null
+                      ? energyDataController.getEnergyDataByTime(6)
+                      : null,
+                  builder: (context, snapshot) => Column(
                     children: [
-                      energyDataController.data == null
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.3,
-                              title: 'Temperature of Incoming Water',
-                              visualization: Image(
-                                image: AssetImage(
-                                  'assets/images/water-temperature.png',
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<EnergyDataController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Temperature of Incoming Water',
+                                visualization: Image(
+                                  image: AssetImage(
+                                    'assets/images/water-temperature.png',
+                                  ),
+                                  width: 60,
+                                  height: 60,
                                 ),
-                                width: 60,
-                                height: 60,
-                              ),
-                              data: Text(
-                                controller.currentFlowTemperature.toString() +
-                                    ' °C',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 36,
-                                ),
-                              ),
-                            ),
-                      const SizedBox(height: 24),
-                      energyDataController.data == null
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.3,
-                              title: 'Temperature of Outgoing Water',
-                              visualization: Image(
-                                image: AssetImage(
-                                  'assets/images/water-temperature.png',
-                                ),
-                                width: 60,
-                                height: 60,
-                              ),
-                              data: Text(
-                                controller.currentReturnTemperature.toString() +
-                                    ' °C',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 36,
+                                data: Text(
+                                  controller.currentFlowTemperature.toString() +
+                                      ' °C',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 36,
+                                  ),
                                 ),
                               ),
-                            ),
-                      const SizedBox(height: 24),
-                      energyDataController.data == null
-                          ? LoadingDataPresenter(
-                              height: MediaQuery.of(context).size.width * 0.95,
                             )
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
+                          : LoadingDataPresenter(),
+                      const SizedBox(height: 24),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<EnergyDataController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Temperature of Outgoing Water',
+                                visualization: Image(
+                                  image: AssetImage(
+                                    'assets/images/water-temperature.png',
+                                  ),
+                                  width: 60,
+                                  height: 60,
+                                ),
+                                data: Text(
+                                  controller.currentReturnTemperature
+                                          .toString() +
+                                      ' °C',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 36,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : LoadingDataPresenter(),
+                      const SizedBox(height: 24),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<EnergyDataController>(
+                              builder: (_, __, ___) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.width * 0.95,
+                                title: 'Weekly Report',
+                                data: EnergyDataChart(),
+                              ),
+                            )
+                          : LoadingDataPresenter(
                               height: MediaQuery.of(context).size.width * 0.95,
-                              title: 'Weekly Report',
-                              data: EnergyDataChart(),
                             ),
                       const SizedBox(height: 24),
                       SensorDescription(

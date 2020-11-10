@@ -16,11 +16,6 @@ class RaisedGardenController extends ChangeNotifier {
 
   RaisedGardenController({RaisedGardenRepository repository}) {
     _repository = repository;
-    this.Init();
-  }
-
-  void Init() {
-    getRaisedGardenDataByTime(7);
   }
 
   Future<void> getRaisedGardennData() async {

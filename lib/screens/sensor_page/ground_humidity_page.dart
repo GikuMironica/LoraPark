@@ -28,68 +28,73 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
     groundHumidityController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => groundHumidityController.getActualGroundHumidityData(),
+      onRefresh: () async =>
+          await groundHumidityController.getActualGroundHumidityData(),
       child: SingleSensorViewTemplate(
         scrollController: groundHumidityController.scrollController,
         clipSize: clipSize,
-        sensorName: "Ground Humidity",
-        sensorNumber: "09",
+        sensorName: 'Ground Humidity',
+        sensorNumber: '09',
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Consumer<GrouundHumidityController>(
-                  builder: (context, controller, _) => Column(
+                child: FutureBuilder(
+                  future: groundHumidityController.data == null
+                      ? groundHumidityController.getActualGroundHumidityData()
+                      : null,
+                  builder: (context, snapshot) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        groundHumidityController.data == null
-                            ? LoadingDataPresenter()
-                            : DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: "Volumetric Water Content",
-                                visualization: Image(
-                                  image: AssetImage("assets/images/vwc.png"),
-                                  height: 200,
-                                  width: 200,
+                        snapshot.connectionState == ConnectionState.done ||
+                                snapshot.connectionState == ConnectionState.none
+                            ? Consumer<GrouundHumidityController>(
+                                builder: (_, controller, __) => DataPresenter(
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  title: 'Volumetric Water Content',
+                                  visualization: Image(
+                                    image: AssetImage('assets/images/vwc.png'),
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                  data: Text(
+                                    controller.vwc.toString() + ' %',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                                data: Text(
-                                  groundHumidityController.vwc.toString() +
-                                      " " +
-                                      "%",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
+                              )
+                            : LoadingDataPresenter(),
+                        const SizedBox(height: verticalOffset),
+                        snapshot.connectionState == ConnectionState.done ||
+                                snapshot.connectionState == ConnectionState.none
+                            ? Consumer<GrouundHumidityController>(
+                                builder: (_, controller, __) => DataPresenter(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: (MediaQuery.of(context).size.width) *
+                                      0.30,
+                                  title: 'Ground Temperature',
+                                  visualization: Image(
+                                    image: AssetImage('assets/images/temp.png'),
+                                    height: 200,
+                                    width: 200,
+                                  ),
+                                  data: Text(
+                                    controller.temperature.toString() + ' °C',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                              ),
-                        SizedBox(height: verticalOffset),
-                        groundHumidityController.data == null
-                            ? LoadingDataPresenter()
-                            : DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: "Ground Temperature",
-                                visualization: Image(
-                                  image: AssetImage("assets/images/temp.png"),
-                                  height: 200,
-                                  width: 200,
-                                ),
-                                data: Text(
-                                  groundHumidityController.temperature
-                                          .toString() +
-                                      " " +
-                                      "°C",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                        SizedBox(height: pageOffset),
+                              )
+                            : LoadingDataPresenter(),
+                        const SizedBox(height: pageOffset),
                         SensorDescription(
                           text:
                               "Dieser Sensor befindet sich im Boden in circa 50 cm Tiefe. Dort misstder Sensor die elektrische Leitfähigkeit, den Volumenwassergehalt, dieTemperatur und den Grad der Wassersättigung im Boden. Über einKabel ist der Sensor mit dem oberhalb der Bodenoberfläche befindli-chen Sendemodul verbunden. Auf diese Weise kann eine gezielte undsparsame Bewässerung erfolgen. Die Messdaten werden periodisch über das lokale LORAWAN Netzan unser Backend gesendet. Diese Daten werden dort zur Anzeigeverarbeitet.",

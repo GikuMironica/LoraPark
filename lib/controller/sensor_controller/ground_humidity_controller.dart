@@ -17,11 +17,6 @@ class GrouundHumidityController extends ChangeNotifier {
 
   GrouundHumidityController({GroundHumidityRepository repository}) {
     _repository = repository;
-    init();
-  }
-
-  void init() {
-    getGroundHumidityDataByTime(7);
   }
 
   Future<void> getActualGroundHumidityData() async {

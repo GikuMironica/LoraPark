@@ -25,7 +25,8 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
     wasteLevelController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => wasteLevelController.getWasteLevelDataByTime(6),
+      onRefresh: () async =>
+          await wasteLevelController.getWasteLevelDataByTime(6),
       child: SingleSensorViewTemplate(
         scrollController: wasteLevelController.scrollController,
         clipSize: clipSize,
@@ -36,69 +37,79 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
             [
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Consumer<WasteLevelController>(
-                  builder: (context, controller, _) => Column(
+                child: FutureBuilder(
+                  future: wasteLevelController.data == null
+                      ? wasteLevelController.getWasteLevelDataByTime(6)
+                      : null,
+                  builder: (context, snapshot) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      controller.data == null
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.3,
-                              title: 'Current State',
-                              visualization: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: controller.currentFillRatio <=
-                                          WasteLevelController
-                                              .FILL_RATIO_THRESHOLD
-                                      ? Color(0xff91b54b)
-                                      : Color(0xffd35668),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<WasteLevelController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Current State',
+                                visualization: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: controller.currentFillRatio <=
+                                            WasteLevelController
+                                                .FILL_RATIO_THRESHOLD
+                                        ? Color(0xff91b54b)
+                                        : Color(0xffd35668),
+                                  ),
+                                  width: 15,
+                                  height: 15,
                                 ),
-                                width: 15,
-                                height: 15,
-                              ),
-                              data: Text(
-                                controller.currentFillRatio.toStringAsFixed(0) +
-                                    '% full',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 36,
+                                data: Text(
+                                  controller.currentFillRatio
+                                          .toStringAsFixed(0) +
+                                      '% full',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 36,
+                                  ),
                                 ),
                               ),
-                            ),
+                            )
+                          : LoadingDataPresenter(),
                       SizedBox(
                         height: 24,
                       ),
-                      wasteLevelController.data == null
-                          ? LoadingDataPresenter(
-                              height: MediaQuery.of(context).size.width * 0.5,
-                            )
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.5,
-                              title: 'Last 7 days',
-                              data: WasteLevelChart(
-                                sectionData: [
-                                  WasteLevelChartSectionData(
-                                    controller.getPercentEmpty(),
-                                    controller
-                                            .getPercentEmpty()
-                                            .toStringAsFixed(0) +
-                                        '%',
-                                    Color(0xff91b54b),
-                                  ),
-                                  WasteLevelChartSectionData(
-                                    controller.getPercentFull(),
-                                    controller
-                                            .getPercentFull()
-                                            .toStringAsFixed(0) +
-                                        '%',
-                                    Color(0xffd35668),
-                                  ),
-                                ],
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<WasteLevelController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.5,
+                                title: 'Last 7 days',
+                                data: WasteLevelChart(
+                                  sectionData: [
+                                    WasteLevelChartSectionData(
+                                      controller.getPercentEmpty(),
+                                      controller
+                                              .getPercentEmpty()
+                                              .toStringAsFixed(0) +
+                                          '%',
+                                      Color(0xff91b54b),
+                                    ),
+                                    WasteLevelChartSectionData(
+                                      controller.getPercentFull(),
+                                      controller
+                                              .getPercentFull()
+                                              .toStringAsFixed(0) +
+                                          '%',
+                                      Color(0xffd35668),
+                                    ),
+                                  ],
+                                ),
                               ),
+                            )
+                          : LoadingDataPresenter(
+                              height: MediaQuery.of(context).size.width * 0.5,
                             ),
                       SizedBox(height: 20),
                       SensorDescription(

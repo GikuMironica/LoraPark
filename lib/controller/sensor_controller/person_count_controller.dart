@@ -18,13 +18,8 @@ class PersonCountController extends ChangeNotifier {
   ScrollController _scrollController = ScrollController();
   List<PersonCountData> _data;
 
-  PersonCountController ({PersonCountRepository repository}){
+  PersonCountController({PersonCountRepository repository}) {
     _repository = repository;
-    this.Init();
-  }
-
-  void Init(){
-    fetchData();
   }
 
   Future<void> fetchData() async {

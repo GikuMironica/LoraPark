@@ -22,11 +22,6 @@ class WeatherStationController extends ChangeNotifier {
 
   WeatherStationController({WeatherStationRepository repository}) {
     _repository = repository;
-    this.Init();
-  }
-
-  void Init() {
-    getWeatherStationDataByTime(7);
   }
 
   Future<void> getActualWeatherStationData() async {

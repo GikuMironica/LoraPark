@@ -28,102 +28,112 @@ class _AirQualityPage extends State<AirQualityPage> {
     airQualityController.scrollController.addListener(_scrollListener);
 
     return RefreshIndicator(
-      onRefresh: () => airQualityController.getAirQualityDataByTime(7),
+      onRefresh: () async =>
+          await airQualityController.getAirQualityDataByTime(7),
       child: SingleSensorViewTemplate(
         scrollController: airQualityController.scrollController,
         clipSize: clipSize,
-        sensorName: "Air Quality",
-        sensorNumber: "xx",
+        sensorName: 'Air Quality',
+        sensorNumber: '02',
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
               Padding(
                 padding: const EdgeInsets.all(padding),
-                child: Consumer<AirQualityController>(
-                  builder: (context, controller, _) => Column(
+                child: FutureBuilder(
+                  future: airQualityController.data == null
+                      ? airQualityController.getAirQualityDataByTime(7)
+                      : null,
+                  builder: (context, snapshot) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      airQualityController.data == null
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height:
-                                  (MediaQuery.of(context).size.width) * 0.30,
-                              title: "NO2 Concentration",
-                              visualization: Image(
-                                image: AssetImage("assets/images/polution.png"),
-                                height: 200,
-                                width: 200,
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<AirQualityController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    (MediaQuery.of(context).size.width) * 0.30,
+                                title: 'NO2 Concentration',
+                                visualization: Image(
+                                  image:
+                                      AssetImage('assets/images/polution.png'),
+                                  height: 200,
+                                  width: 200,
+                                ),
+                                data: Text(
+                                  controller.no2Concentration.toString() +
+                                      ' ppm',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                              data: Text(
-                                airQualityController.no2Concentration
-                                        .toString() +
-                                    " " +
-                                    "ppm",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600),
+                            )
+                          : LoadingDataPresenter(),
+                      const SizedBox(height: verticalOffset),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<AirQualityController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    (MediaQuery.of(context).size.width) * 0.30,
+                                title: 'NO Concentration',
+                                visualization: Image(
+                                  image:
+                                      AssetImage('assets/images/polution.png'),
+                                  height: 200,
+                                  width: 200,
+                                ),
+                                data: Text(
+                                  controller.noConcentration.toString() +
+                                      ' ppm',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            ),
-                      SizedBox(height: verticalOffset),
-                      airQualityController.data == null
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height:
-                                  (MediaQuery.of(context).size.width) * 0.30,
-                              title: "NO Concentration",
-                              visualization: Image(
-                                image: AssetImage("assets/images/polution.png"),
-                                height: 200,
-                                width: 200,
+                            )
+                          : LoadingDataPresenter(),
+                      const SizedBox(height: verticalOffset),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? Consumer<AirQualityController>(
+                              builder: (_, controller, __) => DataPresenter(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    (MediaQuery.of(context).size.width) * 0.30,
+                                title: 'CO Concentration',
+                                visualization: Image(
+                                  image:
+                                      AssetImage('assets/images/polution.png'),
+                                  height: 200,
+                                  width: 200,
+                                ),
+                                data: Text(
+                                  controller.coConcentration.toString() +
+                                      ' ppm',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
-                              data: Text(
-                                airQualityController.noConcentration
-                                        .toString() +
-                                    " " +
-                                    "ppm",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                      SizedBox(height: verticalOffset),
-                      airQualityController.data == null
-                          ? LoadingDataPresenter()
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height:
-                                  (MediaQuery.of(context).size.width) * 0.30,
-                              title: "CO Concentration",
-                              visualization: Image(
-                                image: AssetImage("assets/images/polution.png"),
-                                height: 200,
-                                width: 200,
-                              ),
-                              data: Text(
-                                airQualityController.coConcentration
-                                        .toString() +
-                                    " " +
-                                    "ppm",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                      SizedBox(height: verticalOffset),
-                      airQualityController.data == null
-                          ? LoadingDataPresenter()
-                          : WeeklyAirQualityBarChart(
+                            )
+                          : LoadingDataPresenter(),
+                      const SizedBox(height: verticalOffset),
+                      snapshot.connectionState == ConnectionState.done ||
+                              snapshot.connectionState == ConnectionState.none
+                          ? WeeklyAirQualityBarChart(
                               airQualityDayData:
                                   airQualityController.getWeeklyReport(),
                               height: (MediaQuery.of(context).size.width) * 0.7,
                               width: (MediaQuery.of(context).size.width),
-                            ),
-                      SizedBox(height: pageOffset),
+                            )
+                          : LoadingDataPresenter(),
                     ],
                   ),
                 ),

@@ -21,11 +21,6 @@ class DoorController extends ChangeNotifier {
 
   DoorController({@required DoorRepository repository}) {
     _repository = repository;
-    init();
-  }
-
-  void init() {
-    getDoorDataByTime(7);
   }
 
   Future<void> getActualDoorData() async {
@@ -68,7 +63,7 @@ class DoorController extends ChangeNotifier {
         .reduce(max);
   }
 
-  String getLastOpeningTime({String timeFormat = 'H:mm'}) {
+  String getLastOpeningTime({String timeFormat = 'HH:mm'}) {
     var date = _data.firstWhere((e) => e.extDigital == 1).timestamp;
     var formatter = DateFormat(timeFormat);
     return formatter.format(date);

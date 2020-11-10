@@ -34,13 +34,15 @@ class SensorViewHeader extends StatelessWidget {
             ),
           ),
         ),
-        background: Padding(
-          padding: const EdgeInsets.all(24),
-          child: SensorNumber(
-            number: sensorNumber,
-            showUrl: false,
-            size: 12.0,
-            dark: false,
+        background: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 24),
+            child: SensorNumber(
+              number: sensorNumber,
+              showUrl: false,
+              size: 12.0,
+              dark: false,
+            ),
           ),
         ),
       ),
