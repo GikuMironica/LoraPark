@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:lorapark_app/config/sensor_list.dart' show sensorList;
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
-import 'package:lorapark_app/data/models/sensor.dart';
 import 'package:lorapark_app/screens/ocr_page/ocr_page.dart';
 import 'package:lorapark_app/screens/widgets/sensor/sensor_card.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
@@ -17,11 +15,6 @@ class SensorListPage extends StatefulWidget {
 
 class _SensorListPageState extends State<SensorListPage> {
   SensorSearchController searchController;
-  List<Sensor> allSensors = sensorList;
-
-  _SensorListPageState() {
-    allSensors.sort((s1, s2) => s1.number.compareTo(s2.number));
-  }
 
   @override
   void dispose() {
@@ -31,11 +24,6 @@ class _SensorListPageState extends State<SensorListPage> {
 
   @override
   Widget build(BuildContext context) {
-    searchController = Provider.of<SensorSearchController>(
-      context,
-      listen: false,
-    );
-
     return Scaffold(
       backgroundColor: Color(0xFFECECEC),
       body: CustomScrollView(
@@ -60,11 +48,16 @@ class _SensorListPageState extends State<SensorListPage> {
                   style: TextStyle(fontSize: 12),
                   decoration: InputDecoration(
                     isDense: true,
-                    contentPadding: EdgeInsets.all(8),
+                    contentPadding: EdgeInsets.only(
+                      left: 8,
+                      right: 8,
+                      top: 6,
+                    ),
                     hintText: 'Search for sensors',
                     hintStyle: TextStyle(fontSize: 12),
                     prefixIcon: Icon(
                       Icons.search,
+                      size: 16,
                     ),
                     prefixIconConstraints: BoxConstraints(
                       minWidth: 32,
@@ -83,8 +76,9 @@ class _SensorListPageState extends State<SensorListPage> {
                     ),
                     fillColor: Colors.white,
                     filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),
@@ -100,21 +94,24 @@ class _SensorListPageState extends State<SensorListPage> {
                 ),
               ),
               actions: [
-                IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/svg/text-scan.svg',
-                    semanticsLabel: 'Sensor Number Scanner',
+                Padding(
+                  padding: const EdgeInsets.only(right: 6),
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/svg/text-scan.svg',
+                      semanticsLabel: 'Sensor Number Scanner',
+                    ),
+                    onPressed: () {
+                      pushNewScreen(
+                        context,
+                        screen: OcrPage(),
+                        withNavBar: false,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
                   ),
-                  onPressed: () {
-                    pushNewScreen(
-                      context,
-                      screen: OcrPage(),
-                      withNavBar: false,
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.cupertino,
-                    );
-                  },
-                )
+                ),
               ],
             ),
           ),
@@ -123,9 +120,9 @@ class _SensorListPageState extends State<SensorListPage> {
               delegate: SliverChildListDelegate(
                 [
                   controller.filteredSensors.isEmpty
-                      ? Center(
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 30),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'No Results',

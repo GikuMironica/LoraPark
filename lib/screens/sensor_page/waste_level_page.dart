@@ -116,7 +116,7 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                         text:
                             'Mit diesem Sensor kann über eine Ultra­schall­abstands­messung der Füllgrad eines Behälters bestimmt werden. Sollte der Behälter voll sein, kann automatisch eine Abholung ausgelöst werden. Dies bietet nicht nur den Vorteil, dass es zu keiner Vermüllung in der Stadt kommt, sondern es können auch unnötige Leerungen eingespart werden und die Route bei der Abholung entsprechend an den tatsächlichen Bedarf angepasst werden.',
                         image: AssetImage(
-                          'assets/images/container.jpg',
+                          'assets/images/waste-level-sensor.jpg',
                         ),
                       )
                     ],

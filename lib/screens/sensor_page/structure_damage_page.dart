@@ -95,7 +95,8 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
                           : LoadingDataPresenter(),
                       const SizedBox(height: 24),
                       SensorDescription(
-                        image: AssetImage('assets/images/structuredamage.jpg'),
+                        image: AssetImage(
+                            'assets/images/structure-damage-sensor.jpg'),
                         text:
                             'Veränderungen von Rissen werden am Ulmer Münster historisch mit Millimeterpapier kenntlich gemacht. Heute übernimmt ein Lasersensor mit Messgenauigkeiten im Mikrometerbereich diese Überwachung und sendet die Messdaten in regelmäßigen Abständen via LoRaWAN in unser Backend. Ein mathematisches Modell analysiert die Rohdaten und korrigiert Rauschen und Schwankungen bei dieser hochpräzisen Messung.',
                       ),

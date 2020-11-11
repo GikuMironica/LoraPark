@@ -20,7 +20,7 @@ class SensorCard extends StatelessWidget {
           Application.router.navigateTo(
             context,
             Routes.sensorPage + sensor.number,
-            transition: TransitionType.inFromRight,
+            transition: TransitionType.cupertino,
           );
         },
         child: Container(
@@ -88,7 +88,7 @@ class SensorCard extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         child: Text(
-                          'Placeholder for a long description on 3 lines and bla bla bla bla bla bla bla bla lol kek looooool',
+                          sensor.description,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(

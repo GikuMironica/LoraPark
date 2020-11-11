@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
+import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/controller/ocr_controller/ocr_controller.dart';
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
@@ -82,7 +83,7 @@ List<SingleChildWidget> providerList = [
     lazy: true,
   ),
   ChangeNotifierProvider(
-    create: (_) => SensorSearchController(sensors: sensorList),
+    create: (_) => SensorSearchController(sensors: GetIt.I.get<Sensors>().list),
     lazy: true,
   ),
   ChangeNotifierProvider(

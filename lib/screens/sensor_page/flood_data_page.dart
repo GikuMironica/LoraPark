@@ -75,7 +75,8 @@ class _FloodDataPageState extends State<FloodDataPage> {
                           : LoadingDataPresenter(),
                       const SizedBox(height: 24),
                       SensorDescription(
-                        image: AssetImage('assets/images/flood.jpg'),
+                        image:
+                            AssetImage('assets/images/flood-data-sensor.jpg'),
                         text:
                             'Der schöne Rad- und Fußweg entlang der Donau erfreut sich großer Beliebtheit. Unter den Brücken ist der Weg nur wenige Zentimeter über dem Normalpegelstand des Flusses. Dieser Zustand kann sich nach Regen innerhalb kurzer Zeit ändern, so dass Hochwasser schnell zum Problem wird. Mit unserer Lösung wird das Hochwasser unmittelbar erkannt, über das LoRaWAN-Netzwerk übertragen und evtl. weitere Maßnahmen wie eine Sperrung eingeleitet. Der Sensor hat batteriebetrieben eine Laufzeit von ca. 4 Jahren.',
                       )

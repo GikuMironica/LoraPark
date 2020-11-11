@@ -98,8 +98,8 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                         SensorDescription(
                           text:
                               "Dieser Sensor befindet sich im Boden in circa 50 cm Tiefe. Dort misstder Sensor die elektrische Leitfähigkeit, den Volumenwassergehalt, dieTemperatur und den Grad der Wassersättigung im Boden. Über einKabel ist der Sensor mit dem oberhalb der Bodenoberfläche befindli-chen Sendemodul verbunden. Auf diese Weise kann eine gezielte undsparsame Bewässerung erfolgen. Die Messdaten werden periodisch über das lokale LORAWAN Netzan unser Backend gesendet. Diese Daten werden dort zur Anzeigeverarbeitet.",
-                          image:
-                              AssetImage("assets/images/ground_humidity.jpg"),
+                          image: AssetImage(
+                              "assets/images/ground-humidity-sensor.jpg"),
                         )
                       ]),
                 ),
