@@ -11,6 +11,10 @@ var settingsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) =>
         SettingsPage());
 
+var ARHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) =>
+        AugmentedRealityPage());
+
 var airQualityHandler = Handler(
   handlerFunc: (context, params) => AirQualityPage(),
 );

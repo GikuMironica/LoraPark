@@ -45,3 +45,5 @@ app.*.map.json
 lib/config/credentials.dart
 plugins/
 unity/
+android/unityLibrary
+ios/UnityLibrary

@@ -2,6 +2,7 @@ export './initialization/init.dart';
 export './settings/settings.dart';
 export './map/map_page.dart';
 export './home/home.dart';
+export 'augmented_reality_page/augmented_reality_page.dart';
 export 'sensor_page/air_quality_page.dart'
     hide padding, horizontalOffset, clipSize, verticalOffset, pageOffset;
 export 'sensor_page/door_page.dart';
