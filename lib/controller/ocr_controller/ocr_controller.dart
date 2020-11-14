@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/config/router/application.dart';
+import 'package:lorapark_app/config/router/routes.dart';
 import 'package:lorapark_app/utils/scanner_utils/scanner_utils.dart';
 
 class OcrController extends ChangeNotifier {
@@ -10,12 +12,13 @@ class OcrController extends ChangeNotifier {
 
   CameraController _camera;
   bool _isDetecting = false;
+  bool _isCameraInitialized = false;
   VisionText _detectedText;
   String _recognizedSensorNumber;
 
   CameraController get camera => _camera;
 
-  bool get isCameraInitialized => _camera != null;
+  bool get isCameraInitialized => _isCameraInitialized;
 
   VisionText get detectedText => _detectedText;
 
@@ -36,10 +39,12 @@ class OcrController extends ChangeNotifier {
       enableAudio: false,
     );
     await _camera.initialize();
+    _isCameraInitialized = true;
     _startDetecting(description);
   }
 
   Future<void> closeCameraAndStream() async {
+    _isCameraInitialized = false;
     if (_camera.value.isStreamingImages) {
       await _camera.stopImageStream();
     }
@@ -59,6 +64,12 @@ class OcrController extends ChangeNotifier {
     }
 
     return false;
+  }
+
+  bool recognizedSensorIsUnavailable() {
+    return Application.router
+            .match(Routes.sensorPage + _recognizedSensorNumber) ==
+        null;
   }
 
   void _startDetecting(CameraDescription description) {
