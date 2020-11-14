@@ -56,7 +56,7 @@ class MapController extends ChangeNotifier {
             setPageState(MapPageState.MAP_ERROR);
             return;
           }
-          const distanceInMeters = 1000.0;
+          const distanceInMeters = 5000.0;
           _logger.d(
               'Setting location to ${_locationService.location.latitude}, ${_locationService.location.longitude}');
           _hereMapController.camera.lookAtPointWithDistance(

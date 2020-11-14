@@ -92,6 +92,5 @@ List<SingleChildWidget> providerList = [
     create: (_) => OcrController(),
     lazy: true,
   ),
-  ChangeNotifierProvider<MapController>(create: (_) => MapController(), lazy: true,),
   StreamProvider<UserLocation>.value(value: GetIt.I.get<LocationService>().locationStream,)
 ];
