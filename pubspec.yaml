@@ -55,7 +55,7 @@ dependencies:
   firebase_core: ^0.4.0+9
   firebase_ml_vision: ^0.9.8
   camera: ^0.5.8+11
-  flutter_unity_widget: ^2.0.0+2
+  # flutter_unity_widget: ^2.0.0+2
 
   here_sdk:
     path: 'plugins/here-sdk/'
@@ -79,6 +79,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icons/
+    - assets/icons/png/
     - assets/icons/svg/
     - assets/fonts/
     - assets/i18n/
