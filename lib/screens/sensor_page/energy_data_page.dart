@@ -115,7 +115,7 @@ class _EnergyDataPageState extends State<EnergyDataPage> {
                         image:
                             AssetImage('assets/images/energy-data-sensor.jpg'),
                         text:
-                            'Das Donaubad, das größte Erlebnisbad der Region, mit seinem Strömungskanal, Entspannungsbecken oder dem 36 Grad warmen Thermalwasserbecken setzt ebenfalls auf LoRaWAN und IoT Anwendungen. Neben der Wassertemperatur wird auch die Wärmemenge und der CO2-Wert der Raumluft überwacht.',
+                            'The Donaubad, the largest adventure pool in the region, with its flow channel, relaxation pool or the 36 degree warm thermal water pool also relies on LoRaWAN and IoT applications. In addition to the water temperature, the amount of heat and the CO2 value of the room air are also monitored.',
                       ),
                     ],
                   ),

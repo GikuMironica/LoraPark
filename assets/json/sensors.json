@@ -19,7 +19,7 @@
         "name": "Air Quality",
         "image": "assets/images/air-quality-sensor.jpg",
         "number": "02",
-        "description": "",
+        "description": "This device contains sensors for measuring temperature and humidity and four electrochemical gas sensors. In this case the gases nitrogen dioxide (NO2), carbon monoxide (CO), ozone (O) and sulfur dioxide (SO2) are measured. This allows conclusions to be drawn about the air quality. The measurement results are periodically sent to our backend via the local LoRaWAN network and processed there for display.",
         "location": {
           "latitude": 48.397206,
           "longitude": 9.991628
@@ -185,7 +185,7 @@
     "energy": [
       {
         "type": 14,
-        "name": "Energy",
+        "name": "Energy Data",
         "image": "assets/images/energy-data-sensor.jpg",
         "number": "15",
         "description": "The Donaubad, the largest adventure pool in the region, with its flow channel, relaxation pool or the 36 degree warm thermal water pool also relies on LoRaWAN and IoT applications. In addition to the water temperature, the amount of heat and the CO2 value of the room air are also monitored.",

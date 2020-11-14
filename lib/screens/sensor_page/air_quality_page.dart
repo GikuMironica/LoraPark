@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lorapark_app/controller/sensor_controller/air_quality_controller.dart';
 import 'package:lorapark_app/screens/widgets/charts/air_quality_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
 
@@ -52,74 +54,20 @@ class _AirQualityPage extends State<AirQualityPage> {
                           ? Consumer<AirQualityController>(
                               builder: (_, controller, __) => DataPresenter(
                                 width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: 'NO2 Concentration',
-                                visualization: Image(
-                                  image:
-                                      AssetImage('assets/images/polution.png'),
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Air Quality Level',
+                                visualization: SvgPicture.asset(
+                                  'assets/icons/svg/air-quality-icon.svg',
                                   height: 200,
                                   width: 200,
                                 ),
                                 data: Text(
-                                  controller.no2Concentration.toString() +
-                                      ' ppm',
+                                  controller.getAirQualityLevel(),
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            )
-                          : LoadingDataPresenter(),
-                      const SizedBox(height: verticalOffset),
-                      snapshot.connectionState == ConnectionState.done ||
-                              snapshot.connectionState == ConnectionState.none
-                          ? Consumer<AirQualityController>(
-                              builder: (_, controller, __) => DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: 'NO Concentration',
-                                visualization: Image(
-                                  image:
-                                      AssetImage('assets/images/polution.png'),
-                                  height: 200,
-                                  width: 200,
-                                ),
-                                data: Text(
-                                  controller.noConcentration.toString() +
-                                      ' ppm',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            )
-                          : LoadingDataPresenter(),
-                      const SizedBox(height: verticalOffset),
-                      snapshot.connectionState == ConnectionState.done ||
-                              snapshot.connectionState == ConnectionState.none
-                          ? Consumer<AirQualityController>(
-                              builder: (_, controller, __) => DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: 'CO Concentration',
-                                visualization: Image(
-                                  image:
-                                      AssetImage('assets/images/polution.png'),
-                                  height: 200,
-                                  width: 200,
-                                ),
-                                data: Text(
-                                  controller.coConcentration.toString() +
-                                      ' ppm',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             )
@@ -134,6 +82,13 @@ class _AirQualityPage extends State<AirQualityPage> {
                               width: (MediaQuery.of(context).size.width),
                             )
                           : LoadingDataPresenter(),
+                      const SizedBox(height: verticalOffset),
+                      SensorDescription(
+                        text:
+                            'This device contains sensors for measuring temperature and humidity and four electrochemical gas sensors. In this case the gases nitrogen dioxide (NO2), carbon monoxide (CO), ozone (O) and sulfur dioxide (SO2) are measured. This allows conclusions to be drawn about the air quality. The measurement results are periodically sent to our backend via the local LoRaWAN network and processed there for display.',
+                        image:
+                            AssetImage('assets/images/air-quality-sensor.jpg'),
+                      )
                     ],
                   ),
                 ),

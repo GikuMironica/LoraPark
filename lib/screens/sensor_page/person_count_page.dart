@@ -72,7 +72,7 @@ class _PersonCountPage extends State<PersonCountPage> {
                       SizedBox(height: pageOffset / 2),
                       SensorDescription(
                         text:
-                            'Diese Beacons verwendet der Personenzähler, um eine ungefähre Anzahl an Personen ermitteln zu können. Das geschieht anonym und ohne Identifizierung der Person selbst.',
+                            'The person counter sensor used in the LoRaPark counts the number of people who carry their smartphones with them. Every smartphone with an activated Bluetooth or WiFi module sends out beacons that, e.g. signal to a router that a device is on site. The person counter uses these beacons to determine an approximate number of people. This happens anonymously and without identifying the person himself.',
                         image:
                             AssetImage('assets/images/person-count-sensor.jpg'),
                       )

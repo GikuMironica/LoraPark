@@ -29,9 +29,8 @@ class _EnergyDataChartState extends State<EnergyDataChart> {
         borderRadius: BorderRadius.all(Radius.circular(15)),
         gradient: LinearGradient(
           colors: [
-            Color(0xff0f2027),
-            Color(0xff203a43),
-            Color(0xff2c5364),
+            Color(0xffece9e6),
+            Color(0xfff6f6f6),
           ],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
@@ -53,9 +52,7 @@ class _EnergyDataChartState extends State<EnergyDataChart> {
             child: Text(
               'AVG.',
               style: TextStyle(
-                color: isShowingAverage
-                    ? Colors.white
-                    : Colors.white.withOpacity(0.5),
+                color: isShowingAverage ? Colors.black87 : Colors.black38,
                 fontWeight: FontWeight.w700,
                 fontSize: 14,
               ),
@@ -85,7 +82,7 @@ class _EnergyDataChartState extends State<EnergyDataChart> {
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: _isBorderValue(value.toInt())
-                ? Colors.grey.withOpacity(0.7)
+                ? Colors.grey
                 : Colors.transparent,
             strokeWidth: 1,
           );
@@ -95,7 +92,7 @@ class _EnergyDataChartState extends State<EnergyDataChart> {
         leftTitles: SideTitles(
           showTitles: true,
           getTextStyles: (_) => const TextStyle(
-            color: Colors.white70,
+            color: Colors.black54,
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),
@@ -104,7 +101,7 @@ class _EnergyDataChartState extends State<EnergyDataChart> {
         bottomTitles: SideTitles(
           showTitles: true,
           getTextStyles: (_) => const TextStyle(
-            color: Colors.white70,
+            color: Colors.black54,
             fontWeight: FontWeight.w700,
             fontSize: 14,
           ),
@@ -115,7 +112,7 @@ class _EnergyDataChartState extends State<EnergyDataChart> {
         show: true,
         border: Border(
           bottom: BorderSide(
-            color: Colors.white70,
+            color: Colors.black54,
             width: 2,
           ),
         ),
