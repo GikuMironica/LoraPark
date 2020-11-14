@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/config/router/application.dart';
+import 'package:lorapark_app/config/router/routes.dart';
 import 'package:lorapark_app/utils/scanner_utils/scanner_utils.dart';
 
 class OcrController extends ChangeNotifier {
@@ -59,6 +61,12 @@ class OcrController extends ChangeNotifier {
     }
 
     return false;
+  }
+
+  bool recognizedSensorIsUnavailable() {
+    return Application.router
+            .match(Routes.sensorPage + _recognizedSensorNumber) ==
+        null;
   }
 
   void _startDetecting(CameraDescription description) {
