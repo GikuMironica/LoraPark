@@ -10,7 +10,6 @@ class Sensor {
   final AssetImage image;
   final String description;
   final SensorLocation location;
-  final int rotation;
   final String address;
 
   Sensor(
@@ -21,7 +20,6 @@ class Sensor {
       this.image,
       this.description,
       this.location,
-      this.rotation,
       this.address});
 
   factory Sensor.fromJSON(Map<String, dynamic> json) => Sensor(
@@ -32,10 +30,11 @@ class Sensor {
       image: AssetImage(json['image']),
       description: json['description'],
       location: SensorLocation.fromJSON(json['location']),
-      rotation: json.containsKey('rotation') ? json['rotation'] : null,
       address: '');
 
   double get latitude => location.latitude;
 
   double get longitude => location.longitude;
+
+  SensorLocation get sensorLocation => location;
 }

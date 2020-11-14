@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/screens/augmented_reality_page/augmented_reality_page.dart';
 import 'package:lorapark_app/screens/screens.dart';
 import 'package:lorapark_app/screens/sensor_list_page/sensor_list_page.dart';
 import 'package:lorapark_app/screens/widgets/lp_nav_bar/lp_nav_bar.dart';
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
     return [
       MapPage(),
       SensorListPage(),
+      AugmentedRealityPage(),
       SettingsPage(),
     ];
   }
@@ -61,8 +63,12 @@ class _HomePageState extends State<HomePage> {
         title: 'Sensoren'
       ),
       LPNavBarItem(
-        iconName: 'ellipsis-horizontal-outline',
-        title: 'More'
+        iconName: 'ar-outline',
+        title: 'AR'
+      ),
+      LPNavBarItem(
+          iconName: 'ellipsis-horizontal-outline',
+          title: 'More'
       )
     ];
   }

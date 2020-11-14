@@ -35,7 +35,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "de.thu.lorapark_app"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -52,4 +52,8 @@ android {
 
 flutter {
     source '../..'
+}
+
+dependencies {
+    implementation project(':unityLibrary')
 }

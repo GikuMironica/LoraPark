@@ -4,6 +4,8 @@ import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/controller/ocr_controller/ocr_controller.dart';
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
+import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
+import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
 import 'package:lorapark_app/data/models/coordinates.dart';
 import 'package:lorapark_app/services/location_service/location_service.dart';
 import 'package:lorapark_app/services/services.dart';
@@ -92,5 +94,19 @@ List<SingleChildWidget> providerList = [
     create: (_) => OcrController(),
     lazy: true,
   ),
-  StreamProvider<UserLocation>.value(value: GetIt.I.get<LocationService>().locationStream,)
+  ChangeNotifierProvider(
+    create: (_) => ARController(
+      airQualityRepository: GetIt.I.get<AirQualityRepository>(),
+      doorRepository: GetIt.I.get<DoorRepository>(),
+      energyDataRepository: GetIt.I.get<EnergyDataRepository>(),
+      floodDataRepository: GetIt.I.get<FloodDataRepository>(),
+      groundHumidityRepository: GetIt.I.get<GroundHumidityRepository>(),
+      personCountRepository: GetIt.I.get<PersonCountRepository>(),
+      raisedGardenRepository: GetIt.I.get<RaisedGardenRepository>(),
+      structureDamageRepository: GetIt.I.get<StructureDamageRepository>(),
+      wasteLevelRepository: GetIt.I.get<WasteLevelRepository>(),
+      weatherStationRepository: GetIt.I.get<WeatherStationRepository>(),
+    ),
+    lazy: true,
+  ),
 ];

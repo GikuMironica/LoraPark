@@ -10,8 +10,7 @@
         "location": {
           "latitude": 48.396426,
           "longitude": 9.990453
-        },
-        "rotation": 270
+        }
       }
     ],
     "air_quality": [
@@ -24,8 +23,7 @@
         "location": {
           "latitude": 48.397206,
           "longitude": 9.991628
-        },
-        "rotation": 90
+        }
       }
     ],
     "sound_sensor": [
@@ -38,8 +36,7 @@
         "location": {
           "latitude": 48.397206,
           "longitude": 9.991628
-        },
-        "rotation": 90
+        }
       }
     ],
     "waste_level": [
@@ -52,8 +49,7 @@
         "location": {
           "latitude": 48.396395,
           "longitude": 9.991161
-        },
-        "rotation": 90
+        }
       }
     ],
     "parking": [
@@ -66,8 +62,7 @@
         "location": {
           "latitude": 48.397354,
           "longitude": 9.993039
-        },
-        "rotation": 0
+        }
       }
     ],
     "water_temperature": [
@@ -80,8 +75,7 @@
         "location": {
           "latitude": 48.396482,
           "longitude": 48.396482
-        },
-        "rotation": 0
+        }
       }
     ],
     "feedback_button": [
@@ -94,8 +88,7 @@
         "location": {
           "latitude": 48.397354,
           "longitude": 9.993039
-        },
-        "rotation": 0
+        }
       }
     ],
     "flood_data": [
@@ -108,8 +101,7 @@
         "location": {
           "longitude": 48.396016,
           "latitude": 9.995969
-        },
-        "rotation": 0
+        }
       }
     ],
     "ground_humidity": [
@@ -122,8 +114,7 @@
         "location": {
           "longitude": 48.396770,
           "latitude": 9.990960
-        },
-        "rotation": 0
+        }
       }
     ],
     "person_count": [
@@ -136,8 +127,7 @@
         "location": {
           "longitude": 48.396426,
           "latitude": 9.990453
-        },
-        "rotation": 270
+        }
       }
     ],
     "door": [
@@ -150,8 +140,7 @@
         "location": {
           "longitude": 48.396607,
           "latitude": 9.990208
-        },
-        "rotation": 270
+        }
       }
     ],
     "raised_garden": [
@@ -164,8 +153,7 @@
         "location": {
           "latitude": 48.396472,
           "longitude": 9.99047
-        },
-        "rotation": 270
+        }
       }
     ],
     "rat_sensor": [
@@ -178,8 +166,7 @@
         "location": {
           "latitude": 48.396425,
           "longitude": 9.990268
-        },
-        "rotation": 0
+        }
       }
     ],
     "structure_damage": [
@@ -192,8 +179,7 @@
         "location": {
           "latitude": 48.39863,
           "longitude": 9.992465
-        },
-        "rotation": 0
+        }
       }
     ],
     "energy": [
@@ -206,8 +192,7 @@
         "location": {
           "latitude": 48.386126,
           "longitude": 9.986219
-        },
-        "rotation": 90
+        }
       }
     ],
     "smart_bank": [
@@ -220,8 +205,7 @@
         "location": {
           "latitude": 48.396867,
           "longitude": 9.990939
-        },
-        "rotation": 0
+        }
       }
     ],
     "display": [
@@ -234,8 +218,7 @@
         "location": {
           "latitude": 48.396736,
           "longitude": 9.991055
-        },
-        "rotation": 0
+        }
       }
     ]
   }
