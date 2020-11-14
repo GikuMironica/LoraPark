@@ -11,6 +11,10 @@ import 'package:lorapark_app/services/logging_service/logging_service.dart';
 import 'package:intl/intl.dart';
 
 class AirQualityController extends ChangeNotifier {
+  static final int NO_LIMIT = 127;
+  static final int NO2_LIMIT = 101;
+  static final int CO_LIMIT = 87;
+
   AirQualityRepository _repository;
   final Logger _logger = GetIt.I
       .get<LoggingService>()
@@ -78,6 +82,28 @@ class AirQualityController extends ChangeNotifier {
       coconcentration.add(element.coConcentration);
     });
     return report.reversed.toList();
+  }
+
+  String getAirQualityLevel() {
+    var sumViolated = 0;
+    _data.forEach((d) {
+      if (d.noConcentration > NO_LIMIT ||
+          d.no2Concentration > NO2_LIMIT ||
+          d.coConcentration > CO_LIMIT) {
+        sumViolated++;
+      }
+    });
+
+    var airQualityLevel = '';
+    if (sumViolated > 10) {
+      airQualityLevel = 'Bad';
+    } else if (sumViolated > 5) {
+      airQualityLevel = 'Medium';
+    } else {
+      airQualityLevel = 'Good';
+    }
+
+    return airQualityLevel;
   }
 
   List<AirQualityData> get data => _data;

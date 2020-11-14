@@ -185,7 +185,7 @@
     "energy": [
       {
         "type": 14,
-        "name": "Energy",
+        "name": "Energy Data",
         "image": "assets/images/energy-data-sensor.jpg",
         "number": "15",
         "description": "The Donaubad, the largest adventure pool in the region, with its flow channel, relaxation pool or the 36 degree warm thermal water pool also relies on LoRaWAN and IoT applications. In addition to the water temperature, the amount of heat and the CO2 value of the room air are also monitored.",

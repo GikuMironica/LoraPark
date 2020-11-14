@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lorapark_app/controller/sensor_controller/air_quality_controller.dart';
 import 'package:lorapark_app/screens/widgets/charts/air_quality_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
@@ -52,74 +53,20 @@ class _AirQualityPage extends State<AirQualityPage> {
                           ? Consumer<AirQualityController>(
                               builder: (_, controller, __) => DataPresenter(
                                 width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: 'NO2 Concentration',
-                                visualization: Image(
-                                  image:
-                                      AssetImage('assets/images/polution.png'),
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                title: 'Air Quality Level',
+                                visualization: SvgPicture.asset(
+                                  'assets/icons/svg/air-quality-icon.svg',
                                   height: 200,
                                   width: 200,
                                 ),
                                 data: Text(
-                                  controller.no2Concentration.toString() +
-                                      ' ppm',
+                                  controller.getAirQualityLevel(),
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            )
-                          : LoadingDataPresenter(),
-                      const SizedBox(height: verticalOffset),
-                      snapshot.connectionState == ConnectionState.done ||
-                              snapshot.connectionState == ConnectionState.none
-                          ? Consumer<AirQualityController>(
-                              builder: (_, controller, __) => DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: 'NO Concentration',
-                                visualization: Image(
-                                  image:
-                                      AssetImage('assets/images/polution.png'),
-                                  height: 200,
-                                  width: 200,
-                                ),
-                                data: Text(
-                                  controller.noConcentration.toString() +
-                                      ' ppm',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            )
-                          : LoadingDataPresenter(),
-                      const SizedBox(height: verticalOffset),
-                      snapshot.connectionState == ConnectionState.done ||
-                              snapshot.connectionState == ConnectionState.none
-                          ? Consumer<AirQualityController>(
-                              builder: (_, controller, __) => DataPresenter(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    (MediaQuery.of(context).size.width) * 0.30,
-                                title: 'CO Concentration',
-                                visualization: Image(
-                                  image:
-                                      AssetImage('assets/images/polution.png'),
-                                  height: 200,
-                                  width: 200,
-                                ),
-                                data: Text(
-                                  controller.coConcentration.toString() +
-                                      ' ppm',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             )

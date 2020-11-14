@@ -105,17 +105,6 @@ class _DoorPageState extends State<DoorPage> {
                               height: MediaQuery.of(context).size.width * 0.95,
                             ),
                       const SizedBox(height: 24),
-                      doorController.data == null
-                          ? LoadingDataPresenter(
-                              height: MediaQuery.of(context).size.width * 0.95,
-                            )
-                          : DataPresenter(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width * 0.95,
-                              title: 'Last 8 Days',
-                              data: DoorChart(),
-                            ),
-                      const SizedBox(height: 24),
                       SensorDescription(
                         image: AssetImage('assets/images/door-sensor.jpg'),
                         text:
