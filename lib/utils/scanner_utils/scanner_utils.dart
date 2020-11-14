@@ -47,7 +47,7 @@ class ScannerUtils {
   ) {
     return FirebaseVisionImageMetadata(
       rawFormat: image.format.raw,
-      size: Size((image.width.toDouble()) + 150, ((image.height.toDouble()) - (image.height.toDouble() * 0.40))),
+      size: Size(image.width.toDouble(), image.height.toDouble()),
       rotation: rotation,
       planeData: image.planes.map(
         (Plane plane) {

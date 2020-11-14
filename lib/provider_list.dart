@@ -9,6 +9,7 @@ import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
 import 'package:lorapark_app/data/models/coordinates.dart';
 import 'package:lorapark_app/services/location_service/location_service.dart';
 import 'package:lorapark_app/services/services.dart';
+import 'package:lorapark_app/services/setup.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -109,4 +110,5 @@ List<SingleChildWidget> providerList = [
     ),
     lazy: true,
   ),
+  StreamProvider<UserLocation>.value(value: GetIt.I.get<LocationService>().locationStream),
 ];

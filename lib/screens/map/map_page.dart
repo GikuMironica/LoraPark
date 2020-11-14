@@ -16,8 +16,8 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: MapController(),
+    return ChangeNotifierProvider<MapController>(
+      create: (_) => MapController(),
             builder: (_, widget) => Stack(
         key: pageKey,
         children: [
