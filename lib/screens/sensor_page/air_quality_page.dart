@@ -5,6 +5,7 @@ import 'package:lorapark_app/controller/sensor_controller/air_quality_controller
 import 'package:lorapark_app/screens/widgets/charts/air_quality_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
 
@@ -81,6 +82,13 @@ class _AirQualityPage extends State<AirQualityPage> {
                               width: (MediaQuery.of(context).size.width),
                             )
                           : LoadingDataPresenter(),
+                      const SizedBox(height: verticalOffset),
+                      SensorDescription(
+                        text:
+                            'This device contains sensors for measuring temperature and humidity and four electrochemical gas sensors. In this case the gases nitrogen dioxide (NO2), carbon monoxide (CO), ozone (O) and sulfur dioxide (SO2) are measured. This allows conclusions to be drawn about the air quality. The measurement results are periodically sent to our backend via the local LoRaWAN network and processed there for display.',
+                        image:
+                            AssetImage('assets/images/air-quality-sensor.jpg'),
+                      )
                     ],
                   ),
                 ),

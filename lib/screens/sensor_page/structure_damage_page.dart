@@ -98,7 +98,7 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
                         image: AssetImage(
                             'assets/images/structure-damage-sensor.jpg'),
                         text:
-                            'Veränderungen von Rissen werden am Ulmer Münster historisch mit Millimeterpapier kenntlich gemacht. Heute übernimmt ein Lasersensor mit Messgenauigkeiten im Mikrometerbereich diese Überwachung und sendet die Messdaten in regelmäßigen Abständen via LoRaWAN in unser Backend. Ein mathematisches Modell analysiert die Rohdaten und korrigiert Rauschen und Schwankungen bei dieser hochpräzisen Messung.',
+                            'Changes in cracks at Ulm Muenster are historically marked with graph paper. Today, a laser sensor with measuring accuracies in the micrometer range takes over this monitoring and sends the measurement data to our backend at regular intervals via LoRaWAN. A mathematical model analyzes the raw data and corrects noise and fluctuations in this high-precision measurement.',
                       ),
                     ],
                   ),

@@ -99,9 +99,9 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
                         const SizedBox(height: pageOffset),
                         SensorDescription(
                           text:
-                              "Das autarke Hochbeet bewässert sich je nach Feuchtigkeit der Erdeim Beet selbständig und automatisch über einen integrierten Wasser-tank. Die Messung der Bodenfeuchtigkeit wird über Tensiometergeregelt, die - ähnlich wie Pflanzen selbst - über die Saugspannungden Wassergehalt im Boden bestimmen. Ist der Feuchtigkeitswertzu gering, wird die Bewässerung ausgelöst. Für die Überwachung des Beets, vor allem des Wasserstands im Tank sowie der Bodenfeuchtigkeit, werden regelmäßig Sensordatenvia LORAWAN versendet, so können zum Beispiel gemeinschaftlicheUrban Gardening-Projekte erleichtert werden.",
+                              'The self-sufficient raised garden irrigates itself independently and automatically via an integrated water tank, depending on the humidity of the soil in the flowerpot. The measurement of the soil moisture is regulated by tensiometers, which - like plants themselves - determine the water content in the soil via the suction tension. If the humidity level is too low, watering is triggered. To monitor the flowerpot, especially the water level in the tank and the soil moisture, sensor data are regularly sent via LoRaWAN, which, for example, can facilitate joint urban gardening projects.',
                           image: AssetImage(
-                              "assets/images/raised-garden-sensor.jpg"),
+                              'assets/images/raised-garden-sensor.jpg'),
                         )
                       ]),
                 ),

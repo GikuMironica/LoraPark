@@ -111,9 +111,9 @@ class _WeatherStationPage extends State<WeatherStationPage> {
                       const SizedBox(height: pageOffset),
                       SensorDescription(
                         text:
-                            'Diese Station ist eine Kombination aus verschiedenen Sensoren. Gemessen werden Temperatur, Luftfeuchtigkeit, Luftdruck, Regen-menge, Kondensationspunkt, Windgeschwindigkeit und -richtung, Sonneneinstrahlung und Anzahl von Partikeln verschiedener Größein der Luft (Feinstaub). Die Wetterstation wird autark mittels Solar-modul betrieben. Die gemessenen Ergebnisse werden periodisch über das lokale LORAWAN Netz an unser Backend gesendet, welches die Datenzur Anzeige verarbeitet. Dieser Sensor ist Teil des LoRaParks am Weinhof. Daten und Visualisierung auf demdortigen Display oder unter lorapark.de. Die Sensordaten werden der Öffentlichkeitebenfalls auf der Ulmer Datenplattform unter CC-0-Lizenz frei verfügbar gemacht.',
+                            'This station is a combination of different sensors. The temperature, humidity, air pressure, amount of rain, condensation point, wind speed and direction, solar radiation and the number of particles of various sizes in the air (fine dust) are measured. The weather station is operated independently using a solar module. The measured results are periodically sent via the local LoRaWAN network to our backend, which processes the data for display. This sensor is part of the LoRaPark at Weinhof. Data and visualization are presented on the local display or at lorapark.de. The sensor data are also made freely available to the public on the Ulm data platform under a CC-0 license.',
                         image: AssetImage(
-                            "assets/images/weather-station-sensor.jpg"),
+                            'assets/images/weather-station-sensor.jpg'),
                       )
                     ],
                   ),
