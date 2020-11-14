@@ -555,6 +555,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.2+2"
+<<<<<<< HEAD
   quiver:
     dependency: transitive
     description:
@@ -562,6 +563,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+=======
+>>>>>>> a36204f5df1d57dad98d6ef08e7f2d9a3c3a3aa4
   sentry:
     dependency: transitive
     description:
