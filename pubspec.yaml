@@ -56,6 +56,7 @@ dependencies:
   firebase_ml_vision: ^0.9.8
   camera: ^0.5.8+11
   flutter_unity_widget: ^2.0.0+2
+  sliding_up_panel: ^1.0.2
 
   here_sdk:
     path: 'plugins/here-sdk/'
