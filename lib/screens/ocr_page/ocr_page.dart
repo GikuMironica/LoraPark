@@ -16,7 +16,7 @@ class OcrPage extends StatefulWidget {
 
 class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
   OcrController _ocrController;
-  bool _isDialogShown = false;
+
 
   @override
   void dispose() async {
@@ -150,33 +150,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
   }
 
   void _navigateToSensorPage() {
-    if (_isDialogShown) {
-      return;
-    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      var sensors = GetIt.I.get<Sensors>().list;
-      if (sensors.every(
-          (sensor) => sensor.number != _ocrController.recognizedSensorNumber)) {
-        _isDialogShown = true;
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Warning !'),
-                content: Text('This sensor is currently unavailable'),
-                actions: [
-                  FlatButton(
-                    child: Text('Ok'),
-                    onPressed: () {
-                      _isDialogShown = false;
-                      Application.router.pop(context);
-                    },
-                  ),
-                ],
-                elevation: 15.0,
-              );
-            });
-      } else {
         _ocrController.closeCameraAndStream();
         Application.router.navigateTo(
           context,
@@ -184,7 +158,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
           replace: true,
           transition: TransitionType.cupertino,
         );
-      }
+
     });
   }
 }
