@@ -12,12 +12,13 @@ class OcrController extends ChangeNotifier {
 
   CameraController _camera;
   bool _isDetecting = false;
+  bool _isCameraInitialized = false;
   VisionText _detectedText;
   String _recognizedSensorNumber;
 
   CameraController get camera => _camera;
 
-  bool get isCameraInitialized => _camera != null;
+  bool get isCameraInitialized => _isCameraInitialized;
 
   VisionText get detectedText => _detectedText;
 
@@ -38,10 +39,12 @@ class OcrController extends ChangeNotifier {
       enableAudio: false,
     );
     await _camera.initialize();
+    _isCameraInitialized = true;
     _startDetecting(description);
   }
 
   Future<void> closeCameraAndStream() async {
+    _isCameraInitialized = false;
     if (_camera.value.isStreamingImages) {
       await _camera.stopImageStream();
     }
