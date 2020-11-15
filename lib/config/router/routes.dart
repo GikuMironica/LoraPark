@@ -1,9 +1,5 @@
 import 'package:fluro/fluro.dart';
 import 'package:lorapark_app/config/router/handlers.dart';
-import 'package:flutter/material.dart';
-
-
-
 
 class Routes {
   static String root = '/';
@@ -14,8 +10,8 @@ class Routes {
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler =
         Handler(handlerFunc: (_, Map<String, List<String>> params) {
-          print("ROUTE WAS NOT FOUND !!!");
-        });
+      print("ROUTE WAS NOT FOUND !!!");
+    });
 
     router.define(root, handler: rootHandler);
     router.define(settings, handler: settingsHandler);
