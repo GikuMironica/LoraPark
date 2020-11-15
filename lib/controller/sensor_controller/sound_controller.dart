@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -9,8 +8,7 @@ import 'package:logger/logger.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/data/models/sensors/sound_sensor_data.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
-import "package:lorapark_app/data/repositories/sensor_repository/sound_sensor.dart";
-import 'package:lorapark_app/config/sensor_list.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/sound_sensor.dart';
 
 enum PAGESTATE { IDLE, LOADED, ERROR }
 
@@ -47,6 +45,7 @@ class SoundController extends ChangeNotifier {
 
   //get fast noises
   double get fastNoise => _data.first.firstdbafast;
+
   //get continuous noises ===> traffic noises
   double get continuousNoise => _data.first.firstdbaslow;
 

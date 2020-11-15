@@ -27,5 +27,7 @@ class Routes {
     router.define(sensorPage + '14', handler: structureDamageHandler);
     router.define(sensorPage + '04', handler: wasteLevelHandler);
     router.define(sensorPage + '01', handler: weatherStationHandler);
+    router.define(sensorPage + '03', handler: soundSensorHandler);
+    router.define(sensorPage + '13', handler: ratSensorHandler);
   }
 }

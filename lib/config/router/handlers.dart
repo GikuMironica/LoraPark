@@ -5,6 +5,7 @@ import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/screens/screens.dart';
 import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
+import 'package:lorapark_app/screens/sensor_page/sound_sensor_page.dart';
 
 var sensorList = GetIt.I.get<Sensors>().list;
 
@@ -109,4 +110,12 @@ var weatherStationHandler = Handler(
     return SelectedSensor(
         sensor: weatherStationSensor, child: WeatherStationPage());
   },
+);
+
+var soundSensorHandler = Handler(
+  handlerFunc: (context, params) => SoundSensorPage(),
+);
+
+var ratSensorHandler = Handler(
+  handlerFunc: (context, params) => RatPage(),
 );

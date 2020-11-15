@@ -17,21 +17,23 @@ const double verticalOffset = 24;
 var soundController;
 const double pageOffset = 20;
 
-class SoundSensorPage extends StatefulWidget{
+class SoundSensorPage extends StatefulWidget {
   @override
   _SoundSensorPage createState() => _SoundSensorPage();
 }
 
-class _SoundSensorPage extends State<SoundSensorPage>{
-
+class _SoundSensorPage extends State<SoundSensorPage> {
   @override
-   Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     soundController = Provider.of<SoundController>(
       context,
       listen: false,
     );
     soundController.scrollController.addListener(_scrollListener);
-
     return RefreshIndicator(
       onRefresh: () => soundController.fetchData(),
       child: SingleSensorViewTemplate(
@@ -48,34 +50,62 @@ class _SoundSensorPage extends State<SoundSensorPage>{
                     builder: (context, controller, _) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            soundController.data.isEmpty 
+                            soundController.data.isEmpty
                                 ? LoadingDataPresenter()
                                 : DataPresenter(
                                     width: MediaQuery.of(context).size.width,
                                     height:
                                         (MediaQuery.of(context).size.height -
-                                                250) /
-                                            4,
-                                    title: "Traffic noise",
+                                                250) / 4,
+                                    title: 'Traffic noise',
                                     visualization: Image(
                                       image:
-                                          AssetImage("assets/images/rat.png"),
+                                          AssetImage('assets/images/sound-sensor.jpg'),
                                       height: 200,
                                       width: 200,
                                     ),
-                                    data: soundController.data.isEmpty 
+                                    data: soundController.data.isEmpty
                                         ? Text(
-                                            '0 visits',
+                                            '0 dBa',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w600),
                                           )
                                         : Text(
-                                            
-                                                    soundController.continuousNoise.toString() +
-                                                " " +
-                                                "traffic noise",
+                                            soundController.continuousNoise
+                                                    .toString() + ' dba',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                  ),
+                            soundController.data.isEmpty
+                                ? LoadingDataPresenter()
+                                : DataPresenter(
+                                    width: MediaQuery.of(context).size.width,
+                                    height:
+                                        (MediaQuery.of(context).size.height -
+                                                250) / 4,
+                                    title: 'Sound Pressure',
+                                    visualization: Image(
+                                      image:
+                                          AssetImage('assets/images/sound-sensor.jpg'),
+                                      height: 200,
+                                      width: 200,
+                                    ),
+                                    data: soundController.data.isEmpty
+                                        ? Text(
+                                            '0 dBa',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          )
+                                        : Text(
+                                            soundController.soundPressure
+                                                    .toString() + ' dba',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 12,
@@ -83,14 +113,11 @@ class _SoundSensorPage extends State<SoundSensorPage>{
                                           ),
                                   ),
                             SizedBox(height: pageOffset / 2),
-
                             SensorDescription(
                                 text:
-                                    "Mit der ToxProtect bleiben sowohl der Köder als auch das Gift in einer sicheren Box. Die derzeitige Situation wird mit Lichtschranken kontinuierlich überwacht und via LoRaWAN übertragen. Um Ratten anzulocken werden Lockköder eingesetzt, welche die Zahl der täglichen Besuche steigert. Nach einigen Tagen, in denen die Box regelmäßig von Ratten besucht wird, folgt dann der Wechsel zum Giftköder. Nach Wirkung des Gifts, geht die Anzahl an Ratten stetig zurück. Alles wird in Echtzeit überwacht und kann bei Bedarf angepasst werden.",
-                                image: AssetImage(
-                                    "assets/images/rat_sensor.png"))
-
-                                    
+                                    'Mit der ToxProtect bleiben sowohl der Köder als auch das Gift in einer sicheren Box. Die derzeitige Situation wird mit Lichtschranken kontinuierlich überwacht und via LoRaWAN übertragen. Um Ratten anzulocken werden Lockköder eingesetzt, welche die Zahl der täglichen Besuche steigert. Nach einigen Tagen, in denen die Box regelmäßig von Ratten besucht wird, folgt dann der Wechsel zum Giftköder. Nach Wirkung des Gifts, geht die Anzahl an Ratten stetig zurück. Alles wird in Echtzeit überwacht und kann bei Bedarf angepasst werden.',
+                                image:
+                                    AssetImage('assets/images/rat_sensor.png'))
                           ],
                         )),
               ),
@@ -101,8 +128,7 @@ class _SoundSensorPage extends State<SoundSensorPage>{
     );
   }
 
-
-   void _scrollListener() {
+  void _scrollListener() {
     setState(() {
       clipSize = (soundController.scrollController.offset / 2);
     });
