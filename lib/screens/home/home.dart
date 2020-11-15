@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return ChangeNotifierProvider(
       create: (_) => MainPageController(context),
       child: Consumer<MainPageController>(
