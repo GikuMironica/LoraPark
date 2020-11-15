@@ -94,6 +94,11 @@ class ARController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setBottomSheetState(NavBottomSheetState newState) {
+    _bottomSheetState = newState;
+    notifyListeners();
+  }
+
   Future<void> getActualData() async {
     _logger.d('Fetching air quality data');
     sensorsData[describeEnum(SensorType.air_quality).toString()] =
