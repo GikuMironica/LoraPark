@@ -1,9 +1,9 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/parking_sensor_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +12,6 @@ const double padding = 24.0;
 const double horizontalOffset = 20;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-var parkingController;
-double clipSize = 0;
-bool isInit = true;
-bool isLoading = true;
-bool isEventLoading = true;
 
 class ParkingPage extends StatefulWidget {
   @override
@@ -24,22 +19,37 @@ class ParkingPage extends StatefulWidget {
 }
 
 class _ParkingPage extends State<ParkingPage> {
+  ParkingSensorController _parkingController;
+  double _clipSize;
+
   @override
-  Widget build(BuildContext context) {
-    parkingController = Provider.of<ParkingSensorController>(
+  void initState() {
+    _clipSize = 0;
+    _parkingController = Provider.of<ParkingSensorController>(
       context,
       listen: false,
     );
+    _parkingController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
-    parkingController.scrollController.addListener(_scrollListener);
+  @override
+  void dispose() {
+    _parkingController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
 
     return RefreshIndicator(
-      onRefresh: () => parkingController.getParkingAverageDuration(7),
+      onRefresh: () => _parkingController.getParkingAverageDuration(7),
       child: SingleSensorViewTemplate(
-        scrollController: parkingController.scrollController,
-        clipSize: clipSize,
-        sensorName: "Parking sensor",
-        sensorNumber: "xx",
+        scrollController: _parkingController.scrollController,
+        clipSize: _clipSize,
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
@@ -49,8 +59,8 @@ class _ParkingPage extends State<ParkingPage> {
                   builder: (context, controller, _) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      parkingController.parkingEventData.isEmpty &&
-                              parkingController.dataAvg.isEmpty
+                      _parkingController.parkingEventData.isEmpty &&
+                              _parkingController.dataAvg.isEmpty
                           ? LoadingDataPresenter()
                           : Container(
                               width: MediaQuery.of(context).size.width,
@@ -91,8 +101,8 @@ class _ParkingPage extends State<ParkingPage> {
                       SizedBox(height: verticalOffset),
                       Row(
                         children: [
-                          parkingController.parkingEventData.isEmpty &&
-                                  parkingController.dataAvg.isEmpty
+                          _parkingController.parkingEventData.isEmpty &&
+                                  _parkingController.dataAvg.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #1",
@@ -102,9 +112,9 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                               .dataAvg[0].averageParkingDuration
                                               .toString() +
                                           " mins"),
@@ -115,8 +125,8 @@ class _ParkingPage extends State<ParkingPage> {
                                     width: 40,
                                   )),
                           SizedBox(width: horizontalOffset),
-                          parkingController.parkingEventData.isEmpty &&
-                                  parkingController.dataAvg.isEmpty
+                          _parkingController.parkingEventData.isEmpty &&
+                                  _parkingController.dataAvg.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #2",
@@ -126,9 +136,9 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                               .dataAvg[1].averageParkingDuration
                                               .toString() +
                                           " mins"),
@@ -143,8 +153,8 @@ class _ParkingPage extends State<ParkingPage> {
                       SizedBox(height: verticalOffset),
                       Row(
                         children: [
-                          parkingController.parkingEventData.isEmpty &&
-                                  parkingController.dataAvg.isEmpty == null
+                          _parkingController.parkingEventData.isEmpty &&
+                                  _parkingController.dataAvg.isEmpty == null
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #3",
@@ -154,9 +164,9 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                               .dataAvg[2].averageParkingDuration
                                               .toString() +
                                           " mins"),
@@ -167,8 +177,8 @@ class _ParkingPage extends State<ParkingPage> {
                                     width: 40,
                                   )),
                           SizedBox(width: horizontalOffset),
-                          parkingController.parkingEventData.isEmpty &&
-                                  parkingController.dataAvg.isEmpty
+                          _parkingController.parkingEventData.isEmpty &&
+                                  _parkingController.dataAvg.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #4",
@@ -178,9 +188,9 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                               .dataAvg[3].averageParkingDuration
                                               .toString() +
                                           " mins"),
@@ -238,7 +248,7 @@ class _ParkingPage extends State<ParkingPage> {
                       SizedBox(height: verticalOffset),
                       Row(
                         children: [
-                          parkingController.parkingEvents == null
+                          _parkingController.parkingEvents == null
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #1",
@@ -248,15 +258,15 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                           .parkingEventData[0].parkingEvents
                                           .toString()),
                                 ),
                           SizedBox(width: horizontalOffset),
-                          parkingController.parkingEventData.isEmpty &&
-                                  parkingController.dataAvg.isEmpty
+                          _parkingController.parkingEventData.isEmpty &&
+                                  _parkingController.dataAvg.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #2",
@@ -266,9 +276,9 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("0 mins")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                           .parkingEventData[1].parkingEvents
                                           .toString()),
                                 )
@@ -277,8 +287,8 @@ class _ParkingPage extends State<ParkingPage> {
                       SizedBox(height: verticalOffset),
                       Row(
                         children: [
-                          parkingController.parkingEventData.isEmpty &&
-                                  parkingController.dataAvg.isEmpty
+                          _parkingController.parkingEventData.isEmpty &&
+                                  _parkingController.dataAvg.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #1",
@@ -288,15 +298,15 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                           .parkingEventData[2].parkingEvents
                                           .toString()),
                                 ),
                           SizedBox(width: horizontalOffset),
-                          parkingController.parkingEventData.isEmpty &&
-                                  parkingController.dataAvg.isEmpty
+                          _parkingController.parkingEventData.isEmpty &&
+                                  _parkingController.dataAvg.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #2",
@@ -306,9 +316,9 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg == null
                                       ? Text("")
-                                      : Text(parkingController
+                                      : Text(_parkingController
                                           .parkingEventData[3].parkingEvents
                                           .toString()),
                                 )
@@ -316,9 +326,9 @@ class _ParkingPage extends State<ParkingPage> {
                       ),
                       SizedBox(height: pageOffset / 2),
                       SensorDescription(
-                          text:
-                              'Anyone who has ever driven a car in a city, knows the problem: the ultimate search for a parking space can quickly become nerve-racking. How pleasant would it be if you could check the occupancy status of the parking spaces in the area on your smartphone? What sounds like a dream of the future to many ears is currently being actively tested in Ulm and introduced at various parking facilities.',
-                          image: AssetImage('assets/images/parking-sensor.png'))
+                        text: sensor.description,
+                        image: sensor.image,
+                      )
                     ],
                   ),
                 ),
@@ -332,7 +342,7 @@ class _ParkingPage extends State<ParkingPage> {
 
   void _scrollListener() {
     setState(() {
-      clipSize = (parkingController.scrollController.offset / 2);
+      _clipSize = (_parkingController.scrollController.offset / 2);
     });
   }
 }

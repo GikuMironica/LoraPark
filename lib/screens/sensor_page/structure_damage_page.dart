@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/structure_damage_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -12,32 +13,46 @@ class StructureDamagePage extends StatefulWidget {
 }
 
 class _StructureDamagePageState extends State<StructureDamagePage> {
-  double clipSize = 0;
+  StructureDamageController _structureDamageController;
+  double _clipSize;
 
   @override
-  Widget build(BuildContext context) {
-    var structureDamageController = Provider.of<StructureDamageController>(
+  void initState() {
+    _clipSize = 0;
+    _structureDamageController = Provider.of<StructureDamageController>(
       context,
       listen: false,
     );
-    structureDamageController.scrollController.addListener(_scrollListener);
+    _structureDamageController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _structureDamageController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
 
     return RefreshIndicator(
       onRefresh: () async =>
-          await structureDamageController.getStructureDamageDataByTime(10),
+          await _structureDamageController.getStructureDamageDataByTime(10),
       child: SingleSensorViewTemplate(
-        scrollController: structureDamageController.scrollController,
-        clipSize: clipSize,
-        sensorName: 'Structure Damage',
-        sensorNumber: '14',
+        scrollController: _structureDamageController.scrollController,
+        clipSize: _clipSize,
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: structureDamageController.data == null
-                      ? structureDamageController
+                  future: _structureDamageController.data == null
+                      ? _structureDamageController
                           .getStructureDamageDataByTime(10)
                       : null,
                   builder: (context, snapshot) => Column(
@@ -95,10 +110,8 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
                           : LoadingDataPresenter(),
                       const SizedBox(height: 24),
                       SensorDescription(
-                        image: AssetImage(
-                            'assets/images/structure-damage-sensor.jpg'),
-                        text:
-                            'Changes in cracks at Ulm Muenster are historically marked with graph paper. Today, a laser sensor with measuring accuracies in the micrometer range takes over this monitoring and sends the measurement data to our backend at regular intervals via LoRaWAN. A mathematical model analyzes the raw data and corrects noise and fluctuations in this high-precision measurement.',
+                        text: sensor.description,
+                        image: sensor.image,
                       ),
                     ],
                   ),
@@ -112,13 +125,8 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
   }
 
   void _scrollListener() {
-    var structureDamageController = Provider.of<StructureDamageController>(
-      context,
-      listen: false,
-    );
-
     setState(() {
-      clipSize = (structureDamageController.scrollController.offset / 2);
+      _clipSize = (_structureDamageController.scrollController.offset / 2);
     });
   }
 }

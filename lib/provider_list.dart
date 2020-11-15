@@ -30,7 +30,7 @@ List<SingleChildWidget> providerList = [
     lazy: true,
   ),
   ChangeNotifierProvider(
-    create: (_) => GrouundHumidityController(
+    create: (_) => GroundHumidityController(
         repository: GetIt.I.get<GroundHumidityRepository>()),
     lazy: true,
   ),
@@ -110,5 +110,6 @@ List<SingleChildWidget> providerList = [
     ),
     lazy: true,
   ),
-  StreamProvider<UserLocation>.value(value: GetIt.I.get<LocationService>().locationStream),
+  StreamProvider<UserLocation>.value(
+      value: GetIt.I.get<LocationService>().locationStream),
 ];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/charts/waste_level_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -14,32 +15,46 @@ class WasteLevelPage extends StatefulWidget {
 }
 
 class _WasteLevelPageState extends State<WasteLevelPage> {
-  double clipSize = 0;
+  WasteLevelController _wasteLevelController;
+  double _clipSize = 0;
 
   @override
-  Widget build(BuildContext context) {
-    var wasteLevelController = Provider.of<WasteLevelController>(
+  void initState() {
+    _clipSize = 0;
+    _wasteLevelController = Provider.of<WasteLevelController>(
       context,
       listen: false,
     );
-    wasteLevelController.scrollController.addListener(_scrollListener);
+    _wasteLevelController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _wasteLevelController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
 
     return RefreshIndicator(
       onRefresh: () async =>
-          await wasteLevelController.getWasteLevelDataByTime(6),
+          await _wasteLevelController.getWasteLevelDataByTime(6),
       child: SingleSensorViewTemplate(
-        scrollController: wasteLevelController.scrollController,
-        clipSize: clipSize,
-        sensorName: 'Waste Level',
-        sensorNumber: '04',
+        scrollController: _wasteLevelController.scrollController,
+        clipSize: _clipSize,
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: wasteLevelController.data == null
-                      ? wasteLevelController.getWasteLevelDataByTime(6)
+                  future: _wasteLevelController.data == null
+                      ? _wasteLevelController.getWasteLevelDataByTime(6)
                       : null,
                   builder: (context, snapshot) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,12 +128,9 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                             ),
                       SizedBox(height: 20),
                       SensorDescription(
-                        text:
-                            'With this sensor, the filling level of a container can be determined using an ultrasonic distance measurement. If the container is full, a collection can be triggered automatically. This not only offers the advantage that there is no littering in the city, but also unnecessary emptying can be saved and the route can be adapted to the actual needs during collection.',
-                        image: AssetImage(
-                          'assets/images/waste-level-sensor.jpg',
-                        ),
-                      )
+                        text: sensor.description,
+                        image: sensor.image,
+                      ),
                     ],
                   ),
                 ),
@@ -131,13 +143,8 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
   }
 
   void _scrollListener() {
-    var wasteLevelController = Provider.of<WasteLevelController>(
-      context,
-      listen: false,
-    );
-
     setState(() {
-      clipSize = (wasteLevelController.scrollController.offset / 2);
+      _clipSize = (_wasteLevelController.scrollController.offset / 2);
     });
   }
 }

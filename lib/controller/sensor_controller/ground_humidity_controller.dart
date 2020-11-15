@@ -7,15 +7,15 @@ import 'package:lorapark_app/data/models/sensor_data.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/ground_humidity.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
-class GrouundHumidityController extends ChangeNotifier {
+class GroundHumidityController extends ChangeNotifier {
   GroundHumidityRepository _repository;
   final Logger _logger = GetIt.I
       .get<LoggingService>()
-      .getLogger((GrouundHumidityController).toString());
+      .getLogger((GroundHumidityController).toString());
   ScrollController _scrollController = ScrollController();
   List<GroundHumidityData> _data;
 
-  GrouundHumidityController({GroundHumidityRepository repository}) {
+  GroundHumidityController({GroundHumidityRepository repository}) {
     _repository = repository;
   }
 
