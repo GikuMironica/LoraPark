@@ -4,6 +4,7 @@ import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
+import 'package:lorapark_app/controller/main_page_controller/main_page_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -27,13 +28,19 @@ class _AugmentedRealityPage extends State<AugmentedRealityPage> {
         key: _scaffoldKey,
         body: Stack(children: <Widget>[
           Consumer<ARController>(
-            builder: (_, arController, __) => UnityWidget(
-              onUnityViewCreated: arController.onUnityCreated,
-              isARScene: true,
-              onUnityMessage: arController.onUnityMessage,
-              onUnitySceneLoaded: arController.onUnitySceneLoaded,
-              fullscreen: false,
-            ),
+            builder: (_, arController, __) {
+              if(context.read<MainPageController>().buildUnity){
+              return UnityWidget(
+                onUnityViewCreated: arController.onUnityCreated,
+                isARScene: true,
+                onUnityMessage: arController.onUnityMessage,
+                onUnitySceneLoaded: arController.onUnitySceneLoaded,
+                fullscreen: false,
+              );
+            } else {
+              return SizedBox(height: 1, width: 1,);
+              }
+            }
           ),
           SlidingUpPanel(
             borderRadius: BorderRadius.only(

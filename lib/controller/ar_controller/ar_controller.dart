@@ -86,7 +86,7 @@ class ARController extends ChangeNotifier {
     getActualData()
         .whenComplete(() => createJsonConfig())
         .whenComplete(() => configReady = true);
-    ;
+
   }
 
   void setBottomSheetState(NavBottomSheetState newState) {
@@ -367,9 +367,9 @@ class ARController extends ChangeNotifier {
     unityReady = true;
     if (configReady && !dataSent) {
       SendDataToUnity();
-    }
-    ;
+    };
   }
+
 
   // Communication from Unity when new scene is loaded to Flutter
   void onUnitySceneLoaded(
