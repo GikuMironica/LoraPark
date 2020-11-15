@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:here_sdk/core.dart';
 import 'package:here_sdk/mapview.dart';
@@ -51,7 +52,7 @@ class _MapPageState extends State<MapPage> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   alignment: Alignment.bottomCenter,
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.3,
                   width: double.infinity,
                   child: Dismissible(
                     key: pageKey,
@@ -64,9 +65,43 @@ class _MapPageState extends State<MapPage> {
                 ),
               );
             } else {
-              return SizedBox(height: 1);
+              return SizedBox(height: 1, width: 1,);
             }
           }),
+          Visibility(
+            visible: _.select((MapController mp) => mp.pageState == MapPageState.MAP_LOADING),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.center,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: MediaQuery.of(context).size.height * 0.12,
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      offset: Offset(0,0),
+                      blurRadius: 5,
+                      spreadRadius: 1,
+                    ),
+                  ]
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CupertinoActivityIndicator(),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+                    Text('Loading Map', style: TextStyle(color: Colors.grey),),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

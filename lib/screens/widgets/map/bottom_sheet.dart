@@ -12,7 +12,7 @@ class MapBottomSheet extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
       width: MediaQuery.of(context).size.width * 0.75,
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.25,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -21,10 +21,6 @@ class MapBottomSheet extends StatelessWidget {
               spreadRadius: 2,
               color: Colors.black.withOpacity(0.15))
         ],
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20),
-          topLeft: Radius.circular(20),
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,16 +39,19 @@ class MapBottomSheet extends StatelessWidget {
             ),
           ),
           Text(
-            'Sensors',
+            'Sensors (${sensorList.length})',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
-          ListView.builder(
-            itemCount: sensorList.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              var sensor = sensorList[index];
-              return BottomSheetSensorRow(name: sensor.name, number: sensor.number,);
-            },
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+          MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: ListView.separated(
+              separatorBuilder: (_, idx) => SizedBox(height: MediaQuery.of(_).size.height * 0.02),
+              itemCount: sensorList.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => BottomSheetSensorRow(sensor: sensorList[index],),
+            ),
           ),
         ],
       ),

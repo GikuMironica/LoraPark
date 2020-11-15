@@ -14,9 +14,14 @@ class LPNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.only(topRight: LoraParkTheme.bottomBarRadius, topLeft: LoraParkTheme.bottomBarRadius),
       color: LoraParkTheme.bottomBarColor,
-      boxShadow: [],
+      boxShadow: [
+        BoxShadow(
+          blurRadius: 3,
+          spreadRadius: 1,
+          color: Colors.black.withOpacity(0.15),
+        ),
+      ],
     ),
     child: Container(
       width: double.infinity,
