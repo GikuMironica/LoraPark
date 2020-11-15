@@ -21,7 +21,6 @@ abstract class BaseSensorRepository {
       return response.statusCode == 200 ? response.data : null;
     } on DioError catch (e) {
       logger.e(e.message);
-      rethrow;
     }
   }
 
@@ -38,7 +37,6 @@ abstract class BaseSensorRepository {
       return response.statusCode == 200 ? response.data : null;
     } on DioError catch (e) {
       logger.e(e.message);
-      rethrow;
     }
   }
 }

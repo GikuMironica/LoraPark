@@ -1,11 +1,7 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lorapark_app/config/sensors.dart';
-import 'package:lorapark_app/data/models/sensor.dart';
+import 'package:lorapark_app/config/sensor_list.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -29,11 +25,10 @@ class _SettingsPageState extends State<SettingsPage> {
           shrinkWrap: true,
           children: [
             ListTile(
-              onTap: () {
-                for(var sensor in GetIt.I.get<Sensors>().list){
-                  print('${sensor.number} - ${sensor.name} - ${sensor.latitude},${sensor.longitude}');
-                }
-              },
+              onTap: () async {
+                  final response = await GetIt.I.get<SoundSensorRepository>().get(id: SensorEndpoints.soundSensor_one);
+                  print(response.toString());
+                },
               title: Text('Jello'),
             ),
            ],
