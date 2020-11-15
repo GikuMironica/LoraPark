@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/flood_data_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -34,13 +35,15 @@ class _FloodDataPageState extends State<FloodDataPage> {
 
   @override
   Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
+
     return RefreshIndicator(
       onRefresh: () async => await _floodDataController.getFloodDataByTime(7),
       child: SingleSensorViewTemplate(
         scrollController: _floodDataController.scrollController,
         clipSize: _clipSize,
-        sensorName: 'Flood Data',
-        sensorNumber: '08',
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
@@ -78,10 +81,8 @@ class _FloodDataPageState extends State<FloodDataPage> {
                           : LoadingDataPresenter(),
                       const SizedBox(height: 24),
                       SensorDescription(
-                        image:
-                            AssetImage('assets/images/flood-data-sensor.jpg'),
-                        text:
-                            'The beautiful bike and foot paths along the Danube are very popular. Under the bridges the path is only a few centimeters above the normal level of the river. This condition can change within a short time after rain, so that flooding quickly becomes a problem. With our solution, the flood is detected immediately, transmitted via the LoRaWAN network and further measures such as a blockade can be initiated. Battery operated, the sensor has a running time of approx. 4 years.',
+                        text: sensor.description,
+                        image: sensor.image,
                       )
                     ],
                   ),

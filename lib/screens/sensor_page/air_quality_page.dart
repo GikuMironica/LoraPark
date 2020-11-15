@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lorapark_app/controller/sensor_controller/air_quality_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -41,14 +42,16 @@ class _AirQualityPage extends State<AirQualityPage> {
 
   @override
   Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
+
     return RefreshIndicator(
       onRefresh: () async =>
           await _airQualityController.getAirQualityDataByTime(7),
       child: SingleSensorViewTemplate(
         scrollController: _airQualityController.scrollController,
         clipSize: _clipSize,
-        sensorName: 'Air Quality',
-        sensorNumber: '02',
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
@@ -86,10 +89,8 @@ class _AirQualityPage extends State<AirQualityPage> {
                           : LoadingDataPresenter(),
                       const SizedBox(height: verticalOffset),
                       SensorDescription(
-                        text:
-                            'This device contains sensors for measuring temperature and humidity and four electrochemical gas sensors. In this case the gases nitrogen dioxide (NO2), carbon monoxide (CO), ozone (O) and sulfur dioxide (SO2) are measured. This allows conclusions to be drawn about the air quality. The measurement results are periodically sent to our backend via the local LoRaWAN network and processed there for display.',
-                        image:
-                            AssetImage('assets/images/air-quality-sensor.jpg'),
+                        text: sensor.description,
+                        image: sensor.image,
                       )
                     ],
                   ),

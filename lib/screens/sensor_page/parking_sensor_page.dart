@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/parking_sensor_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -40,13 +41,15 @@ class _ParkingPage extends State<ParkingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
+
     return RefreshIndicator(
       onRefresh: () => _parkingController.getParkingAverageDuration(7),
       child: SingleSensorViewTemplate(
         scrollController: _parkingController.scrollController,
         clipSize: _clipSize,
-        sensorName: "Parking sensor",
-        sensorNumber: "xx",
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
@@ -323,9 +326,9 @@ class _ParkingPage extends State<ParkingPage> {
                       ),
                       SizedBox(height: pageOffset / 2),
                       SensorDescription(
-                          text:
-                              'Anyone who has ever driven a car in a city, knows the problem: the ultimate search for a parking space can quickly become nerve-racking. How pleasant would it be if you could check the occupancy status of the parking spaces in the area on your smartphone? What sounds like a dream of the future to many ears is currently being actively tested in Ulm and introduced at various parking facilities.',
-                          image: AssetImage('assets/images/parking-sensor.png'))
+                        text: sensor.description,
+                        image: sensor.image,
+                      )
                     ],
                   ),
                 ),

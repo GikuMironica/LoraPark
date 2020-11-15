@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/raised_garden_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -39,14 +40,16 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
 
   @override
   Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
+
     return RefreshIndicator(
       onRefresh: () async =>
           await _raisedGardenController.getRaisedGardennData(),
       child: SingleSensorViewTemplate(
         scrollController: _raisedGardenController.scrollController,
         clipSize: _clipSize,
-        sensorName: 'Raised Garden',
-        sensorNumber: '12',
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
@@ -111,10 +114,8 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
                             : LoadingDataPresenter(),
                         const SizedBox(height: pageOffset),
                         SensorDescription(
-                          text:
-                              'The self-sufficient raised garden irrigates itself independently and automatically via an integrated water tank, depending on the humidity of the soil in the flowerpot. The measurement of the soil moisture is regulated by tensiometers, which - like plants themselves - determine the water content in the soil via the suction tension. If the humidity level is too low, watering is triggered. To monitor the flowerpot, especially the water level in the tank and the soil moisture, sensor data are regularly sent via LoRaWAN, which, for example, can facilitate joint urban gardening projects.',
-                          image: AssetImage(
-                              'assets/images/raised-garden-sensor.jpg'),
+                          text: sensor.description,
+                          image: sensor.image,
                         )
                       ]),
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/controller/sensor_controller/ground_humidity_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -40,14 +41,16 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
 
   @override
   Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
+
     return RefreshIndicator(
       onRefresh: () async =>
           await _groundHumidityController.getActualGroundHumidityData(),
       child: SingleSensorViewTemplate(
         scrollController: _groundHumidityController.scrollController,
         clipSize: _clipSize,
-        sensorName: 'Ground Humidity',
-        sensorNumber: '09',
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
@@ -109,10 +112,8 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                             : LoadingDataPresenter(),
                         const SizedBox(height: pageOffset),
                         SensorDescription(
-                          text:
-                              'This sensor is located underground at a depth of approx. 50 cm. There, the sensor measures the electrical conductivity, the volume water content, the temperature and the degree of water saturation in the soil. The sensor is connected to the transmitter module located above the ground surface via a cable. This way, targeted and economical irrigation can take place. The measurement data are periodically sent to our backend via the local LoRaWAN network. This data is processed there for display purposes.',
-                          image: AssetImage(
-                              'assets/images/ground-humidity-sensor.jpg'),
+                          text: sensor.description,
+                          image: sensor.image,
                         )
                       ]),
                 ),

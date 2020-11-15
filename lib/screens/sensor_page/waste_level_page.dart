@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/charts/waste_level_chart.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
+import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/widgets/sensor_description/sensor_description.dart';
 import 'package:lorapark_app/screens/widgets/single_sensor_view_template/single_sensor_view_template.dart';
 import 'package:provider/provider.dart';
@@ -36,14 +37,16 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
 
   @override
   Widget build(BuildContext context) {
+    var sensor = SelectedSensor.of(context).sensor;
+
     return RefreshIndicator(
       onRefresh: () async =>
           await _wasteLevelController.getWasteLevelDataByTime(6),
       child: SingleSensorViewTemplate(
         scrollController: _wasteLevelController.scrollController,
         clipSize: _clipSize,
-        sensorName: 'Waste Level',
-        sensorNumber: '04',
+        sensorName: sensor.name,
+        sensorNumber: sensor.number,
         sliverlist: SliverList(
           delegate: SliverChildListDelegate(
             [
@@ -125,12 +128,9 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
                             ),
                       SizedBox(height: 20),
                       SensorDescription(
-                        text:
-                            'With this sensor, the filling level of a container can be determined using an ultrasonic distance measurement. If the container is full, a collection can be triggered automatically. This not only offers the advantage that there is no littering in the city, but also unnecessary emptying can be saved and the route can be adapted to the actual needs during collection.',
-                        image: AssetImage(
-                          'assets/images/waste-level-sensor.jpg',
-                        ),
-                      )
+                        text: sensor.description,
+                        image: sensor.image,
+                      ),
                     ],
                   ),
                 ),
