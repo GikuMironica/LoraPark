@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
 import 'package:lorapark_app/screens/augmented_reality_page/augmented_reality_page.dart';
 import 'package:lorapark_app/screens/screens.dart';
+import 'package:provider/provider.dart';
 import 'package:lorapark_app/screens/sensor_list_page/sensor_list_page.dart';
 import 'package:lorapark_app/screens/widgets/lp_nav_bar/lp_nav_bar.dart';
 import 'package:lorapark_app/screens/widgets/lp_nav_bar/lp_nav_bar_item.dart';
@@ -17,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _tabController = PersistentTabController(initialIndex: 0);
+    _tabController = PersistentTabController(initialIndex: 1);
     super.initState();
   }
 
@@ -29,6 +31,7 @@ class _HomePageState extends State<HomePage> {
       itemCount: _navBarItems().length,
       confineInSafeArea: true,
       resizeToAvoidBottomInset: true,
+      handleAndroidBackButtonPress: true,
       hideNavigationBarWhenKeyboardShows: true,
       backgroundColor: Colors.white,
       decoration: NavBarDecoration(
@@ -36,7 +39,13 @@ class _HomePageState extends State<HomePage> {
       ),
       customWidget: LPNavBar(
         items: _navBarItems(),
-        onItemSelected: (idx) => setState(() => _tabController.index = idx),
+        onItemSelected: (idx) => setState((){
+          if(_tabController.index == idx) return;
+          if(_tabController.index == 2){
+            context.read<ARController>().unityWidgetController.unload();
+          }
+          _tabController.index = idx;
+        }),
         selectedIndex: _tabController.index,
       ),
       navBarStyle: NavBarStyle.custom,

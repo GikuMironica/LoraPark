@@ -23,6 +23,8 @@ import 'package:lorapark_app/data/repositories/sensor_repository/raised_garden.d
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
+enum NavBottomSheetState {SHOWING, HIDDEN}
+
 class ARController extends ChangeNotifier {
   AirQualityRepository _airQualityRepository;
   DoorRepository _doorRepository;
@@ -35,13 +37,16 @@ class ARController extends ChangeNotifier {
   WasteLevelRepository _wasteLevelRepository;
   WeatherStationRepository _weatherStationRepository;
 
-  String _jsonConfig = "";
+  NavBottomSheetState _bottomSheetState;
+  NavBottomSheetState get bottomSheetState => _bottomSheetState;
+
+  String _jsonConfig = '';
   static final MAX_LENGTH = 132;
   static final MIN_LENGTH = 30;
   static final FILL_RATIO_THRESHOLD = 75;
   UnityWidgetController _unityWidgetController;
   final Sensors _sensorList = GetIt.I.get<Sensors>();
-  Map<String, dynamic> sensorsData = Map();
+  Map<String, dynamic> sensorsData = {};
   bool configReady = false;
   bool unityReady = false;
   bool dataSent = false;
@@ -73,14 +78,20 @@ class ARController extends ChangeNotifier {
     _structureDamageRepository = structureDamageRepository;
     _wasteLevelRepository = wasteLevelRepository;
     _weatherStationRepository = weatherStationRepository;
-    this.Init();
+    init();
   }
 
-  void Init() {
+  void init() {
+    _bottomSheetState = NavBottomSheetState.HIDDEN;
     getActualData()
         .whenComplete(() => createJsonConfig())
         .whenComplete(() => configReady = true);
     ;
+  }
+
+  void setBottomSheetState(NavBottomSheetState newState) {
+    _bottomSheetState = newState;
+    notifyListeners();
   }
 
   Future<void> getActualData() async {
@@ -324,10 +335,20 @@ class ARController extends ChangeNotifier {
 
   void navigateInUnity(Sensor sensor) async {
     navigationActive = true;
-    String destination =
+    var destination =
         '[{"location": ' + jsonEncode(sensor.location.toJSON()) + '}]';
     _unityWidgetController.postMessage(
         'Pointer', 'NavigateToSensor', destination);
+  }
+
+  void setNavigationTo(int index) {
+    navigationTo = index;
+    if(index != null) {
+      navigateInUnity(_sensorList.list[index]);
+    } else {
+      stopNavigation();
+    }
+    notifyListeners();
   }
 
   void stopNavigation() async {
@@ -342,7 +363,7 @@ class ARController extends ChangeNotifier {
 
   // Callback that connects the created controller to the unity controller
   void onUnityCreated(controller) {
-    this._unityWidgetController = controller;
+    _unityWidgetController = controller;
     unityReady = true;
     if (configReady && !dataSent) {
       SendDataToUnity();

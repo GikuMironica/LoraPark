@@ -25,7 +25,7 @@ class LPNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items.map((i){
           var idx = items.indexOf(i);
-          return Flexible(
+          return Expanded(
             child: GestureDetector(
               onTap: () => onItemSelected(idx),
               child: _buildItem(i, selectedIndex == idx),
