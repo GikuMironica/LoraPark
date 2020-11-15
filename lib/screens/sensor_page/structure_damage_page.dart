@@ -12,22 +12,34 @@ class StructureDamagePage extends StatefulWidget {
 }
 
 class _StructureDamagePageState extends State<StructureDamagePage> {
-  double clipSize = 0;
+  StructureDamageController _structureDamageController;
+  double _clipSize;
 
   @override
-  Widget build(BuildContext context) {
-    var structureDamageController = Provider.of<StructureDamageController>(
+  void initState() {
+    _clipSize = 0;
+    _structureDamageController = Provider.of<StructureDamageController>(
       context,
       listen: false,
     );
-    structureDamageController.scrollController.addListener(_scrollListener);
+    _structureDamageController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _structureDamageController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async =>
-          await structureDamageController.getStructureDamageDataByTime(10),
+          await _structureDamageController.getStructureDamageDataByTime(10),
       child: SingleSensorViewTemplate(
-        scrollController: structureDamageController.scrollController,
-        clipSize: clipSize,
+        scrollController: _structureDamageController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Structure Damage',
         sensorNumber: '14',
         sliverlist: SliverList(
@@ -36,8 +48,8 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: structureDamageController.data == null
-                      ? structureDamageController
+                  future: _structureDamageController.data == null
+                      ? _structureDamageController
                           .getStructureDamageDataByTime(10)
                       : null,
                   builder: (context, snapshot) => Column(
@@ -112,13 +124,8 @@ class _StructureDamagePageState extends State<StructureDamagePage> {
   }
 
   void _scrollListener() {
-    var structureDamageController = Provider.of<StructureDamageController>(
-      context,
-      listen: false,
-    );
-
     setState(() {
-      clipSize = (structureDamageController.scrollController.offset / 2);
+      _clipSize = (_structureDamageController.scrollController.offset / 2);
     });
   }
 }

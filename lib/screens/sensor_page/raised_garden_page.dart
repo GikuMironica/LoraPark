@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 const double padding = 24.0;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-double clipSize = 0;
 
 class RaisedGardenPage extends StatefulWidget {
   @override
@@ -18,20 +17,34 @@ class RaisedGardenPage extends StatefulWidget {
 }
 
 class _RaisedGardenPage extends State<RaisedGardenPage> {
+  RaisedGardenController _raisedGardenController;
+  double _clipSize;
+
   @override
-  Widget build(BuildContext context) {
-    var raisedGardenController = Provider.of<RaisedGardenController>(
+  void initState() {
+    _clipSize = 0;
+    _raisedGardenController = Provider.of<RaisedGardenController>(
       context,
       listen: false,
     );
-    raisedGardenController.scrollController.addListener(_scrollListener);
+    _raisedGardenController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _raisedGardenController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async =>
-          await raisedGardenController.getRaisedGardennData(),
+          await _raisedGardenController.getRaisedGardennData(),
       child: SingleSensorViewTemplate(
-        scrollController: raisedGardenController.scrollController,
-        clipSize: clipSize,
+        scrollController: _raisedGardenController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Raised Garden',
         sensorNumber: '12',
         sliverlist: SliverList(
@@ -40,8 +53,8 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
               Padding(
                 padding: const EdgeInsets.all(padding),
                 child: FutureBuilder(
-                  future: raisedGardenController.data == null
-                      ? raisedGardenController.getRaisedGardennData()
+                  future: _raisedGardenController.data == null
+                      ? _raisedGardenController.getRaisedGardennData()
                       : null,
                   builder: (context, snapshot) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,12 +127,8 @@ class _RaisedGardenPage extends State<RaisedGardenPage> {
   }
 
   void _scrollListener() {
-    var raisedGardenController = Provider.of<RaisedGardenController>(
-      context,
-      listen: false,
-    );
     setState(() {
-      clipSize = (raisedGardenController.scrollController.offset / 2);
+      _clipSize = (_raisedGardenController.scrollController.offset / 2);
     });
   }
 }

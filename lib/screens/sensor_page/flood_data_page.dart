@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lorapark_app/controller/sensor_controller/flood_data_controller.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/data_presenter.dart';
 import 'package:lorapark_app/screens/widgets/data_presenter/loading_data_presenter.dart';
@@ -13,29 +12,33 @@ class FloodDataPage extends StatefulWidget {
 }
 
 class _FloodDataPageState extends State<FloodDataPage> {
-  double clipSize = 0;
+  FloodDataController _floodDataController;
+  double _clipSize = 0;
 
   @override
   void initState() {
+    _clipSize = 0;
+    _floodDataController = Provider.of<FloodDataController>(
+      context,
+      listen: false,
+    );
+    _floodDataController.scrollController.addListener(_scrollListener);
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+  }
+
+  @override
+  void dispose() {
+    _floodDataController.scrollController.removeListener(_scrollListener);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var floodDataController = Provider.of<FloodDataController>(
-      context,
-      listen: false,
-    );
-    floodDataController.scrollController.addListener(_scrollListener);
-
     return RefreshIndicator(
-      onRefresh: () async => await floodDataController.getFloodDataByTime(7),
+      onRefresh: () async => await _floodDataController.getFloodDataByTime(7),
       child: SingleSensorViewTemplate(
-        scrollController: floodDataController.scrollController,
-        clipSize: clipSize,
+        scrollController: _floodDataController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Flood Data',
         sensorNumber: '08',
         sliverlist: SliverList(
@@ -44,8 +47,8 @@ class _FloodDataPageState extends State<FloodDataPage> {
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: floodDataController.data == null
-                      ? floodDataController.getFloodDataByTime(7)
+                  future: _floodDataController.data == null
+                      ? _floodDataController.getFloodDataByTime(7)
                       : null,
                   builder: (context, snapshot) => Column(
                     children: [
@@ -92,13 +95,8 @@ class _FloodDataPageState extends State<FloodDataPage> {
   }
 
   void _scrollListener() {
-    var floodDataController = Provider.of<FloodDataController>(
-      context,
-      listen: false,
-    );
-
     setState(() {
-      clipSize = (floodDataController.scrollController.offset / 2);
+      _clipSize = (_floodDataController.scrollController.offset / 2);
     });
   }
 }

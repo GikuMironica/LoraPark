@@ -11,8 +11,6 @@ const double padding = 24.0;
 const double horizontalOffset = 20;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-var personCountController;
-double clipSize = 0;
 
 class PersonCountPage extends StatefulWidget {
   @override
@@ -20,19 +18,34 @@ class PersonCountPage extends StatefulWidget {
 }
 
 class _PersonCountPage extends State<PersonCountPage> {
+  PersonCountController _personCountController;
+  double _clipSize;
+
   @override
-  Widget build(BuildContext context) {
-    personCountController = Provider.of<PersonCountController>(
+  void initState() {
+    _clipSize = 0;
+    _personCountController = Provider.of<PersonCountController>(
       context,
       listen: false,
     );
-    personCountController.scrollController.addListener(_scrollListener);
+    _personCountController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _personCountController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => await personCountController.getPersonDataByTime(7),
+      onRefresh: () async =>
+          await _personCountController.getPersonDataByTime(7),
       child: SingleSensorViewTemplate(
-        scrollController: personCountController.scrollController,
-        clipSize: clipSize,
+        scrollController: _personCountController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Person Count',
         sensorNumber: '10',
         sliverlist: SliverList(
@@ -41,8 +54,8 @@ class _PersonCountPage extends State<PersonCountPage> {
               Padding(
                 padding: const EdgeInsets.all(padding),
                 child: FutureBuilder(
-                  future: personCountController.data == null
-                      ? personCountController.getPersonDataByTime(7)
+                  future: _personCountController.data == null
+                      ? _personCountController.getPersonDataByTime(7)
                       : null,
                   builder: (context, snapshot) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +102,7 @@ class _PersonCountPage extends State<PersonCountPage> {
 
   void _scrollListener() {
     setState(() {
-      clipSize = (personCountController.scrollController.offset / 2);
+      _clipSize = (_personCountController.scrollController.offset / 2);
     });
   }
 }

@@ -14,22 +14,34 @@ class WasteLevelPage extends StatefulWidget {
 }
 
 class _WasteLevelPageState extends State<WasteLevelPage> {
-  double clipSize = 0;
+  WasteLevelController _wasteLevelController;
+  double _clipSize = 0;
 
   @override
-  Widget build(BuildContext context) {
-    var wasteLevelController = Provider.of<WasteLevelController>(
+  void initState() {
+    _clipSize = 0;
+    _wasteLevelController = Provider.of<WasteLevelController>(
       context,
       listen: false,
     );
-    wasteLevelController.scrollController.addListener(_scrollListener);
+    _wasteLevelController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _wasteLevelController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async =>
-          await wasteLevelController.getWasteLevelDataByTime(6),
+          await _wasteLevelController.getWasteLevelDataByTime(6),
       child: SingleSensorViewTemplate(
-        scrollController: wasteLevelController.scrollController,
-        clipSize: clipSize,
+        scrollController: _wasteLevelController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Waste Level',
         sensorNumber: '04',
         sliverlist: SliverList(
@@ -38,8 +50,8 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: wasteLevelController.data == null
-                      ? wasteLevelController.getWasteLevelDataByTime(6)
+                  future: _wasteLevelController.data == null
+                      ? _wasteLevelController.getWasteLevelDataByTime(6)
                       : null,
                   builder: (context, snapshot) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,13 +143,8 @@ class _WasteLevelPageState extends State<WasteLevelPage> {
   }
 
   void _scrollListener() {
-    var wasteLevelController = Provider.of<WasteLevelController>(
-      context,
-      listen: false,
-    );
-
     setState(() {
-      clipSize = (wasteLevelController.scrollController.offset / 2);
+      _clipSize = (_wasteLevelController.scrollController.offset / 2);
     });
   }
 }

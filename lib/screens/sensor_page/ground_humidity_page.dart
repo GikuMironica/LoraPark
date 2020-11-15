@@ -11,7 +11,6 @@ const double padding = 24.0;
 const double horizontalOffset = 20;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-double clipSize = 0;
 
 class GroundHumidityPage extends StatefulWidget {
   @override
@@ -19,20 +18,34 @@ class GroundHumidityPage extends StatefulWidget {
 }
 
 class _GroundHumidityPage extends State<GroundHumidityPage> {
+  GroundHumidityController _groundHumidityController;
+  double _clipSize = 0;
+
   @override
-  Widget build(BuildContext context) {
-    var groundHumidityController = Provider.of<GrouundHumidityController>(
+  void initState() {
+    _clipSize = 0;
+    _groundHumidityController = Provider.of<GroundHumidityController>(
       context,
       listen: false,
     );
-    groundHumidityController.scrollController.addListener(_scrollListener);
+    _groundHumidityController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _groundHumidityController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async =>
-          await groundHumidityController.getActualGroundHumidityData(),
+          await _groundHumidityController.getActualGroundHumidityData(),
       child: SingleSensorViewTemplate(
-        scrollController: groundHumidityController.scrollController,
-        clipSize: clipSize,
+        scrollController: _groundHumidityController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Ground Humidity',
         sensorNumber: '09',
         sliverlist: SliverList(
@@ -41,15 +54,15 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
               Padding(
                 padding: const EdgeInsets.all(padding),
                 child: FutureBuilder(
-                  future: groundHumidityController.data == null
-                      ? groundHumidityController.getActualGroundHumidityData()
+                  future: _groundHumidityController.data == null
+                      ? _groundHumidityController.getActualGroundHumidityData()
                       : null,
                   builder: (context, snapshot) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         snapshot.connectionState == ConnectionState.done ||
                                 snapshot.connectionState == ConnectionState.none
-                            ? Consumer<GrouundHumidityController>(
+                            ? Consumer<GroundHumidityController>(
                                 builder: (_, controller, __) => DataPresenter(
                                   width: MediaQuery.of(context).size.width,
                                   height:
@@ -73,7 +86,7 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
                         const SizedBox(height: verticalOffset),
                         snapshot.connectionState == ConnectionState.done ||
                                 snapshot.connectionState == ConnectionState.none
-                            ? Consumer<GrouundHumidityController>(
+                            ? Consumer<GroundHumidityController>(
                                 builder: (_, controller, __) => DataPresenter(
                                   width: MediaQuery.of(context).size.width,
                                   height: (MediaQuery.of(context).size.width) *
@@ -112,12 +125,8 @@ class _GroundHumidityPage extends State<GroundHumidityPage> {
   }
 
   void _scrollListener() {
-    var groundHumidityController = Provider.of<GrouundHumidityController>(
-      context,
-      listen: false,
-    );
     setState(() {
-      clipSize = (groundHumidityController.scrollController.offset / 2);
+      _clipSize = (_groundHumidityController.scrollController.offset / 2);
     });
   }
 }

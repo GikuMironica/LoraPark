@@ -13,21 +13,33 @@ class EnergyDataPage extends StatefulWidget {
 }
 
 class _EnergyDataPageState extends State<EnergyDataPage> {
-  double clipSize = 0;
+  EnergyDataController _energyDataController;
+  double _clipSize;
 
   @override
-  Widget build(BuildContext context) {
-    var energyDataController = Provider.of<EnergyDataController>(
+  void initState() {
+    _clipSize = 0;
+    _energyDataController = Provider.of<EnergyDataController>(
       context,
       listen: false,
     );
-    energyDataController.scrollController.addListener(_scrollListener);
+    _energyDataController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _energyDataController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => await energyDataController.getEnergyDataByTime(6),
+      onRefresh: () async => await _energyDataController.getEnergyDataByTime(6),
       child: SingleSensorViewTemplate(
-        scrollController: energyDataController.scrollController,
-        clipSize: clipSize,
+        scrollController: _energyDataController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Energy Data',
         sensorNumber: '15',
         sliverlist: SliverList(
@@ -36,8 +48,8 @@ class _EnergyDataPageState extends State<EnergyDataPage> {
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: energyDataController.data == null
-                      ? energyDataController.getEnergyDataByTime(6)
+                  future: _energyDataController.data == null
+                      ? _energyDataController.getEnergyDataByTime(6)
                       : null,
                   builder: (context, snapshot) => Column(
                     children: [
@@ -129,13 +141,8 @@ class _EnergyDataPageState extends State<EnergyDataPage> {
   }
 
   void _scrollListener() {
-    var energyDataController = Provider.of<EnergyDataController>(
-      context,
-      listen: false,
-    );
-
     setState(() {
-      clipSize = (energyDataController.scrollController.offset / 2);
+      _clipSize = (_energyDataController.scrollController.offset / 2);
     });
   }
 }

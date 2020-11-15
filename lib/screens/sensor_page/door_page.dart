@@ -14,21 +14,33 @@ class DoorPage extends StatefulWidget {
 }
 
 class _DoorPageState extends State<DoorPage> {
-  double clipSize = 0;
+  DoorController _doorController;
+  double _clipSize;
 
   @override
-  Widget build(BuildContext context) {
-    var doorController = Provider.of<DoorController>(
+  void initState() {
+    _clipSize = 0;
+    _doorController = Provider.of<DoorController>(
       context,
       listen: false,
     );
-    doorController.scrollController.addListener(_scrollListener);
+    _doorController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _doorController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async => await doorController.getDoorDataByTime(7),
+      onRefresh: () async => await _doorController.getDoorDataByTime(7),
       child: SingleSensorViewTemplate(
-        scrollController: doorController.scrollController,
-        clipSize: clipSize,
+        scrollController: _doorController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Door',
         sensorNumber: '11',
         sliverlist: SliverList(
@@ -37,8 +49,8 @@ class _DoorPageState extends State<DoorPage> {
               Padding(
                 padding: const EdgeInsets.all(24),
                 child: FutureBuilder(
-                  future: doorController.data == null
-                      ? doorController.getDoorDataByTime(7)
+                  future: _doorController.data == null
+                      ? _doorController.getDoorDataByTime(7)
                       : null,
                   builder: (context, snapshot) => Column(
                     children: [
@@ -122,13 +134,8 @@ class _DoorPageState extends State<DoorPage> {
   }
 
   void _scrollListener() {
-    var wasteLevelController = Provider.of<DoorController>(
-      context,
-      listen: false,
-    );
-
     setState(() {
-      clipSize = (wasteLevelController.scrollController.offset / 2);
+      _clipSize = (_doorController.scrollController.offset / 2);
     });
   }
 }

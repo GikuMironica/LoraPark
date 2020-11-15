@@ -12,7 +12,6 @@ const double padding = 24.0;
 const double horizontalOffset = 20;
 const double verticalOffset = 24;
 const double pageOffset = 20;
-double clipSize = 0;
 
 class WeatherStationPage extends StatefulWidget {
   @override
@@ -20,20 +19,34 @@ class WeatherStationPage extends StatefulWidget {
 }
 
 class _WeatherStationPage extends State<WeatherStationPage> {
+  WeatherStationController _weatherStationController;
+  double _clipSize;
+
   @override
-  Widget build(BuildContext context) {
-    var weatherStationController = Provider.of<WeatherStationController>(
+  void initState() {
+    _clipSize = 0;
+    _weatherStationController = Provider.of<WeatherStationController>(
       context,
       listen: false,
     );
-    weatherStationController.scrollController.addListener(_scrollListener);
+    _weatherStationController.scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _weatherStationController.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async =>
-          await weatherStationController.getWeatherStationDataByTime(7),
+          await _weatherStationController.getWeatherStationDataByTime(7),
       child: SingleSensorViewTemplate(
-        scrollController: weatherStationController.scrollController,
-        clipSize: clipSize,
+        scrollController: _weatherStationController.scrollController,
+        clipSize: _clipSize,
         sensorName: 'Weather Station',
         sensorNumber: '01',
         sliverlist: SliverList(
@@ -42,8 +55,8 @@ class _WeatherStationPage extends State<WeatherStationPage> {
               Padding(
                 padding: const EdgeInsets.all(padding),
                 child: FutureBuilder(
-                  future: weatherStationController.data == null
-                      ? weatherStationController.getWeatherStationDataByTime(7)
+                  future: _weatherStationController.data == null
+                      ? _weatherStationController.getWeatherStationDataByTime(7)
                       : null,
                   builder: (context, snapshot) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,12 +140,8 @@ class _WeatherStationPage extends State<WeatherStationPage> {
   }
 
   void _scrollListener() {
-    var weatherStationController = Provider.of<WeatherStationController>(
-      context,
-      listen: false,
-    );
     setState(() {
-      clipSize = (weatherStationController.scrollController.offset / 2);
+      _clipSize = (_weatherStationController.scrollController.offset / 2);
     });
   }
 }
