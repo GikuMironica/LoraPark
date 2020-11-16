@@ -113,9 +113,16 @@ var weatherStationHandler = Handler(
 );
 
 var soundSensorHandler = Handler(
-  handlerFunc: (context, params) => SoundSensorPage(),
+  handlerFunc: (context, params) {
+    var soundSensor = sensorList
+        .firstWhere((sensor) => sensor.id == SensorEndpoints.soundSensor_one);
+    return SelectedSensor(sensor: soundSensor, child: SoundSensorPage());
+  },
 );
 
 var ratSensorHandler = Handler(
-  handlerFunc: (context, params) => RatPage(),
+  handlerFunc: (context, params) {
+    var ratSensor = sensorList.firstWhere((sensor) => sensor.number == '13');
+    return SelectedSensor(sensor: ratSensor, child: RatPage());
+  },
 );

@@ -26,7 +26,6 @@ class SoundController extends ChangeNotifier {
   //controller to set the class
   SoundController({SoundSensorRepository repository}) {
     _soundRepo = repository;
-    fetchData();
   }
   //function to fetch the data from the backend
   Future<void> fetchData() async {
