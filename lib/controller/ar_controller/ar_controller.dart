@@ -38,6 +38,7 @@ class ARController extends ChangeNotifier {
   WeatherStationRepository _weatherStationRepository;
 
   NavBottomSheetState _bottomSheetState;
+
   NavBottomSheetState get bottomSheetState => _bottomSheetState;
 
   String _jsonConfig = '';
@@ -277,6 +278,33 @@ class ARController extends ChangeNotifier {
                 ' mm"},';
             break;
           case 'parking':
+            break;
+          case 'rat_sensor':
+            _jsonConfig = _jsonConfig +
+                '{"name": "Number of rat visits",'
+                    ' "value": "' +
+                sensorsData[describeEnum(sensor.type)]
+                    .first
+                    .ratVisits
+                    .toString() +
+                '"},';
+            break;
+          case 'sound_sensor':
+            _jsonConfig = _jsonConfig +
+                '{"name": "Traffic noise",'
+                    ' "value": "' +
+                sensorsData[describeEnum(sensor.type)]
+                    .first
+                    .continuousNoise
+                    .toStringAsFixed(2) +
+                ' dba"},' +
+                '{"name": "Sound pressure",'
+                    ' "value": "' +
+                sensorsData[describeEnum(sensor.type)]
+                    .first
+                    .soundPressure
+                    .toStringAsFixed(2) +
+                ' dba"},';
             break;
           default:
             print('Not a known animal.:' + sensor.type.toString());
