@@ -75,7 +75,6 @@
         "type": 5,
         "name": "Water Temperature",
         "image": "assets/images/water-temperature-sensor.jpg",
-        "number": "06",
         "description": "",
         "location": {
           "latitude": 48.396482,
@@ -88,7 +87,6 @@
         "type": 6,
         "name": "Feedback Button",
         "image": "assets/images/image-placeholder.png",
-        "number": "07",
         "description": "",
         "location": {
           "latitude": 48.397354,
@@ -105,8 +103,8 @@
         "number": "08",
         "description": "The beautiful bike and foot paths along the Danube are very popular. Under the bridges the path is only a few centimeters above the normal level of the river. This condition can change within a short time after rain, so that flooding quickly becomes a problem. With our solution, the flood is detected immediately, transmitted via the LoRaWAN network and further measures such as a blockade can be initiated. Battery operated, the sensor has a running time of approx. 4 years.",
         "location": {
-          "longitude": 48.396016,
-          "latitude": 9.995969
+          "longitude": 9.995969,
+          "latitude": 48.396016
         }
       }
     ],
@@ -119,8 +117,8 @@
         "number": "09",
         "description": "This sensor is located underground at a depth of approx. 50 cm. There, the sensor measures the electrical conductivity, the volume water content, the temperature and the degree of water saturation in the soil. The sensor is connected to the transmitter module located above the ground surface via a cable. This way, targeted and economical irrigation can take place. The measurement data are periodically sent to our backend via the local LoRaWAN network. This data is processed there for display purposes.",
         "location": {
-          "longitude": 48.396770,
-          "latitude": 9.990960
+          "longitude": 9.990960,
+          "latitude": 48.396770
         }
       }
     ],
@@ -133,8 +131,8 @@
         "number": "10",
         "description": "The person counter sensor used in the LoRaPark counts the number of people who carry their smartphones with them. Every smartphone with an activated Bluetooth or WiFi module sends out beacons that, e.g. signal to a router that a device is on site. The person counter uses these beacons to determine an approximate number of people. This happens anonymously and without identifying the person himself.",
         "location": {
-          "longitude": 48.396426,
-          "latitude": 9.990453
+          "longitude": 9.990453,
+          "latitude": 48.396426
         }
       }
     ],
@@ -147,8 +145,8 @@
         "number": "11",
         "description": "This door opening sensor is installed at the common entrance to the digital agenda and the digitization center at Weinhof 7. A magnetic field is used to measure whether the entrance door is currently open or closed. The status is then transmitted via LoRaWAN in an energy-saving manner. A battery that lasts for several years is sufficient as a power source. The first experiments are underway to use the magnetic contact itself as a power source.",
         "location": {
-          "longitude": 48.396607,
-          "latitude": 9.990208
+          "longitude": 9.990208,
+          "latitude": 48.396607
         }
       }
     ],
@@ -212,7 +210,6 @@
         "type": 15,
         "name": "Smart Bench",
         "image": "assets/images/smart-bench-sensor.jpg",
-        "number": "18",
         "description": "The smart benches can be used to charge smartphones via USB or induction. The special thing about this bench is that the electricity is generated completely independently via solar panels on the seat and therefore no physical power connection is necessary.",
         "location": {
           "latitude": 48.396867,
@@ -225,7 +222,6 @@
         "type": 16,
         "name": "Display",
         "image": "assets/images/image-placeholder.png",
-        "number": "xx",
         "description": "",
         "location": {
           "latitude": 48.396736,

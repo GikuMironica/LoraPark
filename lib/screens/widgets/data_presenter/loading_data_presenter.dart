@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lorapark_app/themes/lorapark_theme.dart';
 
 class LoadingDataPresenter extends StatefulWidget {
   final double height;
@@ -19,7 +20,7 @@ class _LoadingDataPresenterState extends State<LoadingDataPresenter>
   @override
   void initState() {
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 1000),
       vsync: this,
     );
 
@@ -67,12 +68,7 @@ class _LoadingDataPresenterState extends State<LoadingDataPresenter>
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
         boxShadow: [
-          BoxShadow(
-            color: Color(0xff657582).withOpacity(0.17),
-            blurRadius: 20,
-            spreadRadius: 2,
-            offset: Offset(5, 5),
-          ),
+          LoraParkTheme.boxShadow,
         ],
       ),
       child: ShaderMask(
