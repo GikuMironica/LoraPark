@@ -112,7 +112,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("")
                                       : Text(_parkingController
                                               .dataAvg[0].averageParkingDuration
@@ -136,7 +136,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("")
                                       : Text(_parkingController
                                               .dataAvg[1].averageParkingDuration
@@ -154,7 +154,7 @@ class _ParkingPage extends State<ParkingPage> {
                       Row(
                         children: [
                           _parkingController.parkingEventData.isEmpty &&
-                                  _parkingController.dataAvg.isEmpty == null
+                                  _parkingController.dataAvg.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #3",
@@ -164,7 +164,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("")
                                       : Text(_parkingController
                                               .dataAvg[2].averageParkingDuration
@@ -188,7 +188,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("")
                                       : Text(_parkingController
                                               .dataAvg[3].averageParkingDuration
@@ -248,7 +248,7 @@ class _ParkingPage extends State<ParkingPage> {
                       SizedBox(height: verticalOffset),
                       Row(
                         children: [
-                          _parkingController.parkingEvents == null
+                          _parkingController.parkingEventData.isEmpty
                               ? LoadingDataPresenter()
                               : DataPresenter(
                                   title: "Sensor #1",
@@ -258,7 +258,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("")
                                       : Text(_parkingController
                                           .parkingEventData[0].parkingEvents
@@ -276,7 +276,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("0 mins")
                                       : Text(_parkingController
                                           .parkingEventData[1].parkingEvents
@@ -298,7 +298,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("")
                                       : Text(_parkingController
                                           .parkingEventData[2].parkingEvents
@@ -316,7 +316,7 @@ class _ParkingPage extends State<ParkingPage> {
                                   width:
                                       (MediaQuery.of(context).size.width - 24) /
                                           2.3,
-                                  data: _parkingController.dataAvg == null
+                                  data: _parkingController.dataAvg.isEmpty
                                       ? Text("")
                                       : Text(_parkingController
                                           .parkingEventData[3].parkingEvents

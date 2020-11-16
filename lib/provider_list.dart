@@ -1,20 +1,19 @@
 import 'package:get_it/get_it.dart';
-import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/controller/ocr_controller/ocr_controller.dart';
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
 import 'package:lorapark_app/controller/settings_controller/settings_controller.dart';
 import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
-import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
 import 'package:lorapark_app/data/models/coordinates.dart';
 import 'package:lorapark_app/services/location_service/location_service.dart';
 import 'package:lorapark_app/services/services.dart';
-import 'package:lorapark_app/services/setup.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
+import 'package:lorapark_app/controller/sensor_controller/sound_controller.dart';
 import 'controller/controllers.dart';
 import 'data/repositories/sensor_repository/sensor_repository.dart';
+import 'data/repositories/sensor_repository/rat.dart';
+import 'data/repositories/sensor_repository/sound_sensor.dart';
 
 List<SingleChildWidget> providerList = [
   ChangeNotifierProvider<AuthService>(
@@ -112,4 +111,16 @@ List<SingleChildWidget> providerList = [
   ),
   StreamProvider<UserLocation>.value(
       value: GetIt.I.get<LocationService>().locationStream),
+  ChangeNotifierProvider(
+    create: (_) => RatController(
+      repository: GetIt.I.get<RatRepository>(),
+    ),
+    lazy: true,
+  ),
+  ChangeNotifierProvider(
+    create: (_) => SoundController(
+      repository: GetIt.I.get<SoundSensorRepository>(),
+    ),
+    lazy: true,
+  )
 ];

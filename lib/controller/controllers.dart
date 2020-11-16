@@ -10,6 +10,6 @@ export 'sensor_controller/raised_garden_controller.dart';
 export 'sensor_controller/structure_damage_controller.dart';
 export 'sensor_controller/waste_level_controller.dart';
 export 'sensor_controller/weather_station_controller.dart';
-
-// ??
+export 'sensor_controller/rat_controller.dart';
+export 'sensor_controller/sound_controller.dart';
 export 'settings_controller/settings_controller.dart';

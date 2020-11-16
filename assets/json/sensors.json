@@ -30,6 +30,7 @@
     ],
     "sound_sensor": [
       {
+        "id": "iotsoundsensor-deadbeef13374326",
         "type": 2,
         "name": "Sound Sensor",
         "image": "assets/images/sound-sensor.jpg",

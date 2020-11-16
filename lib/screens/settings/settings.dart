@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:lorapark_app/config/sensor_list.dart';
-import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,12 +6,11 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +20,8 @@ class _SettingsPageState extends State<SettingsPage> {
           physics: ClampingScrollPhysics(),
           shrinkWrap: true,
           children: [
-            ListTile(
-              onTap: () async {
-                  final response = await GetIt.I.get<SoundSensorRepository>().get(id: SensorEndpoints.soundSensor_one);
-                  print(response.toString());
-                },
-              title: Text('Jello'),
-            ),
-           ],
+            Text('Jello'),
+          ],
         ),
       ),
     );

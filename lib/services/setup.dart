@@ -3,6 +3,7 @@ import 'package:lorapark_app/config/consts.dart';
 import 'package:lorapark_app/config/sensors.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/air_quality.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/flood_data.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/rat.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 import 'package:lorapark_app/services/location_service/location_service.dart';
 
@@ -35,11 +36,12 @@ void servicesSetup({bool isProductionEnv}) {
     getIt.registerSingleton<RaisedGardenRepository>(
         RaisedGardenRepositoryImpl());
     getIt.registerSingleton<SoundSensorRepository>(SoundSensorRepositoryImpl());
-    getIt.registerSingleton<StructureDamageRepository>(
+    getIt.registerLazySingleton<StructureDamageRepository>(() =>
         StructureDamageRepositoryImpl());
     getIt.registerSingleton<WasteLevelRepository>(WasteLevelRepositoryImpl());
-    getIt.registerSingleton<WeatherStationRepository>(
+    getIt.registerLazySingleton<WeatherStationRepository>(() =>
         WeatherStationRepositoryImpl());
-    getIt.registerSingleton<EnergyDataRepository>(EnergyDataRepositoryImpl());
+    getIt.registerLazySingleton<EnergyDataRepository>(() => EnergyDataRepositoryImpl());
+    getIt.registerLazySingleton<RatRepository>(() => RatRepositoryMock());
   }
 }
