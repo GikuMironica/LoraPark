@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:lorapark_app/controller/search_controller/sensor_search_controller.dart';
 import 'package:lorapark_app/screens/ocr_page/ocr_page.dart';
+import 'package:lorapark_app/screens/sensor_list_page/loading_list_view.dart';
+import 'package:lorapark_app/screens/sensor_list_page/no_results_view.dart';
 import 'package:lorapark_app/screens/widgets/sensor/sensor_card.dart';
 import 'package:lorapark_app/themes/lorapark_theme.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -15,12 +17,6 @@ class SensorListPage extends StatefulWidget {
 
 class _SensorListPageState extends State<SensorListPage> {
   SensorSearchController searchController;
-
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,34 +115,22 @@ class _SensorListPageState extends State<SensorListPage> {
             builder: (_, controller, __) => SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  controller.filteredSensors.isEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: Column(
-                            children: [
-                              Text(
-                                'No Results',
-                                style: TextStyle(
-                                  color: Colors.grey[700],
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 22,
+                  controller.filteredSensors == null
+                      ? LoadingListView(itemCount: 10)
+                      : controller.filteredSensors.isEmpty
+                          ? NoResultsView(query: controller.query)
+                          : MediaQuery.removePadding(
+                              context: context,
+                              removeTop: true,
+                              child: ListView.builder(
+                                primary: false,
+                                shrinkWrap: true,
+                                itemCount: controller.filteredSensors.length,
+                                itemBuilder: (_, index) => SensorCard(
+                                  sensor: controller.filteredSensors[index],
                                 ),
                               ),
-                              SizedBox(height: 10),
-                              Text(
-                                'There were no results for "${controller.query}".',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          primary: false,
-                          shrinkWrap: true,
-                          itemCount: controller.filteredSensors.length,
-                          itemBuilder: (_, index) => SensorCard(
-                              sensor: controller.filteredSensors[index]),
-                        ),
+                            ),
                 ],
               ),
             ),
