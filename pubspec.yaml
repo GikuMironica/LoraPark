@@ -57,6 +57,8 @@ dependencies:
   camera: ^0.5.8+11
   flutter_unity_widget: ^2.0.0+2
   sliding_up_panel: ^1.0.2
+  flutter_email_sender: ^3.0.1
+  launch_review: ^2.0.0
 
   here_sdk:
     path: 'plugins/here-sdk/'

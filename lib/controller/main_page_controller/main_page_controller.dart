@@ -1,6 +1,5 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:lorapark_app/config/router/application.dart';
 import 'package:lorapark_app/controller/ar_controller/ar_controller.dart';
 import 'package:lorapark_app/screens/augmented_reality_page/augmented_reality_page.dart';
@@ -26,7 +25,7 @@ class MainPageController extends ChangeNotifier{
     MapPage(),
     SensorListPage(),
     AugmentedRealityPage(),
-    SettingsPage(),
+    MorePage(),
   ];
 
   List<Widget> get pages => _pages;

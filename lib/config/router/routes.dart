@@ -3,7 +3,7 @@ import 'package:lorapark_app/config/router/handlers.dart';
 
 class Routes {
   static String root = '/';
-  static String settings = '/settings';
+  static String more = '/more';
   static String sensorPage = '/sensor/';
   static String ARPage = '/ar/';
 
@@ -14,7 +14,7 @@ class Routes {
     });
 
     router.define(root, handler: rootHandler);
-    router.define(settings, handler: settingsHandler);
+    router.define(more, handler: moreHandler);
     router.define(ARPage, handler: ARHandler);
     router.define(sensorPage + '02', handler: airQualityHandler);
     router.define(sensorPage + '11', handler: doorHandler);
