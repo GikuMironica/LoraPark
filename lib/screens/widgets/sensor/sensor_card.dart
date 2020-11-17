@@ -58,8 +58,9 @@ class SensorCard extends StatelessWidget {
                             size: 16,
                             color: Colors.grey[700],
                           ),
+                          SizedBox(width: 8,),
                           Text(
-                            'Location',
+                            sensor.address,
                             style: TextStyle(
                               color: Colors.black87,
                             ),
