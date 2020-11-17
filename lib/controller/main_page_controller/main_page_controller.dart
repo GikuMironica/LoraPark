@@ -57,7 +57,7 @@ class MainPageController extends ChangeNotifier{
     ),
     LPNavBarItem(
         iconName: 'radio-outline',
-        title: 'Sensoren'
+        title: 'Sensors'
     ),
     LPNavBarItem(
         iconName: 'ar-outline',
