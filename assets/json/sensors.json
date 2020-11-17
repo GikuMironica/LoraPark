@@ -23,8 +23,8 @@
         "number": "02",
         "description": "This device contains sensors for measuring temperature and humidity and four electrochemical gas sensors. In this case the gases nitrogen dioxide (NO2), carbon monoxide (CO), ozone (O) and sulfur dioxide (SO2) are measured. This allows conclusions to be drawn about the air quality. The measurement results are periodically sent to our backend via the local LoRaWAN network and processed there for display.",
         "location": {
-          "latitude": 48.386522,
-          "longitude": 9.957677
+          "latitude": 48.397206,
+          "longitude": 9.991628
         }
       }
     ],
