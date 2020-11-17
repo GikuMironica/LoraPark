@@ -20,6 +20,7 @@ import 'package:lorapark_app/data/repositories/sensor_repository/flood_data.dart
 import 'package:lorapark_app/data/repositories/sensor_repository/ground_humidity.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/person_count.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/raised_garden.dart';
+import 'package:lorapark_app/data/repositories/sensor_repository/rat.dart';
 import 'package:lorapark_app/data/repositories/sensor_repository/sensor_repository.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
 
@@ -36,14 +37,20 @@ class ARController extends ChangeNotifier {
   StructureDamageRepository _structureDamageRepository;
   WasteLevelRepository _wasteLevelRepository;
   WeatherStationRepository _weatherStationRepository;
+  RatRepository _ratRepository;
+  SoundSensorRepository _soundSensorRepository;
 
   NavBottomSheetState _bottomSheetState;
+
   NavBottomSheetState get bottomSheetState => _bottomSheetState;
 
   String _jsonConfig = '';
   static final MAX_LENGTH = 132;
   static final MIN_LENGTH = 30;
   static final FILL_RATIO_THRESHOLD = 75;
+  static final int NO_LIMIT = 127;
+  static final int NO2_LIMIT = 101;
+  static final int CO_LIMIT = 87;
   UnityWidgetController _unityWidgetController;
   final Sensors _sensorList = GetIt.I.get<Sensors>();
   Map<String, dynamic> sensorsData = {};
@@ -67,7 +74,9 @@ class ARController extends ChangeNotifier {
       @required RaisedGardenRepository raisedGardenRepository,
       @required StructureDamageRepository structureDamageRepository,
       @required WasteLevelRepository wasteLevelRepository,
-      @required WeatherStationRepository weatherStationRepository}) {
+      @required WeatherStationRepository weatherStationRepository,
+      @required RatRepository ratRepository,
+      @required SoundSensorRepository soundSensorRepository}) {
     _airQualityRepository = airQualityRepository;
     _doorRepository = doorRepository;
     _energyDataRepository = energyDataRepository;
@@ -78,6 +87,8 @@ class ARController extends ChangeNotifier {
     _structureDamageRepository = structureDamageRepository;
     _wasteLevelRepository = wasteLevelRepository;
     _weatherStationRepository = weatherStationRepository;
+    _ratRepository = ratRepository;
+    _soundSensorRepository = soundSensorRepository;
     init();
   }
 
@@ -127,7 +138,12 @@ class ARController extends ChangeNotifier {
     sensorsData[describeEnum(SensorType.weather_station).toString()] =
         await _weatherStationRepository.get(
             id: SensorEndpoints.weatherStation_one);
-    _logger.d('Notifying listeners');
+    _logger.d('Fetching rat sensor data');
+    sensorsData[describeEnum(SensorType.rat_sensor).toString()] =
+        await _ratRepository.get();
+    _logger.d('Fetching sound sensor data');
+    sensorsData[describeEnum(SensorType.sound_sensor).toString()] =
+        await _soundSensorRepository.get(id: SensorEndpoints.soundSensor_one);
   }
 
   void createJsonConfig() {
@@ -244,27 +260,11 @@ class ARController extends ChangeNotifier {
             break;
           case 'air_quality':
             _jsonConfig = _jsonConfig +
-                '{"name": "NO2 Concentration",'
+                '{"name": "Air Quality",'
                     ' "value": "' +
-                sensorsData[describeEnum(sensor.type)]
-                    .first
-                    .no2Concentration
+                getAirQualityLevel(sensorsData[describeEnum(sensor.type)])
                     .toString() +
-                ' ppb"},' +
-                '{"name": "SO Concentration",'
-                    ' "value": "' +
-                sensorsData[describeEnum(sensor.type)]
-                    .first
-                    .noConcentration
-                    .toString() +
-                ' ppb"},' +
-                '{"name": "CO Concentration",'
-                    ' "value": "' +
-                sensorsData[describeEnum(sensor.type)]
-                    .first
-                    .coConcentration
-                    .toString() +
-                ' ppb"},';
+                '"},';
             break;
           case 'structure_damage':
             _jsonConfig = _jsonConfig +
@@ -277,6 +277,36 @@ class ARController extends ChangeNotifier {
                 ' mm"},';
             break;
           case 'parking':
+            break;
+          case 'rat_sensor':
+            _jsonConfig = _jsonConfig +
+                '{"name": "Number of rat visits",'
+                    ' "value": "' +
+                sensorsData[describeEnum(sensor.type)]
+                    .visits[sensorsData[describeEnum(sensor.type)]
+                            .visits
+                            .length -
+                        1]
+                    .y
+                    .toString() +
+                '"},';
+            break;
+          case 'sound_sensor':
+            _jsonConfig = _jsonConfig +
+                '{"name": "Traffic noise",'
+                    ' "value": "' +
+                sensorsData[describeEnum(sensor.type)]
+                    .first
+                    .firstdbaslow
+                    .toStringAsFixed(2) +
+                ' dba"},' +
+                '{"name": "Sound pressure",'
+                    ' "value": "' +
+                sensorsData[describeEnum(sensor.type)]
+                    .first
+                    .firstleqa
+                    .toStringAsFixed(2) +
+                ' dba"},';
             break;
           default:
             print('Not a known animal.:' + sensor.type.toString());
@@ -380,6 +410,28 @@ class ARController extends ChangeNotifier {
   }) {
     _logger.d('Received scene loaded from unity: $name');
     _logger.d('Received scene loaded from unity buildIndex: $buildIndex');
+  }
+
+  String getAirQualityLevel(List<AirQualityData> _data) {
+    var sumViolated = 0;
+    _data.forEach((d) {
+      if (d.noConcentration > NO_LIMIT ||
+          d.no2Concentration > NO2_LIMIT ||
+          d.coConcentration > CO_LIMIT) {
+        sumViolated++;
+      }
+    });
+
+    var airQualityLevel = '';
+    if (sumViolated > 10) {
+      airQualityLevel = 'Bad';
+    } else if (sumViolated > 5) {
+      airQualityLevel = 'Medium';
+    } else {
+      airQualityLevel = 'Good';
+    }
+
+    return airQualityLevel;
   }
 
   String get jsonConfig => _jsonConfig;

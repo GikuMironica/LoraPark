@@ -31,6 +31,7 @@ class _AugmentedRealityPage extends State<AugmentedRealityPage> {
             builder: (_, arController, __) {
               if(context.read<MainPageController>().buildUnity){
               return UnityWidget(
+                disableUnload: true,
                 onUnityViewCreated: arController.onUnityCreated,
                 isARScene: true,
                 onUnityMessage: arController.onUnityMessage,
