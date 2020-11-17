@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
           controller: controller.tabController,
           screens: controller.pages,
           itemCount: controller.pages.length,
-          confineInSafeArea: true,
+          confineInSafeArea: false,
           resizeToAvoidBottomInset: true,
           hideNavigationBarWhenKeyboardShows: true,
           backgroundColor: Colors.white,
