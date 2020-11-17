@@ -87,6 +87,7 @@ flutter:
     - assets/fonts/
     - assets/i18n/
     - assets/images/
+    - assets/images/partners/
     - assets/json/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -76,9 +76,6 @@ class MoreController extends ChangeNotifier {
 
   List<Widget> get listItems => <Widget>[
     ListTile(
-      title: Text('LoRaPark Partners'),
-    ),
-    ListTile(
       title: Text('Datenschutz'),
       onTap: () => launchDatenschutz(),
     ),
