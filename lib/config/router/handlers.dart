@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lorapark_app/config/sensor_list.dart';
 import 'package:lorapark_app/config/sensors.dart';
+import 'package:lorapark_app/screens/more/more.dart';
 import 'package:lorapark_app/screens/screens.dart';
 import 'package:lorapark_app/screens/widgets/sensor/selected_sensor.dart';
 import 'package:lorapark_app/screens/sensor_page/sound_sensor_page.dart';
@@ -14,9 +15,9 @@ var rootHandler = Handler(
       Init(),
 );
 
-var settingsHandler = Handler(
+var moreHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) =>
-        SettingsPage());
+        MorePage());
 
 var ARHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) =>

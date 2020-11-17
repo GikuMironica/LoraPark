@@ -45,7 +45,9 @@ class LocationService extends ChangeNotifier {
                 notifyListeners();
               }
             } else {
-              _lastLocation = UserLocation(e.latitude, e.longitude);
+              final userLocation = UserLocation(e.latitude, e.longitude);
+              _lastLocation = _userLocation;
+              _locationController.add(userLocation);
             }
           }
         });

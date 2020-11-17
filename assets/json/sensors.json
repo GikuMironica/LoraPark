@@ -11,7 +11,8 @@
         "location": {
           "latitude": 48.396426,
           "longitude": 9.990453
-        }
+        },
+        "address": "Verschwörhaus"
       }
     ],
     "air_quality": [
@@ -25,7 +26,8 @@
         "location": {
           "latitude": 48.397206,
           "longitude": 9.991628
-        }
+        },
+        "address": "Rathaus"
       }
     ],
     "sound_sensor": [
@@ -39,7 +41,8 @@
         "location": {
           "latitude": 48.397206,
           "longitude": 9.991628
-        }
+        },
+        "address": "Rathaus"
       }
     ],
     "waste_level": [
@@ -53,7 +56,8 @@
         "location": {
           "latitude": 48.396395,
           "longitude": 9.991161
-        }
+        },
+        "address": "Weinhof"
       }
     ],
     "parking": [
@@ -67,7 +71,8 @@
         "location": {
           "latitude": 48.397354,
           "longitude": 9.993039
-        }
+        },
+        "address": "Parkhaus at Rathaus"
       }
     ],
     "water_temperature": [
@@ -105,7 +110,8 @@
         "location": {
           "longitude": 9.995969,
           "latitude": 48.396016
-        }
+        },
+        "address": "Herdbrücke"
       }
     ],
     "ground_humidity": [
@@ -119,7 +125,8 @@
         "location": {
           "longitude": 9.990960,
           "latitude": 48.396770
-        }
+        },
+        "address": "Weinhof"
       }
     ],
     "person_count": [
@@ -133,7 +140,8 @@
         "location": {
           "longitude": 9.990453,
           "latitude": 48.396426
-        }
+        },
+        "address": "Verschwörhaus"
       }
     ],
     "door": [
@@ -147,7 +155,8 @@
         "location": {
           "longitude": 9.990208,
           "latitude": 48.396607
-        }
+        },
+        "address": "Weinhof"
       }
     ],
     "raised_garden": [
@@ -161,7 +170,8 @@
         "location": {
           "latitude": 48.396472,
           "longitude": 9.99047
-        }
+        },
+        "address": "Verschwörhaus"
       }
     ],
     "rat_sensor": [
@@ -174,7 +184,8 @@
         "location": {
           "latitude": 48.396425,
           "longitude": 9.990268
-        }
+        },
+        "address": "Verschwörhaus"
       }
     ],
     "structure_damage": [
@@ -188,7 +199,8 @@
         "location": {
           "latitude": 48.39863,
           "longitude": 9.992465
-        }
+        },
+        "address": "Ulmer Münster"
       }
     ],
     "energy": [
@@ -202,7 +214,8 @@
         "location": {
           "latitude": 48.386126,
           "longitude": 9.986219
-        }
+        },
+        "address": "Donaubad"
       }
     ],
     "smart_bank": [
@@ -214,7 +227,8 @@
         "location": {
           "latitude": 48.396867,
           "longitude": 9.990939
-        }
+        },
+        "address": "Weinhof"
       }
     ],
     "display": [
@@ -226,7 +240,8 @@
         "location": {
           "latitude": 48.396736,
           "longitude": 9.991055
-        }
+        },
+        "address": "Weinhof"
       }
     ]
   }

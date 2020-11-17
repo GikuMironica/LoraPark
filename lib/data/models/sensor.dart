@@ -30,7 +30,7 @@ class Sensor {
       image: AssetImage(json['image']),
       description: json['description'],
       location: SensorLocation.fromJSON(json['location']),
-      address: '');
+      address: json['address'] ?? '');
 
   double get latitude => location.latitude;
 

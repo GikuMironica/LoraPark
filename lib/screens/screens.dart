@@ -1,5 +1,5 @@
 export './initialization/init.dart';
-export './settings/settings.dart';
+export './more/more.dart';
 export './map/map_page.dart';
 export './home/home.dart';
 export 'augmented_reality_page/augmented_reality_page.dart';

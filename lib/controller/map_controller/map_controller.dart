@@ -115,11 +115,11 @@ class MapController extends ChangeNotifier {
           var topMostSensor = sensorMarkerList.first;
           var metadata = topMostSensor.metadata;
           if (metadata != null) {
-            if(metadata.getString('number') == 'null') return;
+            if(metadata.getString('number') == '') return;
             var location = SensorLocation(
                 metadata.getDouble('lat'), metadata.getDouble('long'));
             for (var sensor in GetIt.I.get<Sensors>().list) {
-              if (sensor.location.longitude == location.longitude) {
+              if (sensor.location == location && sensor.number.isNotEmpty) {
                 _bottomSheetSensorList.add(sensor);
               }
             }
