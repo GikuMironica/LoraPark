@@ -19,7 +19,8 @@ class LPNavBar extends StatelessWidget {
         BoxShadow(
           blurRadius: 3,
           spreadRadius: 1,
-          color: Colors.black.withOpacity(0.15),
+          color: Colors.black.withOpacity(0.05),
+          offset: Offset(0, -4),
         ),
       ],
     ),

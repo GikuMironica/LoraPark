@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:lorapark_app/data/models/coordinates.dart';
 import 'package:lorapark_app/services/logging_service/logging_service.dart';
+import 'package:lorapark_app/utils/rounding_decimal_places.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart' as l;
 
@@ -28,14 +29,27 @@ class LocationService extends ChangeNotifier {
   LocationService() {
     _location = l.Location();
     checkPermissions();
-    _location.requestPermission().then((value) {
+    _location.requestPermission().then((value) async {
       if (value == l.PermissionStatus.granted) {
-        Timer.periodic(Duration(seconds: 5), (timer) async {
-          var locationData = await _location.getLocation();
-          _locationController
-              .add(UserLocation(locationData.latitude, locationData.longitude));
-          notifyListeners();
+        var _lastLocation;
+        _location.onLocationChanged.listen((e) async {
+          if(e != null) {
+            if (_lastLocation != null) {
+              final newLatitude = roundOff(5, e.latitude);
+              final newLongtiude = roundOff(5, e.longitude);
+              if (_lastLocation.latitude != newLatitude &&
+                  _lastLocation.longitude != newLongtiude) {
+                _logger.d('User Location: $newLatitude, $newLongtiude');
+                 _lastLocation = UserLocation(newLatitude, newLongtiude);
+                _locationController.add(_lastLocation);
+                notifyListeners();
+              }
+            } else {
+              _lastLocation = UserLocation(e.latitude, e.longitude);
+            }
+          }
         });
+        notifyListeners();
       }
     });
   }
