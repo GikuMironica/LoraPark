@@ -106,6 +106,8 @@ List<SingleChildWidget> providerList = [
       structureDamageRepository: GetIt.I.get<StructureDamageRepository>(),
       wasteLevelRepository: GetIt.I.get<WasteLevelRepository>(),
       weatherStationRepository: GetIt.I.get<WeatherStationRepository>(),
+      ratRepository: GetIt.I.get<RatRepository>(),
+      soundSensorRepository: GetIt.I.get<SoundSensorRepository>()
     ),
     lazy: true,
   ),
