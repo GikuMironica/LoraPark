@@ -119,7 +119,7 @@ class MapController extends ChangeNotifier {
             var location = SensorLocation(
                 metadata.getDouble('lat'), metadata.getDouble('long'));
             for (var sensor in GetIt.I.get<Sensors>().list) {
-              if (sensor.location.longitude == location.longitude) {
+              if (sensor.location == location && sensor.number.isNotEmpty) {
                 _bottomSheetSensorList.add(sensor);
               }
             }
