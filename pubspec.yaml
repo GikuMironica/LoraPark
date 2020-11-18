@@ -1,0 +1,129 @@
+name: lorapark_app
+description: LoRaPark application for Android and iOS
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 0.3.0
+
+environment:
+  sdk: ">=2.10.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.0
+
+  provider: ^4.3.2+2
+  logger: ^0.9.4
+  flutter_launcher_icons: ^0.8.1
+  fluro: ^1.7.7
+  get_it: ^5.0.1
+  permission_handler: ^5.0.1+1
+  fl_chart: ^0.12.0
+  url_launcher: ^5.7.10
+  package_info: ^0.4.3+2
+  device_info: ^0.4.2+9
+  location: ^3.0.2
+  flutter_secure_storage: ^3.3.5
+  dio: ^3.0.10
+  pretty_dio_logger: ^1.1.1
+  jwt_decode: ^0.1.0
+  persistent_bottom_nav_bar: ^2.1.0
+  jiffy: ^3.0.1
+  catcher: ^0.3.22
+  connectivity: ^2.0.1
+  flutter_svg: ^0.19.1
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
+  darq: ^0.4.0+1
+  firebase_core: ^0.4.0+9
+  firebase_ml_vision: ^0.9.8
+  camera: ^0.5.8+11
+  flutter_unity_widget: ^2.0.0+2
+  sliding_up_panel: ^1.0.2
+  flutter_email_sender: ^3.0.1
+  launch_review: ^2.0.0
+
+  here_sdk:
+    path: 'plugins/here-sdk/'
+
+dev_dependencies:
+  pedantic: ^1.9.2
+  flutter_test:
+    sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: assets/icons/app_icon.png
+  adaptive_icon_background: assets/icons/app_icon_bg.png
+  adaptive_icon_foreground: assets/icons/app_icon_fg.png
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/icons/
+    - assets/icons/png/
+    - assets/icons/svg/
+    - assets/fonts/
+    - assets/i18n/
+    - assets/images/
+    - assets/images/partners/
+    - assets/json/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: Hind
+      fonts:
+        - asset: assets/fonts/Hind/Hind-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Hind/Hind-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Hind/Hind-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Hind/Hind-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Hind/Hind-Bold.ttf
+          weight: 700
+  #         style: italic
+    - family: Roboto Condensed
+      fonts:
+        - asset: assets/fonts/RobotoCondensed-Bold.ttf
+          weight: 700
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
