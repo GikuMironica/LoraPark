@@ -36,19 +36,75 @@ class SensorCard extends StatelessWidget {
             color: Colors.white,
           ),
           child: IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  flex: 8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 48,
-                        backgroundImage: sensor.image,
+                      Expanded(
+                        flex: 3,
+                        child: CircleAvatar(
+                          radius: 48,
+                          backgroundImage: sensor.image
+                        ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(width: 10),
+                      Expanded(
+                        flex: 6,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              sensor.name,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              child: Text(
+                                sensor.description,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey[500],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              '#' + sensor.number,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black),
+                            ),  
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,57 +114,14 @@ class SensorCard extends StatelessWidget {
                             size: 16,
                             color: Colors.grey[700],
                           ),
-                          SizedBox(width: 8,),
+                          SizedBox(width: 4),
                           Text(
                             sensor.address,
                             style: TextStyle(
                               color: Colors.black87,
-                            ),
+                            )
                           ),
                         ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  flex: 6,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        sensor.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        child: Text(
-                          sensor.description,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.grey[500],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '#' + sensor.number,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black),
                       ),
                       Icon(Icons.arrow_forward),
                     ],
