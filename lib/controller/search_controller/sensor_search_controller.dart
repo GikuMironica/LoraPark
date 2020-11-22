@@ -44,6 +44,7 @@ class SensorSearchController extends SearchController {
             : keywords.every((keyword) =>
                 sensor.name.toLowerCase().contains(keyword) ||
                 sensor.description.toLowerCase().contains(keyword) ||
+                sensor.address.toLowerCase().contains(keyword) ||
                 sensor.number.contains(keyword)))
         .toList();
   }
