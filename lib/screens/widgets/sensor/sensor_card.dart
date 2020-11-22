@@ -111,7 +111,7 @@ class SensorCard extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.location_on,
-                            size: 16,
+                            size: 22,
                             color: Colors.grey[700],
                           ),
                           SizedBox(width: 4),
